@@ -114,9 +114,19 @@
                                 <a href="{{route('slider.section')}}">Slider</a>
                             </li>
                             @endcan
-                            @can('about-list')
+                            @can('coupon-list')
                                 <li>
-                                    <a href="{{route('about.section')}}">About</a>
+                                    <a href="{{route('coupon.section')}}">Coupon</a>
+                                </li>
+                            @endcan
+                            @can('currency-list')
+                                <li>
+                                    <a href="{{route('currency.section')}}">Currency</a>
+                                </li>
+                            @endcan
+                            @can('category-list')
+                                <li>
+                                    <a href="{{route('category.section')}}">Category</a>
                                 </li>
                             @endcan
                         </ul>

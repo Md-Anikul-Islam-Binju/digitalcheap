@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\admin\AdminDashboardController;
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CounterController;
+use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\admin\CurrencyController;
 use App\Http\Controllers\admin\LabSetupController;
 use App\Http\Controllers\admin\MenuController;
 use App\Http\Controllers\admin\NewsController;
@@ -53,27 +56,28 @@ Route::get('/', function () {
 Route::middleware('auth')->group(callback: function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/unauthorized-action', [AdminDashboardController::class, 'unauthorized'])->name('unauthorized.action');
-    //News Section
-    Route::get('/news-section', [NewsController::class, 'index'])->name('news.section');
-    Route::post('/news-store', [NewsController::class, 'store'])->name('news.store');
-    Route::put('/news-update/{id}', [NewsController::class, 'update'])->name('news.update');
-    Route::get('/news-delete/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
 
 
+    //Coupon Section
+    Route::get('/coupon-section', [CouponController::class, 'index'])->name('coupon.section');
+    Route::post('/coupon-store', [CouponController::class, 'store'])->name('coupon.store');
+    Route::put('/coupon-update/{id}', [CouponController::class, 'update'])->name('coupon.update');
+    Route::get('/coupon-delete/{id}', [CouponController::class, 'destroy'])->name('coupon.destroy');
+
+    //Category Section
+    Route::get('/category-section', [CategoryController::class, 'index'])->name('category.section');
+    Route::post('/category-store', [CategoryController::class, 'store'])->name('category.store');
+    Route::put('/category-update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::get('/category-delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
 
+    //Currency Section
+    Route::get('/currency-section', [CurrencyController::class, 'index'])->name('currency.section');
+    Route::post('/currency-store', [CurrencyController::class, 'store'])->name('currency.store');
+    Route::put('/currency-update/{id}', [CurrencyController::class, 'update'])->name('currency.update');
+    Route::get('/currency-delete/{id}', [CurrencyController::class, 'destroy'])->name('currency.destroy');
 
-    //Team Section
-    Route::get('/team-section', [TeamController::class, 'index'])->name('team.section');
-    Route::post('/team-store', [TeamController::class, 'store'])->name('team.store');
-    Route::put('/team-update/{id}', [TeamController::class, 'update'])->name('team.update');
-    Route::get('/team-delete/{id}', [TeamController::class, 'destroy'])->name('team.destroy');
 
-    //About Section
-    Route::get('/about-section', [AboutController::class, 'index'])->name('about.section');
-    Route::post('/about-store', [AboutController::class, 'store'])->name('about.store');
-    Route::put('/about-update/{id}', [AboutController::class, 'update'])->name('about.update');
-    Route::get('/about-delete/{id}', [AboutController::class, 'destroy'])->name('about.destroy');
 
 
     //Slider Section
