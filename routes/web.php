@@ -20,6 +20,7 @@ use App\Http\Controllers\admin\ShowcaseController;
 use App\Http\Controllers\admin\SiteSettingController;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\admin\TeamController;
+use App\Http\Controllers\admin\TermsAndConditionController;
 use App\Http\Controllers\admin\TrainingCategoryController;
 use App\Http\Controllers\admin\TrainingController;
 use App\Http\Controllers\admin\UserMessageController;
@@ -93,6 +94,10 @@ Route::middleware('auth')->group(callback: function () {
     //Site Setting
     Route::get('/site-setting', [SiteSettingController::class, 'index'])->name('site.setting');
     Route::post('/site-settings-store-update/{id?}', [SiteSettingController::class, 'createOrUpdate'])->name('site-settings.createOrUpdate');
+
+    //Site About
+    Route::get('/terms-and-condition', [TermsAndConditionController::class, 'index'])->name('admin.termsAndCondition');
+    Route::post('/terms-and-condition-update/{id?}', [TermsAndConditionController::class, 'createOrUpdateTermsAndCondition'])->name('admin.termsAndCondition.createOrUpdate');
 
 });
 

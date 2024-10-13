@@ -55,6 +55,7 @@ class PermissionTableSeeder extends Seeder
 
             //Site Setting
             'site-setting',
+            'terms-and-condition-list',
 
             //Dashboard
             'cart-list',

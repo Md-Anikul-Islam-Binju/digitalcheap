@@ -110,8 +110,8 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="mb-3">
-                                                        <label> Details </label>
-                                                        <textarea class="form-control" name="details" rows="5" placeholder="Enter the Description">{{ strip_tags($sliderData->details) }}</textarea>
+                                                        <label>Details  </label>
+                                                        <textarea id="summernoteEdit{{ $sliderData->id }}" name="details">{{ $sliderData->details }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,7 +187,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label> Details </label>
-                                    <textarea class="form-control" id="content" name="details" placeholder="Enter the Description" name="body"></textarea>
+                                    <textarea id="summernoteBn" name="details"></textarea>
                                 </div>
                             </div>
                         </div>
