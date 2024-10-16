@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+@php
+    $siteSetting = DB::table('site_settings')->first();
+@endphp
 <head>
     <meta charset="utf-8" />
     <title>Dashboard | Sorobonno Admin</title>
+    <link rel="shortcut icon" href="{{$siteSetting? $siteSetting->favicon:''}}">
+    <meta property="og:image" content="{{$siteSetting? $siteSetting->site_preview_image:''}}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully responsive admin theme which can be used to build CRM, CMS,ERP etc." name="description" />
     <meta content="Sorobonno" name="author" />
@@ -83,13 +88,12 @@
 
     <div class="leftside-menu">
         <a href="{{route('dashboard')}}" class="logo logo-light">
-{{--            <span class="logo-lg">--}}
-{{--                <img src="#" alt="logo" style="height: 50px;">--}}
-{{--            </span>--}}
-{{--            <span class="logo-sm">--}}
-{{--                <img src="#" alt="small logo">--}}
-{{--            </span>--}}
-            <h1 style="color: red;">Sorobonno</h1>
+            <span class="logo-lg">
+                <img src="{{$siteSetting->logo}}" alt="logo" style="height: 50px;">
+            </span>
+            <span class="logo-sm">
+                <img src="{{$siteSetting->logo}}" alt="small logo">
+            </span>
         </a>
 
         <div class="h-100" id="leftside-menu-container" data-simplebar>
@@ -128,6 +132,11 @@
                             @can('category-list')
                                 <li>
                                     <a href="{{route('category.section')}}">Category</a>
+                                </li>
+                            @endcan
+                            @can('faq-list')
+                                <li>
+                                    <a href="{{route('faq.section')}}">Faq</a>
                                 </li>
                             @endcan
                         </ul>
@@ -250,6 +259,15 @@
             $(this).summernote({
                 height: 200,
             });
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.form-control[multiple]').select2({
+            allowClear: true
         });
     });
 </script>

@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CounterController;
 use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\CurrencyController;
+use App\Http\Controllers\admin\FaqController;
 use App\Http\Controllers\admin\LabSetupController;
 use App\Http\Controllers\admin\MenuController;
 use App\Http\Controllers\admin\NewsController;
@@ -78,7 +79,11 @@ Route::middleware('auth')->group(callback: function () {
     Route::put('/currency-update/{id}', [CurrencyController::class, 'update'])->name('currency.update');
     Route::get('/currency-delete/{id}', [CurrencyController::class, 'destroy'])->name('currency.destroy');
 
-
+    //Faq Section
+    Route::get('/faq-section', [FaqController::class, 'index'])->name('faq.section');
+    Route::post('/faq-store', [FaqController::class, 'store'])->name('faq.store');
+    Route::put('/faq-update/{id}', [FaqController::class, 'update'])->name('faq.update');
+    Route::get('/faq-delete/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
 
 
     //Slider Section

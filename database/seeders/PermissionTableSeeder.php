@@ -46,6 +46,12 @@ class PermissionTableSeeder extends Seeder
             'currency-edit',
             'currency-delete',
 
+            //For Faq
+            'faq-list',
+            'faq-create',
+            'faq-edit',
+            'faq-delete',
+
             //For Slider
             'slider-list',
             'slider-create',
