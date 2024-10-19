@@ -47,7 +47,7 @@
                                             <input class="form-control" type="email" id="emailaddress" name="email" value="{{ old('email') }}" required placeholder="Enter your email">
                                         </div>
                                         <div class="mb-3">
-                                            {{--<a href="{{ route('password.request') }}" class="text-muted float-end"><small>Forgot your password?</small></a>--}}
+                                            <a href="#" class="text-muted float-end"><small>Forgot your password?</small></a>
                                             <label for="password" class="form-label">Password</label>
                                             <div class="input-group">
                                                 <input class="form-control" type="password" required id="password" name="password" placeholder="Enter your password">
@@ -58,6 +58,9 @@
                                         </div>
                                         <div class="mb-0 text-start">
                                             <button class="btn btn-soft-primary w-100" type="submit"><i class="ri-login-circle-fill me-1"></i> <span class="fw-bold">Log In</span> </button>
+                                        </div><br>
+                                        <div class="mb-0 text-start">
+                                            <a class="btn btn-soft-danger w-100"><i class="ri-login-circle-fill me-1"></i> <span class="fw-bold">Join Platform</span> </a>
                                         </div>
                                     </form>
                                 </div>
