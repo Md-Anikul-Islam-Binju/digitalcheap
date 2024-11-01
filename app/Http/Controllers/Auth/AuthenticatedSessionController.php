@@ -41,6 +41,12 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         // Get user information
         $user = Auth::user();
+
+        // Check if the user's email is verified
+        if (is_null($user->email_verified_at)) {
+            return redirect()->route('account.verification');
+        }
+
         // Store login time and other information
         $userAgent = new Agent();
         $data = [

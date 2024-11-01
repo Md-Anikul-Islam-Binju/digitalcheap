@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AboutController;
+use App\Http\Controllers\admin\AccountManageController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CounterController;
@@ -53,9 +54,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+//Account Manage
+Route::get('/account-registration-start', [AccountManageController::class, 'showRegistrationForm'])->name('account.registration.start');
+Route::post('/account-registration', [AccountManageController::class, 'storeRegisterInfo'])->name('account.registration');
+Route::get('/account-verify', [AccountManageController::class, 'showVerificationForm'])->name('account.verification');
+Route::post('/account-verify-complete', [AccountManageController::class, 'verify'])->name('account.verify.complete');
 
 
-Route::middleware('auth')->group(callback: function () {
+Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/unauthorized-action', [AdminDashboardController::class, 'unauthorized'])->name('unauthorized.action');
 
