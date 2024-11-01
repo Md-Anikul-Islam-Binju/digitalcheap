@@ -89,10 +89,10 @@
     <div class="leftside-menu">
         <a href="{{route('dashboard')}}" class="logo logo-light">
             <span class="logo-lg">
-                <img src="{{$siteSetting->logo}}" alt="logo" style="height: 50px;">
+                <img src="{{URL::to($siteSetting->logo)}}" alt="logo" style="height: 50px;">
             </span>
             <span class="logo-sm">
-                <img src="{{$siteSetting->logo}}" alt="small logo">
+                <img src="{{URL::to($siteSetting->logo)}}" alt="small logo">
             </span>
         </a>
 
