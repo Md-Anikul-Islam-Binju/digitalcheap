@@ -5,7 +5,7 @@
 @endphp
 <head>
     <meta charset="utf-8" />
-    <title>Dashboard | Sorobonno Admin</title>
+    <title>Dashboard | Sorborno Admin</title>
     <link rel="shortcut icon" href="{{$siteSetting? $siteSetting->favicon:''}}">
     <meta property="og:image" content="{{$siteSetting? $siteSetting->site_preview_image:''}}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
