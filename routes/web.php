@@ -55,7 +55,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 //Account Manage
-Route::get('/account-registration-start', [AccountManageController::class, 'showRegistrationForm'])->name('account.registration.start');
+Route::get('/account-registration-for-user', [AccountManageController::class, 'showRegistrationFormForUser'])->name('account.registration.for.user');
+Route::get('/account-registration-for-agent', [AccountManageController::class, 'showRegistrationFormForAgent'])->name('account.registration.for.agent');
+
+
+
 Route::post('/account-registration', [AccountManageController::class, 'storeRegisterInfo'])->name('account.registration');
 Route::get('/account-verify', [AccountManageController::class, 'showVerificationForm'])->name('account.verification');
 Route::post('/account-verify-complete', [AccountManageController::class, 'verify'])->name('account.verify.complete');

@@ -41,18 +41,7 @@
                                     </p>
                                     <form method="post" action="{{route('account.registration')}}">
                                         @csrf
-
-
-
-                                        <div class="mb-3">
-                                            <label for="example-select" class="form-label">Select Act Our Platform</label>
-                                            <select name="is_registration_by" class="form-select">
-                                                <option value="User" selected>User</option>
-                                                <option value="Agent">Agent</option>
-                                            </select>
-                                        </div>
-
-
+                                        <input class="form-control" hidden="" type="text" name="is_registration_by" value="User">
                                         <div class="mb-3">
                                             <label class="form-label">Full Name</label>
                                             <input class="form-control" type="text" name="name" value="{{ old('name') }}" required placeholder="Enter your name">
@@ -64,7 +53,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label">Your Phone</label>
+                                            <label class="form-label">Your Phone (Optional)</label>
                                             <input class="form-control" type="text" name="phone" value="{{ old('phone') }}" required placeholder="Enter your phone">
                                         </div>
 

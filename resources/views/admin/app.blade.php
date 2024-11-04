@@ -87,6 +87,7 @@
     </div>
 
     <div class="leftside-menu">
+        @if($siteSetting !=null)
         <a href="{{route('dashboard')}}" class="logo logo-light">
             <span class="logo-lg">
                 <img src="{{URL::to($siteSetting->logo)}}" alt="logo" style="height: 50px;">
@@ -95,6 +96,7 @@
                 <img src="{{URL::to($siteSetting->logo)}}" alt="small logo">
             </span>
         </a>
+        @endif
 
         <div class="h-100" id="leftside-menu-container" data-simplebar>
             <ul class="side-nav">

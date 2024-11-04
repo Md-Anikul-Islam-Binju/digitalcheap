@@ -13,9 +13,14 @@ use Yoeunes\Toastr\Facades\Toastr;
 
 class AccountManageController extends Controller
 {
-    public function showRegistrationForm()
+    public function showRegistrationFormForUser()
     {
-        return view('auth.registrationForm');
+        return view('auth.registrationFormForUser');
+    }
+
+    public function showRegistrationFormForAgent()
+    {
+        return view('auth.registrationFormForAgent');
     }
 
     public function storeRegisterInfo(Request $request)
@@ -86,8 +91,6 @@ class AccountManageController extends Controller
 
             // Assign role based on is_registration_by value
             $role = match ($user->is_registration_by) {
-                'Admin' => 'Admin',
-                'Affiliate' => 'Affiliate',
                 'Agent' => 'Agent',
                 'User' => 'User',
             };
