@@ -18,6 +18,7 @@ use App\Http\Controllers\admin\ProjectCategoryController;
 use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\ProjectFileCategoryController;
 use App\Http\Controllers\admin\ProjectFileController;
+use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\ShowcaseController;
 use App\Http\Controllers\admin\SiteSettingController;
 use App\Http\Controllers\admin\SliderController;
@@ -101,6 +102,14 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::post('/slider-store', [SliderController::class, 'store'])->name('slider.store');
     Route::put('/slider-update/{id}', [SliderController::class, 'update'])->name('slider.update');
     Route::get('/slider-delete/{id}', [SliderController::class, 'destroy'])->name('slider.destroy');
+
+
+    //Slider Section
+    Route::get('/service-section', [ServiceController::class, 'index'])->name('service.section');
+    Route::post('/service-store', [ServiceController::class, 'store'])->name('service.store');
+    Route::put('/service-update/{id}', [ServiceController::class, 'update'])->name('service.update');
+    Route::get('/service-delete/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+
 
     //Role and User Section
     Route::resource('roles', RoleController::class);

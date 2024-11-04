@@ -141,6 +141,11 @@
                                     <a href="{{route('faq.section')}}">Faq</a>
                                 </li>
                             @endcan
+                            @can('service-list')
+                                <li>
+                                    <a href="{{route('service.section')}}">Service</a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>

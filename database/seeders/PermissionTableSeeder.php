@@ -58,6 +58,12 @@ class PermissionTableSeeder extends Seeder
             'slider-edit',
             'slider-delete',
 
+            //For Slider
+            'service-list',
+            'service-create',
+            'service-edit',
+            'service-delete',
+
 
             //Site Setting
             'site-setting',
