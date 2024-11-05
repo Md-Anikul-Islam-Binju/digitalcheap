@@ -1,6 +1,5 @@
 @extends('admin.app')
 @section('admin_content')
-    {{-- CKEditor CDN --}}
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">

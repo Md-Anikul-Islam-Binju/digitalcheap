@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\NewsController;
 use App\Http\Controllers\admin\NoticeBoardController;
 use App\Http\Controllers\admin\ObjectOfProjectController;
 use App\Http\Controllers\admin\OttController;
+use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProjectCategoryController;
 use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\ProjectFileCategoryController;
@@ -109,6 +110,12 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::post('/service-store', [ServiceController::class, 'store'])->name('service.store');
     Route::put('/service-update/{id}', [ServiceController::class, 'update'])->name('service.update');
     Route::get('/service-delete/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+
+    //Slider Section
+    Route::get('/product-section', [ProductController::class, 'index'])->name('product.section');
+    Route::post('/product-store', [ProductController::class, 'store'])->name('product.store');
+    Route::put('/product-update/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::get('/product-delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 
     //Role and User Section

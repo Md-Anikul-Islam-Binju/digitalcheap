@@ -146,6 +146,12 @@
                                     <a href="{{route('service.section')}}">Service</a>
                                 </li>
                             @endcan
+
+                            @can('product-list')
+                                <li>
+                                    <a href="{{route('product.section')}}">Product</a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
