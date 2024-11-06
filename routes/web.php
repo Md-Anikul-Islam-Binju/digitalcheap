@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\NewsController;
 use App\Http\Controllers\admin\NoticeBoardController;
 use App\Http\Controllers\admin\ObjectOfProjectController;
 use App\Http\Controllers\admin\OttController;
+use App\Http\Controllers\admin\PackageController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProjectCategoryController;
 use App\Http\Controllers\admin\ProjectController;
@@ -116,6 +117,12 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::post('/product-store', [ProductController::class, 'store'])->name('product.store');
     Route::put('/product-update/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::get('/product-delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+    //Package Section
+    Route::get('/package-section', [PackageController::class, 'index'])->name('package.section');
+    Route::post('/package-store', [PackageController::class, 'store'])->name('package.store');
+    Route::put('/package-update/{id}', [PackageController::class, 'update'])->name('package.update');
+    Route::get('/package-delete/{id}', [PackageController::class, 'destroy'])->name('package.destroy');
 
 
     //Role and User Section

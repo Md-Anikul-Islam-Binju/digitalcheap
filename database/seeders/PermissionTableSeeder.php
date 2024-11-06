@@ -71,6 +71,13 @@ class PermissionTableSeeder extends Seeder
             'product-delete',
 
 
+            //For package
+            'package-list',
+            'package-create',
+            'package-edit',
+            'package-delete',
+
+
             //Site Setting
             'site-setting',
             'terms-and-condition-list',
