@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =================Global part starts here=============== */
+:root{
+  --logo-color: #009345;
+  --prmry-color: #00FE9C;
+  --transition: all 0.3s ease-in-out;
+}
+.bg-prmry{
+  background-color: var(--prmry-color);
+}
+.bg-logo{
+  background-color: var(--logo-color);
+}
+.text-prmry{
+  color: var(--logo-color);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+dl,
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
+body {
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+}
+a {
+  text-decoration: none;
+  display: inline-block;
+}
+/* =================Global part ends here=============== */
+
+/* =================header part starts here=============== */
+.dropdown-menu{
+  transform: scaleY(0);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  transform-origin: top;
+}
+.dropdown-menu .dropdown-item:hover {
+  background-color: #009244; /* Change to desired color */
+  color: #fff; /* Adjust text color if needed */
+}
+
+/* Optional: Style the dropdown itself on hover */
+.dropdown:hover .dropdown-menu {
+  display: block; /* Ensures the dropdown stays open on hover */
+  opacity: 1; /* Smooth appearance */
+  transition: opacity 0.3s ease-in-out;
+  transform: scaleY(1);
+}
+
+/* ===============hero part starts here ================*/
+.carousel-item{
+  max-height: 500px;
+  position: relative;
+}
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/*==============service part starts here ==============*/
+.service-section{
+  background: #f8f9fa ;
+}
+.service-section .featured-box{
+  transition: var(--transition);
+}
+.service-section .featured-box h4{
+  transition: var(--transition);
+  display: inline-block !important ;
+}
+.service-section .featured-box p{
+  transition: var(--transition);
+}
+.service-section .featured-box .featured-box-icon{
+  transition: var(--transition);
+  margin-bottom: 10px;
+}
+.service-section .featured-box:hover {
+scale: 1.1;
+}
+.service-section .featured-box:hover .featured-box-icon{
+color: var(--prmry-color);
+}
+.service-section .featured-box:hover h4{
+  color: white;
+  background: var(--logo-color);
+  padding: 0 10px;
+}
+
+
+/* product section */
+.section-products{
+  background: #f5f6f7;
+}
+.section-products .single-product {
+  margin-bottom: 26px;
+  background: #fff;
+  border: #009244 2px solid;
+  padding: 10px;
+  
+}
+
+.section-products .single-product .part-1 {
+  position: relative;
+  height: 290px;
+  max-height: 290px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.section-products .single-product .part-1 img {
+  max-height: 290px;
+  height: 290px;
+  width: 100%;
+  object-fit: cover;
+  transition: all 0.3s;
+}
+.section-products .single-product:hover .part-1 img {
+  transform: scale(1.2,1.2) rotate(5deg);
+}
+
+.section-products .single-product .part-1 div {
+  position: absolute;
+  bottom: -41px;
+  left: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  transition: bottom 0.5s, opacity 0.5s;
+}
+
+.section-products .single-product:hover .part-1 div {
+  bottom: 30px;
+  opacity: 1;
+}
+
+
+
+.section-products .single-product .part-1 div a {
+  display: inline-flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 14px;
+  line-height: 24px;
+  background-color: var(--logo-color);
+  color: white;
+  text-align: center;
+  box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
+  transition: var(--transition);
+}
+
+.section-products .single-product .part-1 div a:hover {
+  color: black;
+  background: var(--prmry-color);
+}
+
+.section-products .single-product .part-2 .product-title {
+  font-size: 1rem;
+}
+
+.section-products .single-product .part-2 h4 {
+  display: inline-block;
+  font-size: 1rem;
+}
+
+
+/* =========best sellers ============*/
+.best-seller{
+  background-color: #fff;
+}
+.best-seller .single-product{
+  margin: 0 10px;
+}
+
+/* =========pricing css starts here============= */
+.pricing {
+  padding: 72px 0;
+  background: #f5f6f7;
+}
+
+
+
+
+
+
+/* =================card styling here================ */
+.pricingCard {
+  padding: 40px 24px;
+  background: #fff;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+}
+.pricingCard:hover {
+  background: var(--logo-color);
+  transform: scale(1.01);
+  box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.1);
+}
+.pricingCard:hover .pricingCard-header .pricingCard-title {
+  color: #fff;
+}
+.pricingCard:hover .pricingCard-header .pricingCard-text {
+  color: #fff;
+}
+.pricingCard:hover .pricingCard-body h2,
+.pricingCard:hover .pricingCard-body p {
+  color: #fff;
+}
+.pricingCard:hover a {
+  background: #fff;
+  border: 1.5px solid #fff;
+}
+.pricingCard:hover ul li {
+  color: #fff;
+}
+
+.pricingCard-header {
+  border: 0;
+  margin-bottom: 20px;
+}
+.pricingCard .pricingCard-header .pricingCard-title {
+  color: #191d23;
+  font-family: Roboto, sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 11px;
+  transition: all 0.3s ease-in-out;
+}
+.pricingCard .pricingCard-header .pricingCard-text {
+  color: var(--Neutral-500, #64748b);
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  transition: all 0.3s ease-in-out;
+}
+.pricingCard .pricingCard-body {
+  display: flex;
+  align-items: center;
+}
+.pricingCard .pricingCard-body h2 {
+  color: var(--logo-color);
+  font-family: Roboto, sans-serif;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  transition: all 0.3s ease-in-out;
+}
+.pricingCard .pricingCard-body p {
+  color: #4b5768;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  transition: all 0.3s ease-in-out;
+}
+.pricingCard a {
+  margin-top: 24px;
+  margin-bottom: 40px;
+  border-radius: 20px;
+  width: 100%;
+  color: var(--logo-color);
+  text-align: center;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: 1.5px solid var(--logo-color);
+  padding: 6px 12px;
+  transition: all 0.3s ease-in-out;
+}
+.pricingCard ul {
+  list-style: none;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.pricingCard ul li {
+  color: #15294b;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: 0;
+  gap: 17px;
+  transition: all 0.3s ease-in-out;
+}
+
+.pricingCard ul li del {
+  color: #b3b9c4;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration-line: strikethrough;
+}
+
+/* ================Review sections here================ */
+
+.review-slider .col-lg-4 {
+  margin: 0 10px;
+  border: 1px solid #ccc;
+}
+/* footer  */
+

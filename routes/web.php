@@ -1,44 +1,27 @@
 <?php
 
-use App\Http\Controllers\admin\AboutController;
+
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\admin\AccountManageController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\CategoryController;
-use App\Http\Controllers\admin\CounterController;
+
 use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\CurrencyController;
 use App\Http\Controllers\admin\FaqController;
-use App\Http\Controllers\admin\LabSetupController;
-use App\Http\Controllers\admin\MenuController;
-use App\Http\Controllers\admin\NewsController;
-use App\Http\Controllers\admin\NoticeBoardController;
-use App\Http\Controllers\admin\ObjectOfProjectController;
-use App\Http\Controllers\admin\OttController;
+
 use App\Http\Controllers\admin\PackageController;
 use App\Http\Controllers\admin\ProductController;
-use App\Http\Controllers\admin\ProjectCategoryController;
-use App\Http\Controllers\admin\ProjectController;
-use App\Http\Controllers\admin\ProjectFileCategoryController;
-use App\Http\Controllers\admin\ProjectFileController;
+
 use App\Http\Controllers\admin\ServiceController;
-use App\Http\Controllers\admin\ShowcaseController;
+
 use App\Http\Controllers\admin\SiteSettingController;
 use App\Http\Controllers\admin\SliderController;
-use App\Http\Controllers\admin\TeamController;
+
 use App\Http\Controllers\admin\TermsAndConditionController;
-use App\Http\Controllers\admin\TrainingCategoryController;
-use App\Http\Controllers\admin\TrainingController;
-use App\Http\Controllers\admin\UserMessageController;
-use App\Http\Controllers\admin\VenueController;
-use App\Http\Controllers\frontend\AboutPageController;
-use App\Http\Controllers\frontend\ContactUsController;
-use App\Http\Controllers\frontend\HomePageController;
-use App\Http\Controllers\frontend\NewsPageController;
-use App\Http\Controllers\frontend\NoticeController;
-use App\Http\Controllers\frontend\ProjectPageController;
-use App\Http\Controllers\frontend\TeamMemberController;
-use App\Http\Controllers\frontend\TrainingPageController;
+
+use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -55,9 +38,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+
+Route::get('/', [HomePageController::class, 'frontend'])->name('home');
+Route::get('/about', [AboutController::class, 'about'])->name('about');
+
 //Account Manage
 Route::get('/account-registration-for-user', [AccountManageController::class, 'showRegistrationFormForUser'])->name('account.registration.for.user');
 Route::get('/account-registration-for-agent', [AccountManageController::class, 'showRegistrationFormForAgent'])->name('account.registration.for.agent');
