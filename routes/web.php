@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\admin\AccountManageController;
 use App\Http\Controllers\admin\AdminDashboardController;
+use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CounterController;
 use App\Http\Controllers\admin\CouponController;
@@ -123,6 +124,12 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::post('/package-store', [PackageController::class, 'store'])->name('package.store');
     Route::put('/package-update/{id}', [PackageController::class, 'update'])->name('package.update');
     Route::get('/package-delete/{id}', [PackageController::class, 'destroy'])->name('package.destroy');
+
+    //Blog Section
+    Route::get('/blog-section', [BlogController::class, 'index'])->name('blog.section');
+    Route::post('/blog-store', [BlogController::class, 'store'])->name('blog.store');
+    Route::put('/blog-update/{id}', [BlogController::class, 'update'])->name('blog.update');
+    Route::get('/blog-delete/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
 
 
     //Role and User Section

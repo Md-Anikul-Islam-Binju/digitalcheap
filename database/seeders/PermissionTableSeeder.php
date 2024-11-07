@@ -78,6 +78,14 @@ class PermissionTableSeeder extends Seeder
             'package-delete',
 
 
+            //For Blog
+            'blog-list',
+            'blog-create',
+            'blog-edit',
+            'blog-delete',
+
+
+
             //Site Setting
             'site-setting',
             'terms-and-condition-list',
