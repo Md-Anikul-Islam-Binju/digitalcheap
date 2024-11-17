@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -24,7 +25,8 @@ class PackageController extends Controller
     public function index()
     {
         $package = Package::latest()->get();
-        return view('admin.pages.package.index', compact('package'));
+        $categories = Category::all();
+        return view('admin.pages.package.index', compact('package', 'categories'));
     }
     public function store(Request $request)
     {
@@ -35,6 +37,7 @@ class PackageController extends Controller
                 'package_duration' => 'required',
             ]);
             $package = new Package();
+            $package->category_id = $request->category_id;
             $package->name = $request->name;
             $package->package_type = $request->package_type;
             $package->package_duration = $request->package_duration;
@@ -57,6 +60,7 @@ class PackageController extends Controller
                 'name' => 'required',
             ]);
             $package = Package::find($id);
+            $package->category_id = $request->category_id;
             $package->name = $request->name;
             $package->package_type = $request->package_type;
             $package->package_duration = $request->package_duration;

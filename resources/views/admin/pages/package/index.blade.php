@@ -66,6 +66,19 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="row">
+
+                                                    <div class="col-6">
+                                                        <div class="mb-3">
+                                                            <label for="category-select-{{$packageData->id}}" class="form-label">Category</label>
+                                                            <select name="category_id" id="category-select-{{$packageData->id}}" class="form-select edit-category-select" data-product-id="{{ $packageData->id }}">
+                                                                @foreach($categories as $categoryData)
+                                                                    <option value="{{ $categoryData->id }}" {{ $packageData->category_id == $categoryData->id ? 'selected' : '' }}>
+                                                                        {{ $categoryData->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-6">
                                                         <div class="mb-3">
                                                             <label for="name" class="form-label">Package Name</label>
@@ -83,9 +96,6 @@
                                                             </select>
                                                         </div>
                                                     </div>
-
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-6">
                                                         <div class="mb-3">
                                                             <label for="example-fileinput" class="form-label">Package Duration</label>
@@ -93,6 +103,9 @@
                                                                    placeholder="Enter Package Duration" required>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
+
                                                     <div class="col-6">
                                                         <div class="mb-3">
                                                             <label for="example-fileinput" class="form-label">Amount</label>
@@ -174,6 +187,17 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
+                                    <label for="category-select" class="form-label">Category</label>
+                                    <select name="category_id" id="category-select" class="form-select" required>
+                                        <option selected value="">Select Category</option>
+                                        @foreach($categories as $categoryData)
+                                            <option value="{{ $categoryData->id }}">{{ $categoryData->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
                                     <label for="name" class="form-label">Package Name</label>
                                     <input type="text" id="name" name="name"
                                            class="form-control" placeholder="Enter Package Name" required>
@@ -189,9 +213,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="example-fileinput" class="form-label">Package Duration</label>
@@ -199,6 +220,10 @@
                                            placeholder="Enter Package Duration" required>
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="row">
+
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="example-fileinput" class="form-label">Amount</label>
