@@ -2,7 +2,19 @@
 import Layout from "../frontend/Layout.vue";
 export default {
     name: "Index",
-    layout: Layout
+    layout: Layout,
+    props:{
+        sliders:Array,
+    },
+    methods:{
+        getSliderUrl(sliderPath) {
+            if (!sliderPath) {
+                return 'frontend/images/file.jpg';
+            }
+            const fullUrl = `${window.location.origin}/images/slider/${sliderPath}`;
+            return fullUrl;
+        },
+    }
 }
 </script>
 
@@ -16,18 +28,14 @@ export default {
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="frontend/images/file.jpg" class="d-block w-100 object-fit-cover" alt="...">
-                    <!-- for overlay if needed then go to style.css and comment out -->
-                    <div class="overlay"></div>
-                </div>
-                <div class="carousel-item">
-                    <img src="frontend/images/ott.jpg" class="d-block w-100 object-fit-cover" alt="...">
+                <div v-for="(sliderData, index) in sliders" :key="sliderData.id" :class="['carousel-item', { active: index === 0 }]">
+                    <img :src="getSliderUrl(sliderData.file)" class="d-block w-100 object-fit-cover" alt="...">
                     <div class="overlay"></div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- core values section -->
     <section class="core-values py-5">
