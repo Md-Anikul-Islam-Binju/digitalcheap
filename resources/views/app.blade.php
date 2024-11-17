@@ -17,15 +17,18 @@
     <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/css/slick.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/css/slick-theme.css')}}" />
+    <link rel="stylesheet" href="{{asset('frontend/css/venobox.min.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
     @inertiaHead
 </head>
 <body>
 @inertia
+
+<script src="{{asset('frontend/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('frontend/js/all.min.js')}}"></script>
 <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('frontend/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('frontend/js/slick.min.js')}}"></script>
+<script src="{{asset('frontend/js/venobox.min.js')}}"></script>
 <script src="{{asset('frontend/js/custom.js')}}"></script>
 </body>
 </html>
