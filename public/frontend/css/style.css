@@ -297,9 +297,9 @@ a {
 .best-seller {
   background-color: #fff;
 }
-.best-seller .single-product {
+/* .best-seller .single-product {
   margin: 0 10px;
-}
+} */
 
 /* =========pricing css starts here============= */
 .pricing {
@@ -473,13 +473,17 @@ color: white;
 
 /* ================Review sections here================ */
 
-.review-slider .col-lg-4 {
+.customer-review .col-lg-4 {
   margin: 0 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
   transition: all 0.3s ease-in-out;
   box-shadow: 0px 30px 12px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+.customer-review .col-lg-4 p{
+  text-wrap: auto;
 }
 /* footer  sections starts here*/
 

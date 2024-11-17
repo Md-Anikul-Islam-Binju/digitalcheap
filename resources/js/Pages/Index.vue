@@ -1,6 +1,5 @@
 <script>
 import Layout from "../frontend/Layout.vue";
-
 export default {
     name: "Index",
     layout: Layout
@@ -8,6 +7,7 @@ export default {
 </script>
 
 <template>
+    <title>Home</title>
     <!-- hero section -->
     <section class="hero-section">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="5000">
@@ -98,7 +98,6 @@ export default {
         </div>
     </section>
 
-
     <!-- service section -->
     <section class="service-section py-5">
         <div class="container">
@@ -163,7 +162,7 @@ export default {
         </div>
     </section>
 
-    <!-- Usabilty -->
+    <!-- Usability -->
     <section class="usabilty-section py-5">
         <div class="container">
             <div class="section-title text-center mb-1">
@@ -191,8 +190,7 @@ export default {
         </div>
     </section>
 
-
-    <!-- ===========Our product section========== -->
+    <!-- Our product section -->
     <section class="section-products py-5">
         <div class="container">
             <div class="section-title text-center mb-1">
@@ -268,8 +266,98 @@ export default {
         </div>
     </section>
 
+    <!-- Best Seller Section -->
+    <section class="best-seller py-5 section-products">
+        <div class="container">
+            <div class="section-title text-center mb-1">
+                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Best Sellers</h2>
 
-    <!-- ========== Combo Offers ========== -->
+            </div>
+            <div class="row mt-5 my-slider">
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div id="product-3" class="single-product">
+                        <div class="part-1">
+                            <span class="discount">15% off</span>
+                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
+                            <div>
+                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="part-2">
+                            <h3 class="product-title">Netflix Subscription</h3>
+                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
+                            <h4 class="product-price">$49.99</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div id="product-3" class="single-product">
+                        <div class="part-1">
+                            <span class="discount">15% off</span>
+                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
+                            <div>
+                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="part-2">
+                            <h3 class="product-title">Netflix Subscription</h3>
+                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
+                            <h4 class="product-price">$49.99</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div id="product-3" class="single-product">
+                        <div class="part-1">
+                            <span class="discount">15% off</span>
+                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
+                            <div>
+                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="part-2">
+                            <h3 class="product-title">Netflix Subscription</h3>
+                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
+                            <h4 class="product-price">$49.99</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div id="product-3" class="single-product">
+                        <div class="part-1">
+                            <span class="discount">15% off</span>
+                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
+                            <div>
+                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="part-2">
+                            <h3 class="product-title">Netflix Subscription</h3>
+                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
+                            <h4 class="product-price">$49.99</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div id="product-3" class="single-product">
+                        <div class="part-1">
+                            <span class="new">new</span>
+                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
+                            <div>
+                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="part-2">
+                            <h3 class="product-title">Netflix Subscription</h3>
+                            <h4 class="product-price">$49.99</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Combo Offers -->
     <section class="pricing">
         <div class="container">
             <div class="section-title text-center mb-3">
@@ -579,35 +667,54 @@ export default {
                     <p class="fs-1 fw-medium text-center text-capitalize">Voices of Satisfaction</p>
                 </div>
             </div>
-            <div class="row mt-5 review-slider">
-                <div class="col-lg-4 text-center  p-5">
-                    <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto" alt="">
-                    <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                    <h2 class="fw-normal text-prmry">Chegs</h2>
-                    <p>CEO, Company, Inc.</p>
+            <marquee class="mt-5 row" scrollamount="5" loop="3" behavior="scroll" direction="left">
+                <div class="col-lg-4 text-center ">
+                    <div class="review-card">
+                        <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto"
+                             alt="">
+                        <p class="h6 text-secondary my-3 w-100">Some representative placeholder content for the three columns of text
+                            below the
+                            carousel. This is the first column.</p>
+                        <h2 class="fw-normal text-prmry">Chegs</h2>
+                        <p>CEO, Company, Inc.</p>
+                    </div>
                 </div>
-                <div class="col-lg-4 text-center  p-5">
-                    <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto" alt="">
-                    <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                    <h2 class="fw-normal text-prmry">Trump</h2>
-                    <p>CEO, Company, Inc.</p>
+                <div class="col-lg-4 text-center ">
+                    <div class="review-card">
+
+                        <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto"
+                             alt="">
+                        <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text
+                            below the carousel. This is the first column.</p>
+                        <h2 class="fw-normal text-prmry">Trump</h2>
+                        <p>CEO, Company, Inc.</p>
+                    </div>
                 </div>
-                <div class="col-lg-4 text-center  p-5">
-                    <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto" alt="">
-                    <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                    <h2 class="fw-normal text-prmry">Harish</h2>
-                    <p>CEO, Company, Inc.</p>
+                <div class="col-lg-4 text-center ">
+                    <div class="review-card">
+
+                        <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto"
+                             alt="">
+                        <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text
+                            below the carousel. This is the first column.</p>
+                        <h2 class="fw-normal text-prmry">Harish</h2>
+                        <p>CEO, Company, Inc.</p>
+                    </div>
                 </div>
-                <div class="col-lg-4 text-center  p-5">
-                    <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto" alt="">
-                    <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                    <h2 class="fw-normal text-prmry">Biden</h2>
-                    <p>CEO, Company, Inc.</p>
+                <div class="col-lg-4 text-center ">
+                    <div class="review-card">
+
+                        <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto"
+                             alt="">
+                        <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text
+                            below the carousel. This is the first column.</p>
+                        <h2 class="fw-normal text-prmry">Biden</h2>
+                        <p>CEO, Company, Inc.</p>
+                    </div>
                 </div>
-            </div>
+            </marquee>
         </div>
     </section>
-
 </template>
 
 <style scoped>

@@ -3,9 +3,9 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Thirteenth navbar example">
             <div class="container">
                 <div class="d-flex d-lg-none align-items-center justify-content-between w-100">
-                    <a class="navbar-brand d-inline d-lg-none" href="/">
+                    <Link class="navbar-brand d-inline d-lg-none" href="/">
                         <img src="frontend/images/logo.jpg" class="" width="100" alt="logo">
-                    </a>
+                    </Link>
                     <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11"
                             aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -18,7 +18,7 @@
                     </a>
                     <ul class="navbar-nav col-lg-5 justify-content-lg-center">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <Link class="nav-link active" aria-current="page" href="/">Home</Link>
                         </li>
                         <li class="nav-item">
                             <Link class="nav-link" href="/about">About</Link>
