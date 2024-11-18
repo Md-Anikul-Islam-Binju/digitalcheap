@@ -428,24 +428,37 @@ export default {
 
             <div class="row mt-4 mixitup-container">
                 <div v-for="pkg in filteredPackages" :key="pkg.id" class="col-md-6 col-lg-4 mb-4 mix">
+
+
+
+
+
                     <div class="pricingCard">
                         <div class="pricingCard-header text-left">
                             <h4 class="pricingCard-title">{{ pkg.name }}</h4>
-                            <p class="pricingCard-text">{{ pkg.details }}</p>
+                            <p class="pricingCard-text">
+                                This Package are active on {{ pkg.package_duration }} days
+                            </p>
                         </div>
                         <div class="pricingCard-body text-left">
-                            <h2>${{ pkg.amount }}</h2>
+                            <h2 id="free-price">${{ pkg.amount }}</h2>
                             <p class="pricing-period">/ {{ pkg.package_type }}</p>
                         </div>
                         <ul>
                             <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt=""> Example Feature
+                                <p class="pricingCard-text" v-html="pkg.details"></p>
                             </li>
                         </ul>
                         <div class="pricingCard-footer">
+                            <a href="#">Get Free Trial Now</a>
                             <a href="#">Get Started Now</a>
                         </div>
                     </div>
+
+
+
+
+
                 </div>
             </div>
             <!-- More/Hide Button -->
