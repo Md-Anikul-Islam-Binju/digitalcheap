@@ -7,6 +7,7 @@ export default {
         sliders:Array,
         categories: Array,
         packages: Array,
+        products: Array,
     },
     data() {
         return {
@@ -38,6 +39,13 @@ export default {
             }
             const fullUrl = `${window.location.origin}/images/slider/${sliderPath}`;
             return fullUrl;
+        },
+
+        getProductImageUrl(productImagePath) {
+            if (!productImagePath) {
+                return 'frontend/images/file.jpg'; // Fallback image
+            }
+            return `${window.location.origin}/images/product/${productImagePath}`;
         },
 
         selectCategory(categoryId) {
@@ -235,68 +243,32 @@ export default {
                 <p class="fs-1 fw-medium text-center text-capitalize">Quality You Can Rely On</p>
             </div>
             <div class="row mt-5">
-                <!-- Single Product -->
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div id="product-1" class="single-product">
+                <!-- Dynamic Products -->
+                <div
+                    v-for="(product, index) in products"
+                    :key="index"
+                    class="col-md-6 col-lg-4 col-xl-3"
+                >
+                    <div :id="'product-' + product.id" class="single-product">
                         <div class="part-1">
-                            <span class="discount">15% off</span>
-                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
+                            <span v-if="product.discount" class="discount">{{ product.discount }}% off</span>
+                            <img :src="getProductImageUrl(product.file)" class="" alt="">
                             <div>
                                 <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
                             </div>
                         </div>
-                        <div class="part-2">
-                            <h3 class="product-title">Netflix Subscription</h3>
-                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
-                            <h4 class="product-price">$49.99</h4>
+
+                        <div class="part-2" v-if="product.discount_amount">
+                            <h3 class="product-title">{{ product.name }}</h3>
+                            <h4 class="product-old-price text-decoration-line-through">${{ product.amount }}</h4>
+                            <h4 class="product-price">${{ product.discount_amount }}</h4>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div id="product-2" class="single-product">
-                        <div class="part-1">
-                            <span class="new">new</span>
-                            <img src="frontend/images/sports.jpg" class="" alt="">
-                            <div>
-                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
-                            </div>
+
+                        <div class="part-2" v-else>
+                            <h3 class="product-title">{{ product.name }}</h3>
+                            <h4 class="product-price">${{ product.amount }}</h4>
                         </div>
-                        <div class="part-2">
-                            <h3 class="product-title">Sports Subscription</h3>
-                            <h4 class="product-price">$49.99</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div id="product-3" class="single-product">
-                        <div class="part-1">
-                            <span class="discount">10% off</span>
-                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
-                            <div>
-                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="part-2">
-                            <h3 class="product-title">Netflix Subscription</h3>
-                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
-                            <h4 class="product-price">$49.99</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div id="product-4" class="single-product">
-                        <div class="part-1">
-                            <span class="discount">15% off</span>
-                            <img src="frontend/images/AiProduct.jpg" class="" alt="">
-                            <div>
-                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="part-2">
-                            <h3 class="product-title">AI Subscription</h3>
-                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
-                            <h4 class="product-price">$49.99</h4>
-                        </div>
+
                     </div>
                 </div>
             </div>
