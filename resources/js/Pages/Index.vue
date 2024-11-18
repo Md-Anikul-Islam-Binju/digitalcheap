@@ -428,11 +428,6 @@ export default {
 
             <div class="row mt-4 mixitup-container">
                 <div v-for="pkg in filteredPackages" :key="pkg.id" class="col-md-6 col-lg-4 mb-4 mix">
-
-
-
-
-
                     <div class="pricingCard">
                         <div class="pricingCard-header text-left">
                             <h4 class="pricingCard-title">{{ pkg.name }}</h4>
@@ -454,11 +449,6 @@ export default {
                             <a href="#">Get Started Now</a>
                         </div>
                     </div>
-
-
-
-
-
                 </div>
             </div>
             <!-- More/Hide Button -->
