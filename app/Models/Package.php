@@ -18,4 +18,9 @@ class Package extends Model
         'details',
         'status',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

@@ -5,6 +5,31 @@ export default {
     layout: Layout,
     props:{
         sliders:Array,
+        categories: Array,
+        packages: Array,
+    },
+    data() {
+        return {
+            selectedCategory: null, // Default to show all categories
+            selectedType: "Monthly", // Default to "Monthly"
+            packageTypes: [
+                { value: "Monthly", label: "Monthly" },
+                { value: "Half Yearly", label: "Half Yearly" },
+                { value: "Yearly", label: "Yearly" },
+            ],
+        };
+    },
+
+    computed: {
+        filteredPackages() {
+            return this.packages.filter((pkg) => {
+                const matchesCategory =
+                    !this.selectedCategory || pkg.category_id === this.selectedCategory;
+                const matchesType = pkg.package_type === this.selectedType;
+
+                return matchesCategory && matchesType;
+            });
+        },
     },
     methods:{
         getSliderUrl(sliderPath) {
@@ -13,6 +38,10 @@ export default {
             }
             const fullUrl = `${window.location.origin}/images/slider/${sliderPath}`;
             return fullUrl;
+        },
+
+        selectCategory(categoryId) {
+            this.selectedCategory = categoryId;
         },
     }
 }
@@ -372,288 +401,48 @@ export default {
                 <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Combo Offers</h2>
                 <p class="fs-1 fw-medium text-center text-capitalize">Choose a plan that’s right for you</p>
             </div>
-            <div class="d-flex justify-content-center align-items-center gap-3 switch-content">
-                <div class="form-check form-check-inline ">
-                    <input class="form-check-input" type="radio" name="pricing-period" value="monthly" id="flexRadioDefault1" checked>
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Monthly
-                    </label>
-                </div>
-                <div class="form-check form-check-inline ">
-                    <input class="form-check-input" type="radio" name="pricing-period" value="halfYearly" id="flexRadioDefault2">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        Half Yearly
-                    </label>
-                </div>
-                <div class="form-check form-check-inline ">
-                    <input class="form-check-input" type="radio" name="pricing-period" value="yearly" id="flexRadioDefault3">
-                    <label class="form-check-label" for="flexRadioDefault3">
-                        Yearly
-                    </label>
-                </div>
 
+            <!-- Package Type Filter -->
+            <div class="d-flex justify-content-center align-items-center gap-3 switch-content">
+                <div class="form-check form-check-inline" v-for="(type, index) in packageTypes" :key="index">
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        :value="type.value"
+                        v-model="selectedType"
+                        :id="'type-' + index">
+                    <label class="form-check-label" :for="'type-' + index">{{ type.label }}</label>
+                </div>
             </div>
 
-            <!-- ================== pricing plans ================ -->
-
-            <ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-combo-tab" data-bs-toggle="pill" data-bs-target="#pills-combo" type="button" role="tab" aria-controls="pills-combo" aria-selected="true">Combo Offers</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-seo-tab" data-bs-toggle="pill" data-bs-target="#pills-seo" type="button" role="tab" aria-controls="pills-seo" aria-selected="false">SEO</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-sports-tab" data-bs-toggle="pill" data-bs-target="#pills-sports" type="button" role="tab" aria-controls="pills-sports" aria-selected="false">Sports</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-ai-tab" data-bs-toggle="pill" data-bs-target="#pills-ai" type="button" role="tab" aria-controls="pills-ai" aria-selected="false">AI</button>
+            <!-- Category Tabs -->
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation" v-for="category in categories" :key="category.id">
+                    <button class="nav-link"
+                            :class="{ active: selectedCategory === category.id }"
+                            @click="selectCategory(category.id)">
+                        {{ category.name }}
+                    </button>
                 </li>
             </ul>
 
             <div class="row mt-4 mixitup-container">
-                <!-- Freebie Plan -->
-                <div class="col-md-6 col-lg-4 mb-4 mix">
+                <div v-for="pkg in filteredPackages" :key="pkg.id" class="col-md-6 col-lg-4 mb-4 mix">
                     <div class="pricingCard">
                         <div class="pricingCard-header text-left">
-                            <h4 class="pricingCard-title">Freebie</h4>
-                            <p class="pricingCard-text">
-                                Ideal for individuals who need quick access to basic
-                                features.
-                            </p>
+                            <h4 class="pricingCard-title">{{ pkg.name }}</h4>
+                            <p class="pricingCard-text">{{ pkg.details }}</p>
                         </div>
                         <div class="pricingCard-body text-left">
-                            <h2 id="free-price">$0</h2>
-                            <p class="pricing-period">/ Month</p>
+                            <h2>${{ pkg.amount }}</h2>
+                            <p class="pricing-period">/ {{ pkg.package_type }}</p>
                         </div>
                         <ul>
                             <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Email
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Website
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Sender Profile
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Training Module
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Sender Module
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Cross.svg" alt=""><del>Email import to Verification</del>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Cross.svg" alt=""><del>Instant Campaign</del>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Cross.svg" alt=""><del>System Report Generate and Graph</del>
+                                <img src="frontend/images/Correct.svg" alt=""> Example Feature
                             </li>
                         </ul>
                         <div class="pricingCard-footer">
-                            <a href="#">Get Free Trial Now</a>
-                            <a href="#">Get Started Now</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Professional Plan -->
-                <div class="col-md-6 col-lg-4 mb-4 mix">
-                    <div class="pricingCard">
-                        <div class="pricingCard-header text-left">
-                            <h4 class="pricingCard-title">Professional</h4>
-                            <p class="pricingCard-text">
-                                Ideal for individuals who need advanced features and tools
-                                for client work.
-                            </p>
-                        </div>
-                        <div class="pricingCard-body text-center">
-                            <h2 id="professional-price" >$50</h2>
-                            <p class="pricing-period">/ Month</p>
-                        </div>
-                        <ul>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Email
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Website
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Sender Profile
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Training Module
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Domain Verification
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Employee List
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Cross.svg" alt=""><del>Instant Campaign</del>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Cross.svg" alt="">
-                                <del>System Report Generate and Graph</del>
-                            </li>
-                        </ul>
-                        <div class="pricingCard-footer">
-                            <a href="#">Get Free Trial Now</a>
-                            <a href="#">Get Started Now</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Professional Plan -->
-                <div class="col-md-6 col-lg-4 mb-4 mix">
-                    <div class="pricingCard">
-                        <div class="pricingCard-header text-left">
-                            <h4 class="pricingCard-title">Professional</h4>
-                            <p class="pricingCard-text">
-                                Ideal for individuals who need advanced features and tools
-                                for client work.
-                            </p>
-                        </div>
-                        <div class="pricingCard-body text-center">
-                            <h2 id="professional-price" >$50</h2>
-                            <p class="pricing-period">/ Month</p>
-                        </div>
-                        <ul>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Email
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Website
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Sender Profile
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Training Module
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Domain Verification
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Employee List
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Cross.svg" alt=""><del>Instant Campaign</del>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Cross.svg" alt="">
-                                <del>System Report Generate and Graph</del>
-                            </li>
-                        </ul>
-                        <div class="pricingCard-footer">
-                            <a href="#">Get Free Trial Now</a>
-                            <a href="#">Get Started Now</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Enterprise Plan -->
-                <div class="col-md-6 col-lg-4 mb-4 mix">
-                    <div class="pricingCard">
-                        <div class="pricingCard-header text-left">
-                            <h4 class="pricingCard-title">Enterprise</h4>
-                            <p class="pricingCard-text">
-                                Ideal for businesses who need personalized services and
-                                security for large teams.
-                            </p>
-                        </div>
-                        <div class="pricingCard-body text-center">
-                            <h2 id="enterprise-price" >$100</h2>
-                            <p class="pricing-period">/ Month</p>
-                        </div>
-                        <ul>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Email
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Website
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Sender Profile
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Training Module
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Domain Verification
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Employee List
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Campaign
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">System Report
-                                Generate and Graph
-                            </li>
-                        </ul>
-                        <div class="pricingCard-footer">
-                            <a href="#">Get Free Trial Now</a>
-                            <a href="#">Get Started Now</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4 mb-4 mix">
-                    <div class="pricingCard">
-                        <div class="pricingCard-header text-left">
-                            <h4 class="pricingCard-title">Enterprise</h4>
-                            <p class="pricingCard-text">
-                                Ideal for businesses who need personalized services and
-                                security for large teams.
-                            </p>
-                        </div>
-                        <div class="pricingCard-body text-center">
-                            <h2 id="enterprise-price" >$100</h2>
-                            <p class="pricing-period">/ Month</p>
-                        </div>
-                        <ul>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Email
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Phishing Website
-                                Perform
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Sender Profile
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Training Module
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Domain Verification
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Employee List
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">Campaign
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <img src="frontend/images/Correct.svg" alt="">System Report
-                                Generate and Graph
-                            </li>
-                        </ul>
-                        <div class="pricingCard-footer">
-                            <a href="#" >Get Free Trial Now</a>
                             <a href="#">Get Started Now</a>
                         </div>
                     </div>

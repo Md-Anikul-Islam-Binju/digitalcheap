@@ -24,7 +24,7 @@ class PackageController extends Controller
     }
     public function index()
     {
-        $package = Package::latest()->get();
+        $package = Package::with('category')->latest()->get();
         $categories = Category::all();
         return view('admin.pages.package.index', compact('package', 'categories'));
     }

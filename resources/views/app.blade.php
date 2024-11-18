@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,7 +24,6 @@
 </head>
 <body>
 @inertia
-
 <script src="{{asset('frontend/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('frontend/js/all.min.js')}}"></script>
 <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>

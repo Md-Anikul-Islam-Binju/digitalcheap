@@ -29,6 +29,7 @@
                     <tr>
                         <th>S/N</th>
                         <th>Name</th>
+                        <th>Category</th>
                         <th>Package Type</th>
                         <th>Package Duration</th>
                         <th>Amount</th>
@@ -42,6 +43,7 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>{{$packageData->name}}</td>
+                            <td>{{$packageData->category->name}}</td>
                             <td>{{$packageData->package_type}}</td>
                             <td>{{$packageData->package_duration}}</td>
                             <td>{{$packageData->amount? $packageData->amount :'N/A'}}</td>
@@ -92,6 +94,7 @@
                                                             <label for="example-select" class="form-label">Package Type</label>
                                                             <select name="package_type" class="form-select">
                                                                 <option value="Monthly" {{ $packageData->package_type === "Monthly" ? 'selected' : '' }}>Monthly</option>
+                                                                <option value="Half Yearly" {{ $packageData->package_type === "Half Yearly" ? 'selected' : '' }}>Half Yearly</option>
                                                                 <option value="Yearly" {{ $packageData->package_type === "Yearly" ? 'selected' : '' }}>Yearly</option>
                                                             </select>
                                                         </div>
@@ -209,6 +212,7 @@
                                     <label for="example-select" class="form-label">Package Type</label>
                                     <select name="package_type" class="form-select">
                                         <option value="Monthly">Monthly</option>
+                                        <option value="Half Yearly">Half Yearly</option>
                                         <option value="Yearly">Yearly</option>
                                     </select>
                                 </div>
