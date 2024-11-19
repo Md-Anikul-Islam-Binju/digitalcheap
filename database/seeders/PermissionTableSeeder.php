@@ -84,6 +84,11 @@ class PermissionTableSeeder extends Seeder
             'blog-edit',
             'blog-delete',
 
+            //For Review
+            'review-list',
+            'review-create',
+            'review-edit',
+            'review-delete',
 
 
             //Site Setting

@@ -20,7 +20,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-end">
+                    <!-- Large modal -->
+                    @can('package-create')
                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addNewModalId">Add New</button>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -51,8 +54,12 @@
                             <td>{{$packageData->status==1? 'Active':'Inactive'}}</td>
                             <td style="width: 100px;">
                                 <div class="d-flex justify-content-end gap-1">
+                                    @can('package-edit')
                                     <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editNewModalId{{$packageData->id}}">Edit</button>
+                                    @endcan
+                                    @can('package-delete')
                                     <a href="{{route('package.destroy',$packageData->id)}}"class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#danger-header-modal{{$packageData->id}}">Delete</a>
+                                    @endcan
                                 </div>
                             </td>
                             <!--Edit Modal -->

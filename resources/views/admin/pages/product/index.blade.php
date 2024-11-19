@@ -19,7 +19,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-end">
+                    <!-- Large modal -->
+                    @can('product-create')
                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addNewModalId">Add New</button>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -48,8 +51,13 @@
                             <td>{{$productData->status==1? 'Active':'Inactive'}}</td>
                             <td style="width: 100px;">
                                 <div class="d-flex justify-content-end gap-1">
+                                    @can('product-edit')
                                     <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editNewModalId{{$productData->id}}">Edit</button>
+                                    @endcan
+
+                                    @can('product-delete')
                                     <a href="{{route('product.destroy',$productData->id)}}"class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#danger-header-modal{{$productData->id}}">Delete</a>
+                                    @endcan
                                 </div>
                             </td>
                             <!--Edit Modal -->

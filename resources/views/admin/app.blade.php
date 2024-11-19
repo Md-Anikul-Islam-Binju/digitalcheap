@@ -170,6 +170,14 @@
                                 </li>
                             @endcan
 
+
+                            @can('review-list')
+                                <li>
+                                    <a href="{{route('review.section')}}">Review</a>
+                                </li>
+                            @endcan
+
+
                         </ul>
                     </div>
                 </li>

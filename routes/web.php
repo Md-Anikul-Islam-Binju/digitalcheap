@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\FaqController;
 use App\Http\Controllers\admin\PackageController;
 use App\Http\Controllers\admin\ProductController;
 
+use App\Http\Controllers\admin\ReviewController;
 use App\Http\Controllers\admin\ServiceController;
 
 use App\Http\Controllers\admin\SiteSettingController;
@@ -118,6 +119,12 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::post('/blog-store', [BlogController::class, 'store'])->name('blog.store');
     Route::put('/blog-update/{id}', [BlogController::class, 'update'])->name('blog.update');
     Route::get('/blog-delete/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+
+
+    Route::get('/review-section', [ReviewController::class, 'index'])->name('review.section');
+    Route::post('/review-store', [ReviewController::class, 'store'])->name('review.store');
+    Route::put('/review-update/{id}', [ReviewController::class, 'update'])->name('review.update');
+    Route::get('/review-delete/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
 
 
     //Role and User Section

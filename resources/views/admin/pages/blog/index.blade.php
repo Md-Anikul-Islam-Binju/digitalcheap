@@ -20,7 +20,9 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-end">
+                    @can('blog-create')
                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addNewModalId">Add New</button>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -45,8 +47,12 @@
                             <td>{{$blogData->status==1? 'Active':'Inactive'}}</td>
                             <td style="width: 100px;">
                                 <div class="d-flex justify-content-end gap-1">
+                                    @can('blog-edit')
                                     <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editNewModalId{{$blogData->id}}">Edit</button>
+                                    @endcan
+                                    @can('blog-delete')
                                     <a href="{{route('blog.destroy',$blogData->id)}}"class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#danger-header-modal{{$blogData->id}}">Delete</a>
+                                    @endcan
                                 </div>
                             </td>
                             <!--Edit Modal -->
