@@ -8,6 +8,7 @@ export default {
         categories: Array,
         packages: Array,
         products: Array,
+        services: Array,
     },
     data() {
         return {
@@ -151,40 +152,13 @@ export default {
                 <p class="fs-1 fw-medium text-center text-capitalize">How can we help you</p>
             </div>
             <div class="row mt-5">
-
-                <div class="col-sm-6 col-lg-3">
+                <div  v-for="(servicesData, index) in services" :key="index" class="col-sm-6 col-lg-3">
                     <div class="featured-box px-md-4 text-center mb-4">
                         <div class="featured-box-icon text-prmry display-5"><i class="fas fa-bullhorn"></i></div>
-                        <h4 class="fw-600 mb-3">SEO Marketing</h4>
-                        <p class="text-muted mb-0" style="line-height: 1.8;">Lorem Ipsum is simply dummy text of the
-                            printing and typesetting industry.</p>
+                        <h4 class="fw-600 mb-3">{{ servicesData.name }}</h4>
+                        <p class="text-muted mb-0" style="line-height: 1.8;" v-html="servicesData.details"></p>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="featured-box px-md-4 text-center mb-4">
-                        <div class="featured-box-icon text-prmry display-5"><i class="fa-solid fa-user-astronaut"></i></div>
-                        <h4 class="fw-600 mb-3">AI Subscription</h4>
-                        <p class="text-muted mb-0" style="line-height: 1.8;">Lorem Ipsum is simply dummy text of the
-                            printing and typesetting industry.</p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="featured-box px-md-4 text-center mb-4">
-                        <div class="featured-box-icon text-prmry display-5"><i class="fa-brands fa-steam"></i></div>
-                        <h4 class="fw-600 mb-3">OTT Subscription</h4>
-                        <p class="text-muted mb-0" style="line-height: 1.8;">Lorem Ipsum is simply dummy text of the
-                            printing and typesetting industry.</p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="featured-box px-md-4 text-center mb-4">
-                        <div class="featured-box-icon text-prmry display-5"><i class="fa-solid fa-basketball"></i></div>
-                        <h4 class="fw-600 mb-3">Sports Subscription</h4>
-                        <p class="text-muted mb-0" style="line-height: 1.8;">Lorem Ipsum is simply dummy text of the
-                            printing and typesetting industry. </p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>

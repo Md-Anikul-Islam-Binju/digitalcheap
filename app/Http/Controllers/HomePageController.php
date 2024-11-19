@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Package;
 use App\Models\Product;
+use App\Models\Service;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,8 @@ class HomePageController extends Controller
         $categories = Category::latest()->get();
         $packages = Package::latest()->get();
         $products = Product::latest()->get();
-        return inertia('Index',compact('sliders','categories','packages','products'));
+        $services =  Service::latest()->get();
+        return inertia('Index',compact('sliders','categories','packages','products',
+            'services'));
     }
 }
