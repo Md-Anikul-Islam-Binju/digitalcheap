@@ -377,17 +377,19 @@ export default {
                     <div class="pricingCard">
                         <div class="pricingCard-header text-left">
                             <h4 class="pricingCard-title">{{ pkg.name }}</h4>
-                            <p class="pricingCard-text">
-                                This Package are active on {{ pkg.package_duration }} days
-                            </p>
+                            <p class="pricingCard-text" v-html="pkg.details"></p>
                         </div>
                         <div class="pricingCard-body text-left">
                             <h2 id="free-price">${{ pkg.amount }}</h2>
                             <p class="pricing-period">/ {{ pkg.package_type }}</p>
                         </div>
                         <ul>
-                            <li class="d-flex align-items-center">
-                                <p class="pricingCard-text" v-html="pkg.details"></p>
+                            <li
+                                v-for="product in pkg.products"
+                                :key="product.id"
+                                class="d-flex align-items-center">
+                                <img src="frontend/images/Correct.svg" alt="Correct Icon">
+                                {{ product.product }}
                             </li>
                         </ul>
                         <div class="pricingCard-footer">
@@ -397,6 +399,9 @@ export default {
                     </div>
                 </div>
             </div>
+
+
+
             <!-- More/Hide Button -->
             <div class="text-center mt-4">
                 <button class="btn btn-success" id="toggle-btn">More</button>

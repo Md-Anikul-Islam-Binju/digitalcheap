@@ -15,7 +15,7 @@ class HomePageController extends Controller
     {
         $sliders = Slider::latest()->get();
         $categories = Category::latest()->get();
-        $packages = Package::latest()->get();
+        $packages = Package::with('products')->latest()->get();
         $products = Product::latest()->get();
         $services =  Service::latest()->get();
         return inertia('Index',compact('sliders','categories','packages','products',

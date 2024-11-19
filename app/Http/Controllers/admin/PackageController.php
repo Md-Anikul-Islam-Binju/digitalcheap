@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Package;
+use App\Models\PackageProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Yoeunes\Toastr\Facades\Toastr;
@@ -24,7 +25,7 @@ class PackageController extends Controller
     }
     public function index()
     {
-        $package = Package::with('category')->latest()->get();
+        $package = Package::with('category','products')->latest()->get();
         $categories = Category::all();
         return view('admin.pages.package.index', compact('package', 'categories'));
     }
@@ -35,6 +36,8 @@ class PackageController extends Controller
                 'name' => 'required',
                 'package_type' => 'required',
                 'package_duration' => 'required',
+                'product' => 'required|array', // Ensure products are provided as an array
+                'product.*' => 'string|max:255', // Each product name should be a valid string
             ]);
             $package = new Package();
             $package->category_id = $request->category_id;
@@ -45,6 +48,15 @@ class PackageController extends Controller
             $package->amount = $request->amount;
             $package->discount_amount = $request->discount_amount;
             $package->save();
+
+            // Save the associated products
+            foreach ($request->product as $productName) {
+                PackageProduct::create([
+                    'package_id' => $package->id,
+                    'product' => $productName,
+                ]);
+            }
+
             Toastr::success('Package Added Successfully', 'Success');
             return redirect()->back();
         } catch (\Exception $e) {

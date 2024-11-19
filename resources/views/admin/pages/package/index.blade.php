@@ -36,6 +36,7 @@
                         <th>Package Type</th>
                         <th>Package Duration</th>
                         <th>Amount</th>
+                        <th>Product</th>
                         <th>Discount Amount</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -50,6 +51,17 @@
                             <td>{{$packageData->package_type}}</td>
                             <td>{{$packageData->package_duration}}</td>
                             <td>{{$packageData->amount? $packageData->amount :'N/A'}}</td>
+                            <td>
+                                @if ($packageData->products->isNotEmpty())
+                                    <ul>
+                                        @foreach ($packageData->products as $product)
+                                            <li>{{ $product->product }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    No Products
+                                @endif
+                            </td>
                             <td>{{$packageData->discount_amount? $packageData->discount_amount :'N/A'}}</td>
                             <td>{{$packageData->status==1? 'Active':'Inactive'}}</td>
                             <td style="width: 100px;">
@@ -260,6 +272,20 @@
                             </div>
                         </div>
 
+                        <div id="name-fields">
+                            <div class="row name-field">
+                                <div class="col-10 mb-3">
+                                    <label for="product" class="form-label">Product Name</label>
+                                    <input type="text" name="product[]" class="form-control" placeholder="Enter Product Name" required>
+                                </div>
+                                <div class="col-2 d-flex align-items-end mb-3">
+                                    <button type="button" class="btn btn-danger remove-field">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-secondary mb-3" id="add-more">Add More</button>
+
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </div>
@@ -268,4 +294,30 @@
             </div>
         </div>
     </div>
+
+
+        <script>
+            document.getElementById('add-more').addEventListener('click', function () {
+                const nameFieldsContainer = document.getElementById('name-fields');
+                const newField = document.createElement('div');
+                newField.classList.add('row', 'name-field', 'mb-3');
+                newField.innerHTML = `
+                    <div class="col-10">
+                        <label for="product" class="form-label">Product Name</label>
+                        <input type="text" name="product[]" class="form-control" placeholder="Enter Product Name" required>
+                    </div>
+                    <div class="col-2 d-flex align-items-end">
+                        <button type="button" class="btn btn-danger remove-field">Remove</button>
+                    </div>
+                `;
+                nameFieldsContainer.appendChild(newField);
+            });
+
+            // Event delegation for dynamically added "Remove" buttons
+            document.getElementById('name-fields').addEventListener('click', function (e) {
+                if (e.target.classList.contains('remove-field')) {
+                    e.target.closest('.name-field').remove(); // Remove the closest parent with class 'name-field'
+                }
+            });
+        </script>
 @endsection
