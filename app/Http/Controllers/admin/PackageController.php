@@ -66,15 +66,28 @@ class PackageController extends Controller
 
     public function update(Request $request, $id)
     {
-
-        dd($request->all());
         try {
+            // Validate input data
             $request->validate([
-                'name' => 'required',
-                'product' => 'nullable|array', // Products can be optional
-                'product.*' => 'string|max:255', // Each product must be a valid string
+                'name' => 'required|string|max:255',
+                'category_id' => 'required|exists:categories,id',
+                'package_type' => 'required|string|max:50',
+                'package_duration' => 'required|string|max:50',
+                'amount' => 'nullable|numeric',
+                'discount_amount' => 'nullable|numeric',
+                'status' => 'required|boolean',
+                'products_json' => 'required|string', // Ensure the JSON field is present and valid
             ]);
-            $package = Package::find($id);
+
+            // Decode the JSON field
+            $products = json_decode($request->products_json, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \Exception("Invalid JSON in products_json field");
+            }
+
+            // Find the package and update basic details
+            $package = Package::findOrFail($id);
             $package->category_id = $request->category_id;
             $package->name = $request->name;
             $package->package_type = $request->package_type;
@@ -86,20 +99,15 @@ class PackageController extends Controller
             $package->save();
 
             // Update associated products
-            if ($request->has('product')) {
-                // Remove existing products and re-add them
-                $package->products()->delete();
-
-                foreach ($request->product as $productName) {
-                    if (!empty($productName)) { // Ensure the product name is not empty
-                        PackageProduct::create([
-                            'package_id' => $package->id,
-                            'product' => $productName,
-                        ]);
-                    }
+            $package->products()->delete(); // Clear existing products
+            foreach ($products as $productName) {
+                if (!empty($productName)) { // Ensure the product name is not empty
+                    PackageProduct::create([
+                        'package_id' => $package->id,
+                        'product' => $productName,
+                    ]);
                 }
             }
-
 
             Toastr::success('Package Updated Successfully', 'Success');
             return redirect()->back();
@@ -107,6 +115,7 @@ class PackageController extends Controller
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
+
 
     public function destroy($id)
     {
