@@ -67,9 +67,12 @@ class PackageController extends Controller
     public function update(Request $request, $id)
     {
 
+        dd($request->all());
         try {
             $request->validate([
                 'name' => 'required',
+                'product' => 'nullable|array', // Products can be optional
+                'product.*' => 'string|max:255', // Each product must be a valid string
             ]);
             $package = Package::find($id);
             $package->category_id = $request->category_id;
@@ -81,6 +84,23 @@ class PackageController extends Controller
             $package->discount_amount = $request->discount_amount;
             $package->status = $request->status;
             $package->save();
+
+            // Update associated products
+            if ($request->has('product')) {
+                // Remove existing products and re-add them
+                $package->products()->delete();
+
+                foreach ($request->product as $productName) {
+                    if (!empty($productName)) { // Ensure the product name is not empty
+                        PackageProduct::create([
+                            'package_id' => $package->id,
+                            'product' => $productName,
+                        ]);
+                    }
+                }
+            }
+
+
             Toastr::success('Package Updated Successfully', 'Success');
             return redirect()->back();
         } catch (\Exception $e) {

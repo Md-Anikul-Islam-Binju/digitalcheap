@@ -162,6 +162,22 @@
                                                     </div>
                                                 </div>
 
+                                                <div id="edit-name-fields-{{$packageData->id}}">
+                                                    @foreach ($packageData->products as $key=>$product)
+                                                        <div class="row name-field">
+                                                            <div class="col-10 mb-3">
+                                                                <label for="product" class="form-label">Product Name</label>
+                                                                <input type="text" name="product[]" value="{{ $product->product }}" class="form-control" placeholder="Enter Product Name" required>
+                                                            </div>
+                                                            <div class="col-2 d-flex align-items-end mb-3">
+                                                                <button type="button" class="btn btn-danger remove-field">Remove</button>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+
+                                                <button type="button" class="btn btn-secondary mb-3" id="add-more-{{$packageData->id}}">Add More</button>
+
                                                 <div class="d-flex justify-content-end">
                                                     <button class="btn btn-primary" type="submit">Update</button>
                                                 </div>
@@ -295,29 +311,67 @@
         </div>
     </div>
 
+    <script>
+        // Add Fields (Add Modal)
+        document.getElementById('add-more').addEventListener('click', function () {
+            const nameFieldsContainer = document.getElementById('name-fields');
+            const newField = document.createElement('div');
+            newField.classList.add('row', 'name-field', 'mb-3');
+            newField.innerHTML = `
+            <div class="col-10">
+                <label for="product" class="form-label">Product Name</label>
+                <input type="text" name="product[]" class="form-control" placeholder="Enter Product Name" required>
+            </div>
+            <div class="col-2 d-flex align-items-end">
+                <button type="button" class="btn btn-danger remove-field">Remove</button>
+            </div>
+        `;
+            nameFieldsContainer.appendChild(newField);
+        });
 
-        <script>
-            document.getElementById('add-more').addEventListener('click', function () {
-                const nameFieldsContainer = document.getElementById('name-fields');
+        document.getElementById('name-fields').addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-field')) {
+                e.target.closest('.name-field').remove();
+            }
+        });
+
+        // Add More Fields in Edit Modal
+        document.querySelectorAll('[id^=add-more-]').forEach(button => {
+            button.addEventListener('click', function () {
+                const packageId = this.id.split('-')[2]; // Extract package ID
+                const nameFieldsContainer = document.getElementById(`edit-name-fields-${packageId}`);
+
+                // Ensure the container exists
+                if (!nameFieldsContainer) {
+                    console.error(`Container for package ID ${packageId} not found.`);
+                    return;
+                }
+
+                // Create the new input field
                 const newField = document.createElement('div');
                 newField.classList.add('row', 'name-field', 'mb-3');
                 newField.innerHTML = `
-                    <div class="col-10">
-                        <label for="product" class="form-label">Product Name</label>
-                        <input type="text" name="product[]" class="form-control" placeholder="Enter Product Name" required>
-                    </div>
-                    <div class="col-2 d-flex align-items-end">
-                        <button type="button" class="btn btn-danger remove-field">Remove</button>
-                    </div>
-                `;
+            <div class="col-10">
+                <label for="product" class="form-label">Product Name</label>
+                <input type="text" name="product[]" class="form-control" placeholder="Enter Product Name" required>
+            </div>
+            <div class="col-2 d-flex align-items-end">
+                <button type="button" class="btn btn-danger remove-field">Remove</button>
+            </div>
+        `;
                 nameFieldsContainer.appendChild(newField);
             });
+        });
 
-            // Event delegation for dynamically added "Remove" buttons
-            document.getElementById('name-fields').addEventListener('click', function (e) {
+        // Handle dynamically removing fields
+        document.querySelectorAll('[id^=edit-name-fields-]').forEach(container => {
+            container.addEventListener('click', function (e) {
                 if (e.target.classList.contains('remove-field')) {
-                    e.target.closest('.name-field').remove(); // Remove the closest parent with class 'name-field'
+                    e.target.closest('.name-field').remove();
                 }
             });
-        </script>
+        });
+
+    </script>
+
 @endsection
