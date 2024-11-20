@@ -111,7 +111,7 @@
                 <li class="side-nav-item">
                     <a data-bs-toggle="collapse" href="#sidebarPages" aria-expanded="false" aria-controls="sidebarPages" class="side-nav-link">
                         <i class="ri-pages-line"></i>
-                        <span> Resource </span>
+                        <span> Site Manage </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="sidebarPages">
@@ -122,27 +122,15 @@
                             </li>
                             @endcan
 
-                            @can('coupon-list')
-                                <li>
-                                    <a href="{{route('coupon.section')}}">Coupon</a>
-                                </li>
-                            @endcan
-
                             @can('currency-list')
                                 <li>
                                     <a href="{{route('currency.section')}}">Currency</a>
                                 </li>
                             @endcan
 
-                            @can('category-list')
+                            @can('service-list')
                                 <li>
-                                    <a href="{{route('category.section')}}">Category</a>
-                                </li>
-                            @endcan
-
-                            @can('faq-list')
-                                <li>
-                                    <a href="{{route('faq.section')}}">Faq</a>
+                                    <a href="{{route('service.section')}}">Service</a>
                                 </li>
                             @endcan
 
@@ -152,9 +140,29 @@
                                 </li>
                             @endcan
 
-                            @can('service-list')
+                            @can('review-list')
                                 <li>
-                                    <a href="{{route('service.section')}}">Service</a>
+                                    <a href="{{route('review.section')}}">Review</a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </div>
+                </li>
+                @endcan
+
+                @can('manage-product-section')
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarPagesProduct" aria-expanded="false" aria-controls="sidebarPagesProduct" class="side-nav-link">
+                        <i class="ri-pages-line"></i>
+                        <span> Manage Product </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarPagesProduct">
+                        <ul class="side-nav-second-level">
+
+                            @can('category-list')
+                                <li>
+                                    <a href="{{route('category.section')}}">Category</a>
                                 </li>
                             @endcan
 
@@ -170,37 +178,56 @@
                                 </li>
                             @endcan
 
-
-                            @can('review-list')
+                            @can('coupon-list')
                                 <li>
-                                    <a href="{{route('review.section')}}">Review</a>
+                                    <a href="{{route('coupon.section')}}">Coupon</a>
                                 </li>
                             @endcan
-
-
                         </ul>
                     </div>
                 </li>
                 @endcan
 
-
-                @can('terms-and-condition-list')
+                @can('settings-on-site')
                     <li class="side-nav-item">
-                        <a href="{{route('admin.termsAndCondition')}}" class="side-nav-link">
+                        <a data-bs-toggle="collapse" href="#sidebarPagesSetting" aria-expanded="false" aria-controls="sidebarPagesSetting" class="side-nav-link">
                             <i class="ri-drag-move-fill"></i>
-                            <span> Terms & Condition </span>
+                            <span> Setting </span>
+                            <span class="menu-arrow"></span>
                         </a>
+                        <div class="collapse" id="sidebarPagesSetting">
+                            <ul class="side-nav-second-level">
+
+
+                                @can('site-setting')
+                                    <li>
+                                        <a href="{{route('site.setting')}}">Site Setting</a>
+                                    </li>
+                                @endcan
+
+                                @can('faq-list')
+                                    <li>
+                                        <a href="{{route('faq.section')}}">Faq</a>
+                                    </li>
+                                @endcan
+
+
+
+                                @can('terms-and-condition-list')
+                                    <li>
+                                        <a href="{{route('admin.termsAndCondition')}}">Terms & Condition</a>
+                                    </li>
+                                @endcan
+
+                            </ul>
+                        </div>
                     </li>
                 @endcan
 
-                @can('site-setting')
-                    <li class="side-nav-item">
-                        <a href="{{route('site.setting')}}" class="side-nav-link">
-                            <i class="ri-drag-move-fill"></i>
-                            <span> Site Setting </span>
-                        </a>
-                    </li>
-                @endcan
+
+
+
+
 
 
                 @can('role-and-permission-list')
