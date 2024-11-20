@@ -9,6 +9,7 @@ export default {
         packages: Array,
         products: Array,
         services: Array,
+        reviews: Array,
     },
     data() {
         return {
@@ -47,6 +48,13 @@ export default {
                 return 'frontend/images/file.jpg'; // Fallback image
             }
             return `${window.location.origin}/images/product/${productImagePath}`;
+        },
+
+        getReviewImageUrl(reviewImagePath) {
+            if (!reviewImagePath) {
+                return 'frontend/images/file.jpg'; // Fallback image
+            }
+            return `${window.location.origin}/images/client/${reviewImagePath}`;
         },
 
         selectCategory(categoryId) {
@@ -419,48 +427,13 @@ export default {
                 </div>
             </div>
             <marquee class="mt-5 row" scrollamount="5" loop="3" behavior="scroll" direction="left">
-                <div class="col-lg-4 text-center ">
+                <div v-for="reviewData in reviews"  :key="reviewData.id" class="col-lg-4 text-center ">
                     <div class="review-card">
-                        <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto"
-                             alt="">
-                        <p class="h6 text-secondary my-3 w-100">Some representative placeholder content for the three columns of text
-                            below the
-                            carousel. This is the first column.</p>
-                        <h2 class="fw-normal text-prmry">Chegs</h2>
-                        <p>CEO, Company, Inc.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-center ">
-                    <div class="review-card">
-
-                        <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto"
-                             alt="">
-                        <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text
-                            below the carousel. This is the first column.</p>
-                        <h2 class="fw-normal text-prmry">Trump</h2>
-                        <p>CEO, Company, Inc.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-center ">
-                    <div class="review-card">
-
-                        <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto"
-                             alt="">
-                        <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text
-                            below the carousel. This is the first column.</p>
-                        <h2 class="fw-normal text-prmry">Harish</h2>
-                        <p>CEO, Company, Inc.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-center ">
-                    <div class="review-card">
-
-                        <img src="frontend/images/shoot-me-now-linkedin-profile-picture.jpg" width="70px" class="mb-1 mx-auto"
-                             alt="">
-                        <p class="h6 text-secondary my-3">Some representative placeholder content for the three columns of text
-                            below the carousel. This is the first column.</p>
-                        <h2 class="fw-normal text-prmry">Biden</h2>
-                        <p>CEO, Company, Inc.</p>
+                        <img :src="getReviewImageUrl(reviewData.file)" width="70px" style="border-radius: 50%;" class="mb-1 mx-auto"
+                             alt="" >
+                        <p class="h6 text-secondary my-3 w-100" v-html="reviewData.message"></p>
+                        <h2 class="fw-normal text-prmry">{{ reviewData.name }}</h2>
+                        <p>{{ reviewData.designation }}</p>
                     </div>
                 </div>
             </marquee>
