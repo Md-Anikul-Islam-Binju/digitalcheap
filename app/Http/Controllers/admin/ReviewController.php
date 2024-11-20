@@ -35,6 +35,11 @@ class ReviewController extends Controller
             $clientReview->name = $request->name;
             $clientReview->designation = $request->designation;
             $clientReview->message = $request->message;
+            if ($request->file) {
+                $file = time() . '.' . $request->file->extension();
+                $request->file->move(public_path('images/client'), $file);
+                $clientReview->file = $file;
+            }
             $clientReview->save();
             Toastr::success('Review Added Successfully', 'Success');
             return redirect()->back();
@@ -54,6 +59,11 @@ class ReviewController extends Controller
             $clientReview->designation = $request->designation;
             $clientReview->message = $request->message;
             $clientReview->status = $request->status;
+            if ($request->file) {
+                $file = time() . '.' . $request->file->extension();
+                $request->file->move(public_path('images/client'), $file);
+                $clientReview->file = $file;
+            }
             $clientReview->save();
             Toastr::success('Review Updated Successfully', 'Success');
             return redirect()->back();

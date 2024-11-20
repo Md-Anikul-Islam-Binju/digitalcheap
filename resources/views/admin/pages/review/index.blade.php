@@ -30,6 +30,7 @@
                     <thead>
                     <tr>
                         <th>S/N</th>
+                        <th>Client Profile</th>
                         <th>Client Name</th>
                         <th>Designation</th>
                         <th>Message</th>
@@ -41,6 +42,9 @@
                     @foreach($clientReview as $key=>$reviewData)
                         <tr>
                             <td>{{$key+1}}</td>
+                            <td>
+                                <img src="{{asset('images/client/'. $reviewData->file )}}" alt="Current Image" style="max-width: 50px; border-radius: 50%;">
+                            </td>
                             <td>{{$reviewData->name}}</td>
                             <td>{{$reviewData->designation}}</td>
                             <td>{{$reviewData->message}}</td>
@@ -75,6 +79,15 @@
                                                                    class="form-control" placeholder="Enter Client Name" value="{{$reviewData->name}}">
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label for="example-fileinput" class="form-label">Profile</label>
+                                                            <input type="file" name="file" id="example-fileinput" class="form-control" >
+                                                            <img src="{{asset('images/client/'. $reviewData->file )}}" alt="File or  Image" class="mt-2" style="max-width: 50px;">
+                                                        </div>
+                                                    </div>
+
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label for="designation" class="form-label">Designation</label>
@@ -158,6 +171,13 @@
                                     <label for="designation" class="form-label">Designation</label>
                                     <input type="text" id="designation" name="designation"
                                            class="form-control" placeholder="Enter Designation">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="example-fileinput" class="form-label">Profile</label>
+                                    <input type="file" name="file" id="example-fileinput" class="form-control">
                                 </div>
                             </div>
 
