@@ -25,6 +25,7 @@ use App\Http\Controllers\admin\TermsAndConditionController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TermsConditionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePageController::class, 'frontend'])->name('home');
 Route::get('/about', [AboutController::class, 'about'])->name('about');
+Route::get('/terms-condition', [TermsConditionController::class, 'termsAndCondition'])->name('terms.condition');
 
 //Account Manage
 Route::get('/account-registration-for-user', [AccountManageController::class, 'showRegistrationFormForUser'])->name('account.registration.for.user');

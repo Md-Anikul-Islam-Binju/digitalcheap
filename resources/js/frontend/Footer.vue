@@ -23,10 +23,16 @@
                         <div class="useful-links">
                             <h5 class="footer-heading">Useful Links</h5>
                             <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">About</a></li>
+                                <li>
+                                    <Link href="/">Home</Link>
+                                </li>
+                                <li>
+                                    <Link href="/about">About</Link>
+                                </li>
                                 <li><a href="#">Services</a></li>
-                                <li><a href="#">Terms of Conditions</a></li>
+                                <li>
+                                    <Link href="/terms-condition">Terms of Conditions</Link>
+                                </li>
                             </ul>
                         </div>
                     </div>
