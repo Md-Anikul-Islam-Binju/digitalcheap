@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\CurrencyController;
 use App\Http\Controllers\admin\FaqController;
 
 use App\Http\Controllers\admin\PackageController;
+use App\Http\Controllers\admin\PartnerController;
 use App\Http\Controllers\admin\ProductController;
 
 use App\Http\Controllers\admin\ReviewController;
@@ -96,6 +97,12 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::post('/slider-store', [SliderController::class, 'store'])->name('slider.store');
     Route::put('/slider-update/{id}', [SliderController::class, 'update'])->name('slider.update');
     Route::get('/slider-delete/{id}', [SliderController::class, 'destroy'])->name('slider.destroy');
+
+    //Partner Section
+    Route::get('/partner-section', [PartnerController::class, 'index'])->name('partner.section');
+    Route::post('/partner-store', [PartnerController::class, 'store'])->name('partner.store');
+    Route::put('/partner-update/{id}', [PartnerController::class, 'update'])->name('partner.update');
+    Route::get('/partner-delete/{id}', [PartnerController::class, 'destroy'])->name('partner.destroy');
 
 
     //Slider Section

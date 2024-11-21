@@ -145,6 +145,12 @@
                                     <a href="{{route('review.section')}}">Review</a>
                                 </li>
                             @endcan
+
+                            @can('partner-list')
+                                <li>
+                                    <a href="{{route('partner.section')}}">Partner</a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>

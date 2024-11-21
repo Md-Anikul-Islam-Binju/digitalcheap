@@ -62,6 +62,12 @@ class PermissionTableSeeder extends Seeder
             'slider-edit',
             'slider-delete',
 
+            //For Partner
+            'partner-list',
+            'partner-create',
+            'partner-edit',
+            'partner-delete',
+
             //For service
             'service-list',
             'service-create',
