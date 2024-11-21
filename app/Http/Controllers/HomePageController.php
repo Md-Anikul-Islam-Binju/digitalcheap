@@ -7,6 +7,7 @@ use App\Models\Package;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\Service;
+use App\Models\SiteSetting;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,8 @@ class HomePageController extends Controller
         $products = Product::latest()->get();
         $services =  Service::where('status',1)->latest()->get();
         $reviews = Review::where('status',1)->latest()->get();
+        $siteSettings = SiteSetting::where('id', 1)->first();
         return inertia('Index',compact('sliders','categories','packages','products',
-            'services','reviews'));
+            'services','reviews','siteSettings'));
     }
 }

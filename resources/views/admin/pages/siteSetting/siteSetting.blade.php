@@ -127,6 +127,31 @@
                                         <label for="linkedin_link" class="form-label">Meta Description</label>
                                         <textarea class="form-control" name="meta_description" rows="5" placeholder="Enter the Description">{{ strip_tags($siteSettings?$siteSettings->details:'') }}</textarea>
                                     </div>
+
+
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label>How To Use</label>
+                                            <textarea id="summernoteEdit{{ $siteSettings ? $siteSettings->id : '' }}" name="how_to_use">{{ $siteSettings ? $siteSettings->how_to_use : '' }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label>How To Access</label>
+                                            <textarea id="summernoteEdit{{ $siteSettings ? $siteSettings->id : '' }}" name="how_to_access">{{ $siteSettings ? $siteSettings->how_to_access : '' }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="how_to_use_link" class="form-label">How To Use Youtube Link</label>
+                                        <input type="text" class="form-control" name="how_to_use_link" value="{{$siteSettings?$siteSettings->how_to_use_link:''}}"
+                                               placeholder="How To Use Youtube Link">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="how_to_access_link" class="form-label">How To Access Youtube Link</label>
+                                        <input type="text" class="form-control" name="how_to_access_link" value="{{$siteSettings?$siteSettings->how_to_access_link:''}}"
+                                               placeholder="How To Access Youtube Link">
+                                    </div>
+
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>

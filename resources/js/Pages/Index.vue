@@ -10,6 +10,7 @@ export default {
         products: Array,
         services: Array,
         reviews: Array,
+        siteSettings: Object
     },
     data() {
         return {
@@ -199,17 +200,17 @@ export default {
             <div class="row align-items-center mt-2">
                 <div class="col-12 col-md-6 text-center p-3 mt-3 mt-md-0">
                     <div class="use-card p-4 shadow-lg  rounded">
-                        <a class="my-video-links" data-autoplay="true" data-vbtype="video" href="https://youtu.be/yVYQeDhAQWk?si=WAFl70-J1PIF4AVa"><i class="fa-solid fa-circle-play"></i></a>
+                        <a class="my-video-links" data-autoplay="true" data-vbtype="video" :href="siteSettings.how_to_use_link"><i class="fa-solid fa-circle-play"></i></a>
                         <h3 class="fw-bold text-center mb-4">How to Use</h3>
-                        <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt natus illum omnis quam aut beatae quaerat fuga doloribus enim est.</p>
+                        <p class="text-muted" v-html="siteSettings.how_to_use"></p>
                         <a href="#" class="text-prmry more-btn">Learn More <i class="fas fa-arrow-right ri"></i></a>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 text-center mt-2 mt-md-0 p-3">
                     <div class="use-card p-4 shadow-lg  rounded">
-                        <a class="my-video-links" data-autoplay="true" data-vbtype="video" href="https://youtu.be/Ar7nVbjAsEw?si=N3v93yn4Zxd1Z0DO"><i class="fa-solid fa-circle-play"></i></a>
+                        <a class="my-video-links" data-autoplay="true" data-vbtype="video" :href="siteSettings.how_to_access_link"><i class="fa-solid fa-circle-play"></i></a>
                         <h3 class="fw-bold text-center mb-4">How to Access</h3>
-                        <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt natus illum omnis quam aut beatae quaerat fuga doloribus enim est.</p>
+                        <p class="text-muted" v-html="siteSettings.how_to_access"></p>
                         <a href="#" class="text-prmry more-btn">Learn More <i class="fas fa-arrow-right ri"></i></a>
                     </div>
                 </div>

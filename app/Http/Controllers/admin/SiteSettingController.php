@@ -47,6 +47,11 @@ class SiteSettingController extends Controller
             'linkedin_link' => 'nullable|url',
             'instagram_link' => 'nullable|url',
             'youtube_link' => 'nullable|url',
+
+            'how_to_use' => 'nullable',
+            'how_to_use_link' => 'nullable|url',
+            'how_to_access' => 'nullable',
+            'how_to_access_link' => 'nullable|url',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {

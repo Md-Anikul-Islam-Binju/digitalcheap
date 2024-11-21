@@ -165,13 +165,6 @@
                                     <input type="file" name="file" id="example-fileinput" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="icon" class="form-label">Icon</label>
-                                    <input type="text" id="icon" name="icon"
-                                           class="form-control" placeholder="Enter Icon" required>
-                                </div>
-                            </div>
                         </div>
 
 

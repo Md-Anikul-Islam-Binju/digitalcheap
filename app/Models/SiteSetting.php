@@ -25,5 +25,10 @@ class SiteSetting extends Model
         'linkedin_link',
         'instagram_link',
         'youtube_link',
+
+        'how_to_use',
+        'how_to_use_link',
+        'how_to_access',
+        'how_to_access_link',
     ];
 }
