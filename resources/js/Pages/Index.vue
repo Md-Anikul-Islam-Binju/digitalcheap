@@ -10,7 +10,8 @@ export default {
         products: Array,
         services: Array,
         reviews: Array,
-        siteSettings: Object
+        siteSettings: Object,
+        partner : Array,
     },
     data() {
         return {
@@ -56,6 +57,14 @@ export default {
                 return 'frontend/images/file.jpg'; // Fallback image
             }
             return `${window.location.origin}/images/client/${reviewImagePath}`;
+        },
+
+
+        getPartnerImageUrl(partnerImagePath) {
+            if (!partnerImagePath) {
+                return 'frontend/images/file.jpg'; // Fallback image
+            }
+            return `${window.location.origin}/images/partner/${partnerImagePath}`;
         },
 
         selectCategory(categoryId) {
@@ -179,13 +188,8 @@ export default {
                 <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Our Partner</h2>
                 <p class="fs-1 fw-medium text-center text-capitalize">Collaborating for Growth</p>
             </div>
-            <marquee behavior="scroll" direction="rtl">
-                <img src="frontend/images/ssl.png" alt="">
-                <img src="frontend/images/googlechrome.jpg" width="400px" alt="">
-                <img src="frontend/images/mozila firefox.png" width="300px" alt="">
-                <img src="frontend/images/digital.webp" width="500px" alt="">
-                <img src="frontend/images/Microsoft-Edge-Chromium-banner.png" width="300px" alt="">
-                <img src="frontend/images/ssl.png" alt="">
+            <marquee  behavior="scroll"  direction="rtl">
+               <img v-for="partnerData in partner"  :key="partnerData.id" :src="getPartnerImageUrl(partnerData.file)" alt="">
             </marquee>
         </div>
     </section>

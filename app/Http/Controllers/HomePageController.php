@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Package;
+use App\Models\Partner;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\Service;
@@ -22,7 +23,8 @@ class HomePageController extends Controller
         $services =  Service::where('status',1)->latest()->get();
         $reviews = Review::where('status',1)->latest()->get();
         $siteSettings = SiteSetting::where('id', 1)->first();
+        $partner = Partner::where('status',1)->latest()->get();
         return inertia('Index',compact('sliders','categories','packages','products',
-            'services','reviews','siteSettings'));
+            'services','reviews','siteSettings','partner'));
     }
 }
