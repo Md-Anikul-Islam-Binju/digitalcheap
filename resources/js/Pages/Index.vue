@@ -190,11 +190,11 @@ export default {
                 <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Our Partner</h2>
                 <p class="fs-1 fw-medium text-center text-capitalize">Collaborating for Growth</p>
             </div>
-            <div class="marquee">
+            <marquee class="mt-5 row" scrollamount="5" loop="3" behavior="scroll" direction="left">
                <span v-for="partnerData in partner"  :key="partnerData.id">
-                <img   :src="getPartnerImageUrl(partnerData.file)" alt="">
+                <img style="width: 250px;"  :src="getPartnerImageUrl(partnerData.file)" alt="">
                </span>
-            </div>
+            </marquee>
         </div>
     </section>
 
@@ -208,7 +208,7 @@ export default {
             <div class="row align-items-center mt-2">
                 <div class="col-12 col-md-6 text-center p-3 mt-3 mt-md-0">
                     <div class="use-card p-4 shadow-lg  rounded">
-                        <a class="my-video-links" data-autoplay="true" data-vbtype="video" :href="siteSettings.how_to_use_link"><i class="fa-solid fa-circle-play"></i></a>
+                        <a class="my-video-links" data-autoplay="true" data-vbtype="video" :href="siteSettings.how_to_use_link" target="_blank"><i class="fa-solid fa-circle-play"></i></a>
                         <h3 class="fw-bold text-center mb-4">How to Use</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_use"></p>
                         <a href="#" class="text-prmry more-btn">Learn More <i class="fas fa-arrow-right ri"></i></a>
@@ -426,7 +426,7 @@ export default {
         </div>
     </section>
 
-    <!-- customer review -->
+
     <section class="customer-review py-5">
         <div class="container">
             <div class="row">
@@ -436,18 +436,32 @@ export default {
                 </div>
             </div>
             <marquee class="mt-5 row" scrollamount="5" loop="3" behavior="scroll" direction="left">
-                <div v-for="reviewData in reviews"  :key="reviewData.id" class="col-lg-4 text-center ">
-                    <div class="review-card">
-                        <img :src="getReviewImageUrl(reviewData.file)" width="70px" style="border-radius: 50%;" class="mb-1 mx-auto"
-                             alt="" >
-                        <p class="h6 text-secondary my-3 w-100" v-html="reviewData.message"></p>
-                        <h2 class="fw-normal text-prmry">{{ reviewData.name }}</h2>
-                        <p>{{ reviewData.designation }}</p>
+                <div v-for="reviewData in reviews" :key="reviewData.id" class="col-lg-4 text-center">
+                    <div class="review-card p-4 mx-auto"
+                         style="max-width: 400px; height: 250px; border: 1px solid #ddd; border-radius: 10px;  display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <img :src="getReviewImageUrl(reviewData.file)"
+                             class="mb-3"
+                             style="border-radius: 50%; width: 80px; height: 80px; object-fit: cover;"
+                             alt="">
+                        <p class="text-secondary text-center mb-3"
+                           style="height: 80px; overflow: hidden; text-overflow: ellipsis; font-size: 16px; line-height: 1.4;"
+                           v-html="reviewData.message"></p>
+                        <div class="text-center">
+                            <h2 class="fw-medium text-success mb-1"
+                                style="font-size: 18px; line-height: 1.2;">
+                                {{ reviewData.name }}
+                            </h2>
+                            <p style="font-size: 14px; margin: 0; color: #666;">
+                                {{ reviewData.designation }}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </marquee>
         </div>
     </section>
+
+
 </template>
 
 <style scoped>
