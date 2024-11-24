@@ -172,7 +172,9 @@ export default {
             <div class="row mt-5">
                 <div  v-for="(servicesData, index) in services" :key="index" class="col-sm-6 col-lg-3">
                     <div class="featured-box px-md-4 text-center mb-4">
-                        <div class="featured-box-icon text-prmry display-5"><i class="fas fa-bullhorn"></i></div>
+                        <div class="featured-box-icon">
+                            <img src="frontend/images/why.jpg" class="mx-auto img-fluid object-fit-cover rounded" alt="">
+                        </div>
                         <h4 class="fw-600 mb-3">{{ servicesData.name }}</h4>
                         <p class="text-muted mb-0" style="line-height: 1.8;" v-html="servicesData.details"></p>
                     </div>
@@ -184,13 +186,15 @@ export default {
     <!-- our partner section -->
     <section class="our-partner py-5 d-flex justify-content-center">
         <div class="container">
-            <div class="section-title text-center mb-1">
+            <div class="section-title text-center mb-3">
                 <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Our Partner</h2>
                 <p class="fs-1 fw-medium text-center text-capitalize">Collaborating for Growth</p>
             </div>
-            <marquee  behavior="scroll"  direction="rtl">
-               <img v-for="partnerData in partner"  :key="partnerData.id" :src="getPartnerImageUrl(partnerData.file)" alt="">
-            </marquee>
+            <div class="marquee">
+               <span v-for="partnerData in partner"  :key="partnerData.id">
+                <img   :src="getPartnerImageUrl(partnerData.file)" alt="">
+               </span>
+            </div>
         </div>
     </section>
 

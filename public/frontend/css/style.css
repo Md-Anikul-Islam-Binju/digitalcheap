@@ -174,6 +174,10 @@ a {
   transition: var(--transition);
   margin-bottom: 10px;
 }
+.service-section .featured-box .featured-box-icon img {
+    width: 80px;
+    height: 80px;
+}
 .service-section .featured-box:hover {
   scale: 1.1;
 }
@@ -184,6 +188,31 @@ a {
   color: white;
   background: var(--logo-color);
   padding: 0 10px;
+}
+
+.our-partner .marquee span img{
+    width: 100%;
+}
+.marquee {
+    display: flex;
+    overflow: hidden;
+    gap: 30px !important;
+    align-items: center;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+    margin-top: 30px!important;
+}
+.marquee span {
+    margin-right: 20px !important;
+    width: 250px !important;
+}
+@keyframes marquee {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
 }
 
 /* product section */
