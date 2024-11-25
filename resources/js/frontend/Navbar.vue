@@ -42,14 +42,15 @@
                     </ul>
 
 
-
-                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-1 mt-lg-0">
+                    <div class="d-lg-flex col-lg-5 flex-wrap flex-lg-nowrap d-flex justify-content-lg-end align-items-center gap-2 mt-1 mt-lg-0">
                         <form role="search" class="form-width">
                             <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                         </form>
-                        <a class="btn btn-outline-success">Affiliate</a>
-                        <a class="btn btn-success">Live Chat</a>
-                        <div class="currency-width">
+                        <a class="btn btn-outline-success mt-2 mt-lg-0 ">Affiliate</a>
+
+                        <a class="btn btn-success mt-2 mt-lg-0">Live Chat</a>
+
+                        <div class="currency-width shadow-none">
                             <select class="form-select shadow-none rounded border-success" aria-label="Default select example">
                                 <option selected>USD</option>
                                 <option value="1">EUR</option>
