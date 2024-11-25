@@ -640,3 +640,51 @@ color: white;
   }
 }
 /* =================Responsive parts ends here================ */
+
+
+/* General alignment for flex container */
+.d-flex {
+    display: flex;
+    flex-wrap: nowrap; /* Keep items on the same line */
+    align-items: center; /* Center items vertically */
+    gap: 8px; /* Add small spacing between elements */
+}
+
+/* Handle smaller screens */
+@media screen and (max-width: 767px) {
+    .d-flex {
+        flex-wrap: nowrap; /* Force elements to stay on the same line */
+        justify-content: space-between; /* Spread items to fit available space */
+    }
+
+    .form-width {
+        flex: 1 1 auto; /* Allow the search input to grow */
+    }
+
+    .currency-width {
+        flex: 0 0 auto; /* Ensure dropdown doesn’t shrink */
+        margin-top: 0;
+        width: auto; /* Adjust width for better alignment */
+    }
+
+    .btn {
+        flex: 0 0 auto; /* Prevent buttons from stretching */
+    }
+}
+
+/* Handle very small screens (e.g., mobile) */
+@media screen and (max-width: 576px) {
+    .d-flex {
+        flex-wrap: wrap; /* Allow wrapping if space is too tight */
+        gap: 5px; /* Reduce gap for smaller devices */
+    }
+
+    .form-width {
+        width: 100%; /* Full width for the search bar */
+    }
+
+    .currency-width,
+    .btn {
+        width: auto; /* Adapt widths dynamically */
+    }
+}
