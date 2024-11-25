@@ -438,7 +438,7 @@ export default {
             <marquee class="mt-5 row" scrollamount="5" loop="3" behavior="scroll" direction="left">
                 <div v-for="reviewData in reviews" :key="reviewData.id" class="col-lg-4 text-center">
                     <div class="review-card p-4 mx-auto"
-                         style="max-width: 400px; height: 250px; border: 1px solid #ddd; border-radius: 10px;  display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                         >
                         <img :src="getReviewImageUrl(reviewData.file)"
                              class="mb-3"
                              style="border-radius: 50%; width: 80px; height: 80px; object-fit: cover;"
