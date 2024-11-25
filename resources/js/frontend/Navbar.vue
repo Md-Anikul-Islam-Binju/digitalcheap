@@ -34,11 +34,23 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                            <a class="nav-link" href="/login"  target="_blank">Login</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"  data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</a>
+
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Sign Up</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="/account-registration-for-user" target="_blank">User</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/account-registration-for-agent" target="_blank">Agent</a>
+                                </li>
+                            </ul>
                         </li>
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#"  data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</a>-->
+<!--                        </li>-->
                     </ul>
 
 
