@@ -358,11 +358,11 @@ a {
   background: var(--logo-color);
 }
 .pricingCard {
-  padding: 40px 24px;
-  background: #fff;
-  border-radius: 12px;
-  transition: all 0.3s ease-in-out;
-    min-height: 762.77px;
+    padding: 40px 24px;
+    background: #fff;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    height: 692px;
     position: relative;
 }
 .pricingCard:hover {
@@ -435,7 +435,6 @@ a {
   transition: all 0.3s ease-in-out;
 }
 .pricingCard a {
-  margin-top: 24px;
   border-radius: 20px;
   color: var(--logo-color);
   text-align: center;
@@ -449,24 +448,23 @@ a {
   transition: all 0.3s ease-in-out;
 }
 .pricingCard-footer {
-  display: flex;
-  justify-content: space-around;
-    position: absolute;
-    bottom: 50px;
-
+    display: flex;
+    justify-content: space-around;
+    margin-top: 24px;
 }
 .pricingCard-footer a:first-child{
 background: var(--logo-color);
 color: white;
-    margin-right: 70px;
 }
 .pricingCard ul {
-  list-style: none;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 20px;
+    list-style: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 370px;
+    margin-top: 20px;
+    overflow-y: auto;
 }
 .pricingCard ul li {
   color: #15294b;
@@ -584,6 +582,13 @@ color: white;
 }
 /* =================footer sections ends here================ */
 /* =================Responsive parts strats here================ */
+@media screen and (max-width: 576px) {
+    .pricingCard-footer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
 @media screen and (max-width: 767px) {
   /* header part */
   .form-width {
@@ -610,11 +615,9 @@ color: white;
   .pricingCard .pricingCard-body p {
     font-size: 14px;
   }
-  .pricingCard a {
-    font-size: 14px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-  }
+    .pricingCard a {
+        font-size: 14px;
+    }
 
   /* =================mobile device responsive parts ends here================ */
 }

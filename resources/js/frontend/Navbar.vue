@@ -41,6 +41,8 @@
                         </li>
                     </ul>
 
+
+
                     <div class="d-lg-flex col-lg-5 justify-content-lg-end align-items-center gap-2 mt-1 mt-lg-0">
                         <form role="search" class="form-width">
                             <input class="form-control" type="search" placeholder="Search" aria-label="Search" >
@@ -48,11 +50,13 @@
                         <a class="btn btn-outline-success mt-2 mt-lg-0 me-2 me-lg-0" >Affiliate</a>
 
                         <a class="btn btn-success mt-2 mt-lg-0">Live Chat</a>
-                        <select class="currency-selector shadow-none rounded border-success ">
-                            <option data-symbol="$" data-placeholder="0.00" selected>USD</option>
-                            <option data-symbol="€" data-placeholder="0.00">EUR</option>
-                            <option data-symbol="£" data-placeholder="0.00">INR</option>
-                        </select>
+                        <div  class="d-inline mt-2 mt-lg-0">
+                            <select class="currency-selector shadow-none rounded border-success">
+                                <option data-symbol="$" data-placeholder="0.00" selected>USD</option>
+                                <option data-symbol="€" data-placeholder="0.00">EUR</option>
+                                <option data-symbol="£" data-placeholder="0.00">INR</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
