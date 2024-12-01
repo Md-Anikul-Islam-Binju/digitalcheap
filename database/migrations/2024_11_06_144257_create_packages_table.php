@@ -16,9 +16,17 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories');
             $table->string('name');
             $table->string('package_type');
-            $table->string('package_duration');
-            $table->string('amount');
-            $table->string('discount_amount')->nullable();
+            $table->string('image')->nullable();
+
+            $table->string('month_package_amount');
+            $table->string('month_package_discount_amount')->nullable();
+
+            $table->string('half_year_package_amount');
+            $table->string('half_year_package_discount_amount')->nullable();
+
+            $table->string('yearly_package_amount');
+            $table->string('yearly_package_discount_amount')->nullable();
+
             $table->text('details')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

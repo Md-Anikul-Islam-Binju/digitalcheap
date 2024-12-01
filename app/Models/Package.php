@@ -12,9 +12,17 @@ class Package extends Model
         'category_id',
         'name',
         'package_type',
-        'package_duration',
-        'amount',
-        'discount_amount',
+        'image',
+
+        'month_package_amount',
+        'month_package_discount_amount',
+
+        'half_year_package_amount',
+        'half_year_package_discount_amount',
+
+        'yearly_package_amount',
+        'yearly_package_discount_amount',
+
         'details',
         'status',
     ];
@@ -28,4 +36,5 @@ class Package extends Model
     {
         return $this->hasMany(PackageProduct::class);
     }
+
 }

@@ -30,12 +30,13 @@ export default {
             return this.packages.filter((pkg) => {
                 const matchesCategory =
                     !this.selectedCategory || pkg.category_id === this.selectedCategory;
-                const matchesType = pkg.package_type === this.selectedType;
+                const matchesType = pkg.package_types.includes(this.selectedType);
 
                 return matchesCategory && matchesType;
             });
         },
     },
+
     methods:{
         getSliderUrl(sliderPath) {
             if (!sliderPath) {
@@ -70,7 +71,8 @@ export default {
         selectCategory(categoryId) {
             this.selectedCategory = categoryId;
         },
-    }
+    },
+
 }
 </script>
 
@@ -373,7 +375,8 @@ export default {
                         type="radio"
                         :value="type.value"
                         v-model="selectedType"
-                        :id="'type-' + index">
+                        :id="'type-' + index"
+                    />
                     <label class="form-check-label" :for="'type-' + index">{{ type.label }}</label>
                 </div>
             </div>
@@ -389,6 +392,7 @@ export default {
                 </li>
             </ul>
 
+            <!-- Displaying Packages -->
             <div class="row mt-4 mixitup-container">
                 <div v-for="pkg in filteredPackages" :key="pkg.id" class="col-md-6 col-lg-4 mb-4 mix">
                     <div class="pricingCard">
@@ -397,14 +401,14 @@ export default {
                             <p class="pricingCard-text" v-html="pkg.details"></p>
                         </div>
                         <div class="pricingCard-body text-left">
-                            <h2 id="free-price">${{ pkg.amount }}</h2>
-                            <p class="pricing-period">/ {{ pkg.package_type }}</p>
+                            <!-- Display the correct price based on selected type -->
+                            <h2 id="free-price">
+                                ${{ pkg.pricing[selectedType] }}
+                            </h2>
+                            <p class="pricing-period">/ {{ selectedType }}</p>
                         </div>
                         <ul>
-                            <li
-                                v-for="product in pkg.products"
-                                :key="product.id"
-                                class="d-flex align-items-center">
+                            <li v-for="product in pkg.products" :key="product.id" class="d-flex align-items-center">
                                 <img src="frontend/images/Correct.svg" alt="Correct Icon">
                                 {{ product.product }}
                             </li>
@@ -416,16 +420,8 @@ export default {
                     </div>
                 </div>
             </div>
-
-
-
-            <!-- More/Hide Button -->
-            <div class="text-center mt-4">
-                <button class="btn btn-success" id="toggle-btn">More</button>
-            </div>
         </div>
     </section>
-
 
     <section class="customer-review py-5">
         <div class="container">
@@ -460,7 +456,6 @@ export default {
             </marquee>
         </div>
     </section>
-
 
 </template>
 
