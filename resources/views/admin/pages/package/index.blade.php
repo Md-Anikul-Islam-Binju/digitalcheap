@@ -33,12 +33,9 @@
                         <th>S/N</th>
                         <th>Name</th>
                         <th>Category</th>
-                        <th>Package Type</th>
-                        <th>Package Duration</th>
-                        <th>Amount</th>
-                        <th>Downlode</th>
+                        <th>Package Type & Price</th>
                         <th>Product</th>
-                        <th>Discount Amount</th>
+
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -49,10 +46,26 @@
                             <td>{{$key+1}}</td>
                             <td>{{$packageData->name}}</td>
                             <td>{{$packageData->category->name}}</td>
-                            <td>{{$packageData->package_type}}</td>
-                            <td>{{$packageData->package_duration}}</td>
-                            <td>{{$packageData->amount? $packageData->amount :'N/A'}}</td>
-                            <td>Downlode</td>
+                            <td>
+                                @if (!empty($packageData->package_types))
+                                    <ul>
+                                        @foreach($packageData->package_types as $type)
+                                            <li>
+                                                {{ $type }}
+                                                @if($type == 'Monthly')
+                                                    -{{ number_format($packageData->month_package_amount, 2) }}
+                                                @elseif($type == 'Half Yearly')
+                                                    -{{ number_format($packageData->half_year_package_amount, 2) }}
+                                                @elseif($type == 'Yearly')
+                                                    -{{ number_format($packageData->yearly_package_amount, 2) }}
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    No Package Type
+                                @endif
+                            </td>
                             <td>
                                 @if ($packageData->products->isNotEmpty())
                                     <ul>
@@ -64,7 +77,6 @@
                                     No Products
                                 @endif
                             </td>
-                            <td>{{$packageData->discount_amount? $packageData->discount_amount :'N/A'}}</td>
                             <td>{{$packageData->status==1? 'Active':'Inactive'}}</td>
                             <td style="width: 100px;">
                                 <div class="d-flex justify-content-end gap-1">
@@ -85,7 +97,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form method="post" action="{{route('package.update',$packageData->id)}}">
+                                            <form method="post" action="{{route('package.update',$packageData->id)}}" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="row">
@@ -110,21 +122,34 @@
                                                         </div>
                                                     </div>
 
+
                                                     <div class="col-6">
                                                         <div class="mb-3">
                                                             <label for="example-select" class="form-label">Package Type</label>
-                                                            <select name="package_type" class="form-select">
-                                                                <option value="Monthly" {{ $packageData->package_type === "Monthly" ? 'selected' : '' }}>Monthly</option>
-                                                                <option value="Half Yearly" {{ $packageData->package_type === "Half Yearly" ? 'selected' : '' }}>Half Yearly</option>
-                                                                <option value="Yearly" {{ $packageData->package_type === "Yearly" ? 'selected' : '' }}>Yearly</option>
+                                                            <select name="package_type[]" class="select2 form-control select2-multiple" multiple="multiple" data-toggle="select2">
+                                                                <option value="Monthly"
+                                                                    {{ in_array('Monthly', $packageData->package_types ?? []) ? 'selected' : '' }}>
+                                                                    Monthly
+                                                                </option>
+                                                                <option value="Half Yearly"
+                                                                    {{ in_array('Half Yearly', $packageData->package_types ?? []) ? 'selected' : '' }}>
+                                                                    Half Yearly
+                                                                </option>
+                                                                <option value="Yearly"
+                                                                    {{ in_array('Yearly', $packageData->package_types ?? []) ? 'selected' : '' }}>
+                                                                    Yearly
+                                                                </option>
                                                             </select>
                                                         </div>
                                                     </div>
+
+
+
                                                     <div class="col-6">
                                                         <div class="mb-3">
-                                                            <label for="example-fileinput" class="form-label">Package Duration</label>
-                                                            <input type="text" name="package_duration" id="package_duration" class="form-control" value="{{$packageData->package_duration}}"
-                                                                   placeholder="Enter Package Duration" required>
+                                                            <label for="example-fileinput" class="form-label">Image</label>
+                                                            <input type="file" name="image" id="example-fileinput" class="form-control" >
+                                                            <img src="{{asset('images/package/'. $packageData->image )}}" alt="File or  Image" class="mt-2" style="max-width: 50px;">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -132,18 +157,55 @@
 
                                                     <div class="col-6">
                                                         <div class="mb-3">
-                                                            <label for="example-fileinput" class="form-label">Amount</label>
-                                                            <input type="text" name="amount" id="amount" class="form-control" value="{{$packageData->amount}}"
+                                                            <label for="example-fileinput" class="form-label">Monthly Amount</label>
+                                                            <input type="text" name="month_package_amount" class="form-control" value="{{$packageData->month_package_amount}}"
                                                                    placeholder="Enter Amount" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="mb-3">
-                                                            <label for="example-fileinput" class="form-label">Discount Amount</label>
-                                                            <input type="text" id="discount_amount" name="discount_amount" value="{{$packageData->discount_amount}}"
+                                                            <label for="example-fileinput" class="form-label">Monthly Discount Amount</label>
+                                                            <input type="text" name="month_package_discount_amount" value="{{$packageData->month_package_discount_amount}}"
                                                                    class="form-control" placeholder="Enter Discount Amount">
                                                         </div>
                                                     </div>
+
+
+                                                    <div class="col-6">
+                                                        <div class="mb-3">
+                                                            <label for="example-fileinput" class="form-label">Half Year Amount</label>
+                                                            <input type="text" name="half_year_package_amount" class="form-control" value="{{$packageData->half_year_package_amount}}"
+                                                                   placeholder="Enter Amount" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mb-3">
+                                                            <label for="example-fileinput" class="form-label">Half Year Discount Amount</label>
+                                                            <input type="text" name="half_year_package_discount_amount" value="{{$packageData->half_year_package_discount_amount}}"
+                                                                   class="form-control" placeholder="Enter Discount Amount">
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-6">
+                                                        <div class="mb-3">
+                                                            <label for="example-fileinput" class="form-label">Yearly Amount</label>
+                                                            <input type="text" name="yearly_package_amount" class="form-control" value="{{$packageData->yearly_package_amount}}"
+                                                                   placeholder="Enter Amount" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mb-3">
+                                                            <label for="example-fileinput" class="form-label">Yearly Discount Amount</label>
+                                                            <input type="text" name="yearly_package_discount_amount" value="{{$packageData->yearly_package_discount_amount}}"
+                                                                   class="form-control" placeholder="Enter Discount Amount">
+                                                        </div>
+                                                    </div>
+
+
+
+
                                                     <div class="col-6">
                                                         <div class="mb-3">
                                                             <label for="example-select" class="form-label">Status</label>
@@ -250,7 +312,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label">Package Type</label>
-                                    <select name="package_type" class="form-select">
+                                    <select name="package_type[]" class="select2 form-control select2-multiple" multiple="multiple" data-toggle="select2">
                                         <option value="Monthly">Monthly</option>
                                         <option value="Half Yearly">Half Yearly</option>
                                         <option value="Yearly">Yearly</option>
@@ -259,26 +321,59 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="example-fileinput" class="form-label">Package Duration</label>
-                                    <input type="text" name="package_duration" id="package_duration" class="form-control"
-                                           placeholder="Enter Package Duration" required>
+                                    <label for="example-fileinput" class="form-label">Image</label>
+                                    <input type="file" name="image" id="example-fileinput" class="form-control">
                                 </div>
                             </div>
+
 
                         </div>
                         <div class="row">
 
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="example-fileinput" class="form-label">Amount</label>
-                                    <input type="text" name="amount" id="amount" class="form-control"
+                                    <label for="example-fileinput" class="form-label">Monthly Amount</label>
+                                    <input type="text" name="month_package_amount" class="form-control"
                                            placeholder="Enter Amount" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="example-fileinput" class="form-label">Discount Amount</label>
-                                    <input type="text" id="discount_amount" name="discount_amount"
+                                    <label for="example-fileinput" class="form-label">Monthly Discount Amount</label>
+                                    <input type="text" name="month_package_discount_amount"
+                                           class="form-control" placeholder="Enter Discount Amount">
+                                </div>
+                            </div>
+
+
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="example-fileinput" class="form-label">Half Year Amount</label>
+                                    <input type="text" name="half_year_package_amount" class="form-control"
+                                           placeholder="Enter Amount" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="example-fileinput" class="form-label">Half Year Discount Amount</label>
+                                    <input type="text" name="half_year_package_discount_amount"
+                                           class="form-control" placeholder="Enter Discount Amount">
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="example-fileinput" class="form-label">Yearly Amount</label>
+                                    <input type="text" name="yearly_package_amount" class="form-control"
+                                           placeholder="Enter Amount" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="example-fileinput" class="form-label">Yearly Discount Amount</label>
+                                    <input type="text" name="yearly_package_discount_amount"
                                            class="form-control" placeholder="Enter Discount Amount">
                                 </div>
                             </div>

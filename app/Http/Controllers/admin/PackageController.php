@@ -25,8 +25,18 @@ class PackageController extends Controller
     }
     public function index()
     {
-        $package = Package::with('category','products')->latest()->get();
+
         $categories = Category::all();
+        $package = Package::with('category','products')->latest()->get();
+        foreach ($package as $packageData) {
+            $packageInfo = json_decode($packageData->package_type);
+            if (is_array($packageInfo)) {
+                $selectedPackageTypes = $packageInfo;
+                $packageData->package_types = $selectedPackageTypes;
+            } else {
+                $packageData->package_types = [];
+            }
+        }
         return view('admin.pages.package.index', compact('package', 'categories'));
     }
     public function store(Request $request)
@@ -35,18 +45,25 @@ class PackageController extends Controller
             $request->validate([
                 'name' => 'required',
                 'package_type' => 'required',
-                'package_duration' => 'required',
-                'product' => 'required|array', // Ensure products are provided as an array
-                'product.*' => 'string|max:255', // Each product name should be a valid string
+                'product' => 'required|array',
+                'product.*' => 'string|max:255',
             ]);
             $package = new Package();
+            if ($request->image) {
+                $file = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('images/package'), $file);
+                $package->image = $file;
+            }
             $package->category_id = $request->category_id;
             $package->name = $request->name;
-            $package->package_type = $request->package_type;
-            $package->package_duration = $request->package_duration;
+            $package->package_type = json_encode($request->package_type);
             $package->details = $request->details;
-            $package->amount = $request->amount;
-            $package->discount_amount = $request->discount_amount;
+            $package->month_package_amount = $request->month_package_amount;
+            $package->month_package_discount_amount = $request->month_package_discount_amount;
+            $package->half_year_package_amount = $request->half_year_package_amount;
+            $package->half_year_package_discount_amount = $request->half_year_package_discount_amount;
+            $package->yearly_package_amount = $request->yearly_package_amount;
+            $package->yearly_package_discount_amount = $request->yearly_package_discount_amount;
             $package->save();
 
             // Save the associated products
@@ -71,10 +88,6 @@ class PackageController extends Controller
             $request->validate([
                 'name' => 'required|string|max:255',
                 'category_id' => 'required|exists:categories,id',
-                'package_type' => 'required|string|max:50',
-                'package_duration' => 'required|string|max:50',
-                'amount' => 'nullable|numeric',
-                'discount_amount' => 'nullable|numeric',
                 'status' => 'required|boolean',
                 'products_json' => 'required|string', // Ensure the JSON field is present and valid
             ]);
@@ -90,12 +103,20 @@ class PackageController extends Controller
             $package = Package::findOrFail($id);
             $package->category_id = $request->category_id;
             $package->name = $request->name;
-            $package->package_type = $request->package_type;
-            $package->package_duration = $request->package_duration;
+            $package->package_type = json_encode($request->package_type);
             $package->details = $request->details;
-            $package->amount = $request->amount;
-            $package->discount_amount = $request->discount_amount;
+            $package->month_package_amount = $request->month_package_amount;
+            $package->month_package_discount_amount = $request->month_package_discount_amount;
+            $package->half_year_package_amount = $request->half_year_package_amount;
+            $package->half_year_package_discount_amount = $request->half_year_package_discount_amount;
+            $package->yearly_package_amount = $request->yearly_package_amount;
+            $package->yearly_package_discount_amount = $request->yearly_package_discount_amount;
             $package->status = $request->status;
+            if ($request->image) {
+                $file = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('images/package'), $file);
+                $package->image = $file;
+            }
             $package->save();
 
             // Update associated products
