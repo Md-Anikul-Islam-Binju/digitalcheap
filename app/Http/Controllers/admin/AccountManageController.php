@@ -36,6 +36,8 @@ class AccountManageController extends Controller
             'password' => 'required',
         ]);
 
+        //dd($request->all());
+
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $verificationCode = rand(100000, 999999);

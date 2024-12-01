@@ -36,6 +36,7 @@
                         <th>Package Type</th>
                         <th>Package Duration</th>
                         <th>Amount</th>
+                        <th>Downlode</th>
                         <th>Product</th>
                         <th>Discount Amount</th>
                         <th>Status</th>
@@ -51,6 +52,7 @@
                             <td>{{$packageData->package_type}}</td>
                             <td>{{$packageData->package_duration}}</td>
                             <td>{{$packageData->amount? $packageData->amount :'N/A'}}</td>
+                            <td>Downlode</td>
                             <td>
                                 @if ($packageData->products->isNotEmpty())
                                     <ul>
