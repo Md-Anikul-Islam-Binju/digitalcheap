@@ -8,13 +8,14 @@ export default {
 
 <template>
     <title>Terms & Condition</title>
+    <br><br>
     <section class="py-8">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-12 col-12">
                     <!-- text center -->
                     <div class="text-center">
-                        <h1 class="display-3 fw-bold">Terms & Conditions</h1>
+                        <h4 class="display-4 fw-bold">Terms & Conditions</h4>
                         <p class="lead px-8">Read our terms below to learn more about your rights and responsibilities as a Product Name user.</p>
                     </div>
                 </div>
@@ -120,6 +121,7 @@ export default {
             </div>
         </div>
     </section>
+    <br><br>
 
 </template>
 

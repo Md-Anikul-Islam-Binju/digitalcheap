@@ -29,7 +29,9 @@
                                 <li>
                                     <Link href="/about">About</Link>
                                 </li>
-                                <li><a href="#">Services</a></li>
+                                <li>
+                                    <Link href="/blog">Blog</Link>
+                                </li>
                                 <li>
                                     <Link href="/terms-condition">Terms of Conditions</Link>
                                 </li>

@@ -23,6 +23,7 @@ use App\Http\Controllers\admin\SliderController;
 
 use App\Http\Controllers\admin\TermsAndConditionController;
 
+use App\Http\Controllers\BlogSectionController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -48,6 +49,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePageController::class, 'frontend'])->name('home');
 Route::get('/about', [AboutController::class, 'about'])->name('about');
+Route::get('/blog', [BlogSectionController::class, 'blog'])->name('blog');
 Route::get('/terms-condition', [TermsConditionController::class, 'termsAndCondition'])->name('terms.condition');
 
 //Account Manage
