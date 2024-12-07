@@ -1,4 +1,5 @@
 <template>
+    <title>Blog</title>
     <section class="blog-section py-5">
         <div class="container">
             <div class="section-title text-center mb-1">

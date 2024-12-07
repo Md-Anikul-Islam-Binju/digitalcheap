@@ -13,6 +13,7 @@ class ProductManageController extends Controller
     {
         $product = Product::where('id',$id)->first();
         $siteSettings = SiteSetting::latest()->first();
-        return inertia('ProductDetails', compact('product','siteSettings'));
+        $allProduct = Product::latest()->get();
+        return inertia('ProductDetails', compact('product','siteSettings','allProduct'));
     }
 }
