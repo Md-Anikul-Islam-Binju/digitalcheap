@@ -5,11 +5,7 @@
                 <div class="row">
                     <div class="col-md-5">
                         <a href="/" class="footer-logo">
-                            <img
-                                src="frontend/images/logo.jpg"
-                                alt="logo"
-                                class="img-fluid w-50"
-                            />
+                            <img :src="getLogoUrl(siteSettings?.logo)" alt="" style="height: 60px;">
                         </a>
                         <div class="footer-desc">ShoroBorno is a Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto enim explicabo voluptatem ea dolorem debitis to thrive in today’s digital age.</div>
                         <div class="social-icons">
@@ -73,6 +69,18 @@
 <script>
 export default {
     name: "Footer",
+    props:{
+        siteSettings:Object
+    },
+    methods:{
+        getLogoUrl(logoPath) {
+            if (!logoPath) {
+                return 'default-logo.png';
+            }
+            return `${window.location.origin}/${logoPath}`;
+        },
+
+    }
 }
 </script>
 <style scoped>

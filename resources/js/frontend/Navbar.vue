@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="d-flex d-lg-none align-items-center justify-content-between w-100">
                     <Link class="navbar-brand d-inline d-lg-none" href="/">
-                        <img src="frontend/images/logo.jpg" class="" width="100" alt="logo">
+                        <img :src="getLogoUrl(siteSettings?.logo)" alt="">
                     </Link>
                     <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11"
                             aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
 
                 <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
                     <a class="navbar-brand col-lg-2 me-0 mt-2 mt-lg-0 d-none d-lg-block" href="/">
-                        <img src="frontend/images/logo.jpg" class="w-100 h-auto" alt="" />
+                        <img :src="getLogoUrl(siteSettings?.logo)" alt="" style="height: 60px;">
                     </a>
                     <ul class="navbar-nav col-lg-5 justify-content-lg-center">
                         <li class="nav-item">
@@ -70,6 +70,18 @@
 <script>
 export default {
     name: "Navbar",
+    props: {
+        siteSettings: Object,
+    },
+    methods:{
+        getLogoUrl(logoPath) {
+            if (!logoPath) {
+                return 'default-logo.png';
+            }
+            return `${window.location.origin}/${logoPath}`;
+        },
+
+    }
 }
 </script>
 <style scoped>

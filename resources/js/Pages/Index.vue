@@ -327,7 +327,9 @@ export default {
                         <span v-if="product.discount" class="discount">
                             {{ product.discount }}% off
                         </span>
-                            <img :src="getProductImageUrl(product.file)" alt="Product Image">
+                            <Link class="d-inline-block" :href="`/product-details/${product.id}`">
+                                <img :src="getProductImageUrl(product.file)" alt="Product Image">
+                            </Link>
                             <div class="d-flex gap-3">
                                 <a
                                     href="#"

@@ -2,6 +2,10 @@
 import Layout from "../frontend/Layout.vue";
 export default {
     name: "About",
+    props:{
+        siteSettings:Object
+    },
+
     layout: Layout
 }
 </script>

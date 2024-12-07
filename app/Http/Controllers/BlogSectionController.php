@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
 class BlogSectionController extends Controller
 {
     public function blog()
     {
-        return inertia('Blog');
+        $siteSettings = SiteSetting::latest()->first();
+        return inertia('Blog',compact('siteSettings'));
     }
 }

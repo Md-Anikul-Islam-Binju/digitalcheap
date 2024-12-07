@@ -25,6 +25,7 @@ use App\Http\Controllers\admin\TermsAndConditionController;
 
 use App\Http\Controllers\BlogSectionController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\ProductManageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TermsConditionController;
@@ -56,6 +57,10 @@ Route::get('/terms-condition', [TermsConditionController::class, 'termsAndCondit
 //Account Manage
 Route::get('/account-registration-for-user', [AccountManageController::class, 'showRegistrationFormForUser'])->name('account.registration.for.user');
 Route::get('/account-registration-for-agent', [AccountManageController::class, 'showRegistrationFormForAgent'])->name('account.registration.for.agent');
+
+
+//product
+Route::get('/product-details/{id}', [ProductManageController::class, 'productDetails']);
 
 //user Add to cart
 Route::post('/cart/add', [CartController::class, 'productAddToCart']);
