@@ -1,5 +1,8 @@
 <script>
 import Layout from "../frontend/Layout.vue";
+import Swal from "sweetalert2";
+
+
 export default {
     name: "Index",
     layout: Layout,
@@ -72,23 +75,76 @@ export default {
             this.selectedCategory = categoryId;
         },
 
-        addToCart(product, cartType) {
+        // addToCart(product, cartType) {
+        //     const data = {
+        //         product_id: product.id,
+        //         name: product.name,
+        //         price: cartType === 'buy' ? product.discount_amount || product.amount : 0.00,
+        //         cart_type: cartType,
+        //     };
+        //
+        //     // Directly use the hardcoded route
+        //     this.$inertia.post('/cart/add', data)
+        //         .then(() => {
+        //             alert('Product added to cart successfully!');
+        //         })
+        //         .catch((error) => {
+        //             alert(error.response.data.message || 'Failed to add product to cart.');
+        //         });
+        // }
+
+        // Add to cart functionality
+        addToCart(event, product, cartType) {
+            event.preventDefault(); // Prevent link navigation or page reload
+
+            // Prepare the data to send
             const data = {
                 product_id: product.id,
                 name: product.name,
-                price: cartType === 'buy' ? product.discount_amount || product.amount : 0.00, // Explicitly set price to 0.00 for free trials
+                price: cartType === "buy" ? product.discount_amount || product.amount : 0.0,
                 cart_type: cartType,
             };
 
-            // Directly use the hardcoded route
-            this.$inertia.post('/cart/add', data)
-                .then(() => {
-                    alert('Product added to cart successfully!');
+            // Send the request to the backend
+            axios.post('/cart/add', data)
+                .then((response) => {
+                    // Show success SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.data.message || 'Product added to cart successfully!',
+                        confirmButtonText: 'OK',
+                    });
                 })
                 .catch((error) => {
-                    alert(error.response.data.message || 'Failed to add product to cart.');
+                    if (error.response && error.response.status === 409) {
+                        // Handle duplicate product in the cart
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning!',
+                            text: 'This product is already in your cart.',
+                            confirmButtonText: 'OK',
+                        });
+                    } else if (error.response && error.response.status === 401) {
+                        // Handle unauthenticated user
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Please Login',
+                            text: 'You need to log in to add products to your cart.',
+                            confirmButtonText: 'OK',
+                        });
+                        window.location.href = '/login'; // Redirect to login page
+                    } else {
+                        console.error("Error adding product to cart:", error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'An unexpected error occurred.',
+                            confirmButtonText: 'OK',
+                        });
+                    }
                 });
-        }
+        },
 
 
     },
@@ -249,11 +305,15 @@ export default {
     </section>
 
     <!-- Our product section -->
-    <section class="section-products py-5">
+    <div class="section-products py-5">
         <div class="container">
             <div class="section-title text-center mb-1">
-                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Our Product</h2>
-                <p class="fs-1 fw-medium text-center text-capitalize">Quality You Can Rely On</p>
+                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">
+                    Our Product
+                </h2>
+                <p class="fs-1 fw-medium text-center text-capitalize">
+                    Quality You Can Rely On
+                </p>
             </div>
             <div class="row mt-5">
                 <!-- Dynamic Products -->
@@ -264,30 +324,33 @@ export default {
                 >
                     <div :id="'product-' + product.id" class="single-product">
                         <div class="part-1">
-                            <span v-if="product.discount" class="discount">{{ product.discount }}% off</span>
-                            <img :src="getProductImageUrl(product.file)" class="" alt="">
-
-
-                            <div>
-                                <button
-                                    class="btn btn-primary"
-                                    @click="addToCart(product, 'buy')"
+                        <span v-if="product.discount" class="discount">
+                            {{ product.discount }}% off
+                        </span>
+                            <img :src="getProductImageUrl(product.file)" alt="Product Image">
+                            <div class="d-flex gap-3">
+                                <a
+                                    href="#"
+                                    @click="addToCart($event, product, 'buy')"
+                                    style="cursor: pointer"
                                 >
-                                    Buy Now
-                                </button>
-                                <button
-                                    class="btn btn-secondary"
-                                    @click="addToCart(product, 'free')"
+                                    Buy Now<i class="fas fa-shopping-cart"></i>
+                                </a>
+                                <a
+                                    href="#"
+                                    @click="addToCart($event, product, 'free')"
+                                    style="cursor: pointer"
                                 >
-                                    Free Trial
-                                </button>
+                                    Free Trial <i class="fa-solid fa-gift"></i>
+                                </a>
                             </div>
-
                         </div>
 
                         <div class="part-2" v-if="product.discount_amount">
                             <h3 class="product-title">{{ product.name }}</h3>
-                            <h4 class="product-old-price text-decoration-line-through">${{ product.amount }}</h4>
+                            <h4 class="product-old-price text-decoration-line-through">
+                                ${{ product.amount }}
+                            </h4>
                             <h4 class="product-price">${{ product.discount_amount }}</h4>
                         </div>
 
@@ -295,12 +358,13 @@ export default {
                             <h3 class="product-title">{{ product.name }}</h3>
                             <h4 class="product-price">${{ product.amount }}</h4>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+
 
     <!-- Best Seller Section -->
     <section class="best-seller py-5 section-products">

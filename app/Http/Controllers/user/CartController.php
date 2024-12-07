@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+
     public function productAddToCart(Request $request)
     {
-
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'name' => 'required|string',
@@ -20,10 +20,10 @@ class CartController extends Controller
 
         $cart = session()->get('cart', []);
 
-        // Check if product already exists
+        // Check if the product already exists in the cart
         foreach ($cart as $item) {
             if ($item['product_id'] == $request->product_id && $item['cart_type'] == $request->cart_type) {
-                return response()->json(['message' => 'Product is already in the cart'], 400);
+                return response()->json(['message' => 'Product is already in the cart'], 409);
             }
         }
 
@@ -36,8 +36,12 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
 
-        return response()->json(['message' => 'Product added to cart successfully', 'cart' => $cart]);
+        return response()->json(['message' => 'Product added to cart successfully', 'cart' => $cart], 200);
     }
+
+
+
+
 
     public function showProductCart()
     {
