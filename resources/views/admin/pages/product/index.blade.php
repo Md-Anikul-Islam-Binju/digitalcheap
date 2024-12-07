@@ -33,6 +33,7 @@
                         <th>Image</th>
                         <th>Name</th>
                         <th>Amount</th>
+                        <th>Downlode</th>
                         <th>Discount Amount</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -47,6 +48,7 @@
                             </td>
                             <td>{{$productData->name}}</td>
                             <td>{{$productData->amount? $productData->amount :'N/A'}}</td>
+                            <td>Downlode</td>
                             <td>{{$productData->discount_amount? $productData->discount_amount :'N/A'}}</td>
                             <td>{{$productData->status==1? 'Active':'Inactive'}}</td>
                             <td style="width: 100px;">

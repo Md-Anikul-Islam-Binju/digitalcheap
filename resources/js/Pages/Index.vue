@@ -71,6 +71,26 @@ export default {
         selectCategory(categoryId) {
             this.selectedCategory = categoryId;
         },
+
+        addToCart(product, cartType) {
+            const data = {
+                product_id: product.id,
+                name: product.name,
+                price: cartType === 'buy' ? product.discount_amount || product.amount : 0.00, // Explicitly set price to 0.00 for free trials
+                cart_type: cartType,
+            };
+
+            // Directly use the hardcoded route
+            this.$inertia.post('/cart/add', data)
+                .then(() => {
+                    alert('Product added to cart successfully!');
+                })
+                .catch((error) => {
+                    alert(error.response.data.message || 'Failed to add product to cart.');
+                });
+        }
+
+
     },
 
 }
@@ -246,9 +266,23 @@ export default {
                         <div class="part-1">
                             <span v-if="product.discount" class="discount">{{ product.discount }}% off</span>
                             <img :src="getProductImageUrl(product.file)" class="" alt="">
+
+
                             <div>
-                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
+                                <button
+                                    class="btn btn-primary"
+                                    @click="addToCart(product, 'buy')"
+                                >
+                                    Buy Now
+                                </button>
+                                <button
+                                    class="btn btn-secondary"
+                                    @click="addToCart(product, 'free')"
+                                >
+                                    Free Trial
+                                </button>
                             </div>
+
                         </div>
 
                         <div class="part-2" v-if="product.discount_amount">
