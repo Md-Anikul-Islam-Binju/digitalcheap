@@ -27,6 +27,7 @@ class SliderController extends Controller
     }
     public function store(Request $request)
     {
+        dd($request->all());
         try {
             $request->validate([
                 'title' => 'required',
@@ -88,4 +89,6 @@ class SliderController extends Controller
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
+
+
 }

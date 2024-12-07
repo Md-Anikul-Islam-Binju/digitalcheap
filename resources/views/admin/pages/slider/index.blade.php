@@ -157,7 +157,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{route('slider.store')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('slider.store')}}" enctype="multipart/form-data" id="more_info_add">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -195,6 +195,7 @@
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

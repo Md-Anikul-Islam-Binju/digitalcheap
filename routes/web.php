@@ -98,6 +98,8 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::put('/slider-update/{id}', [SliderController::class, 'update'])->name('slider.update');
     Route::get('/slider-delete/{id}', [SliderController::class, 'destroy'])->name('slider.destroy');
 
+
+
     //Partner Section
     Route::get('/partner-section', [PartnerController::class, 'index'])->name('partner.section');
     Route::post('/partner-store', [PartnerController::class, 'store'])->name('partner.store');
