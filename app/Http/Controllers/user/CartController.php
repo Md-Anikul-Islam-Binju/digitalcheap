@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
 
@@ -45,8 +46,9 @@ class CartController extends Controller
 
     public function showProductCart()
     {
+        $siteSettings = SiteSetting::where('id', 1)->first();
         $cart = session('cart', []);
-        dd($cart);
-        return inertia('Cart', ['cart' => $cart]);
+        //dd($cart);
+        return inertia('Cart', compact('cart', 'siteSettings'));
     }
 }
