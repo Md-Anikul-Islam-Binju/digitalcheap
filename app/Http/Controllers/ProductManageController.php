@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class ProductManageController extends Controller
 {
+
+    public function products()
+    {
+        $product = Product::latest()->get();
+        $siteSettings = SiteSetting::latest()->first();
+        return inertia('Products', compact('product','siteSettings'));
+    }
+
+
     public function productDetails($id)
     {
         $product = Product::where('id',$id)->first();
@@ -16,4 +25,7 @@ class ProductManageController extends Controller
         $allProduct = Product::latest()->get();
         return inertia('ProductDetails', compact('product','siteSettings','allProduct'));
     }
+
+
+
 }

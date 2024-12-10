@@ -60,6 +60,7 @@ Route::get('/account-registration-for-agent', [AccountManageController::class, '
 
 
 //product
+Route::get('/products', [ProductManageController::class, 'products']);
 Route::get('/product-details/{id}', [ProductManageController::class, 'productDetails']);
 
 //user Add to cart
