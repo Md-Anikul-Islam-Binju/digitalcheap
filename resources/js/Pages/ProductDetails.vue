@@ -86,7 +86,7 @@ export default {
             </div>
             <!-- accordion part -->
             <div class="accordion mt-5" id="accordionExample">
-                <div class="accordion-item ">
+                <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button fw-bold shadow-none" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -96,24 +96,28 @@ export default {
                     <div id="collapseOne" class="accordion-collapse collapse show"
                          data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <p class="mb-4 w-75">
-                            <h3 class="mb-4">Our Services</h3>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-                            nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
-                            eligendi voluptates, illo totam tempore nesciunt.</p>
-                            <p class="mb-4 w-75">
-                            <h3 class="mb-4">How to Purchase a Package?</h3>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-                            nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
-                            eligendi voluptates, illo totam tempore nesciunt.</p>
-                            <p class="mb-4 w-75">
-                            <h3 class="mb-4">How to Get an Account?</h3>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-                            nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
-                            eligendi voluptates, illo totam tempore nesciunt.</p>
+                            <div class="mb-4 w-75">
+                                <h3 class="mb-4">Our Services</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+                                    nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
+                                    eligendi voluptates, illo totam tempore nesciunt.</p>
+                            </div>
+                            <div class="mb-4 w-75">
+                                <h3 class="mb-4">How to Purchase a Package?</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+                                    nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
+                                    eligendi voluptates, illo totam tempore nesciunt.</p>
+                            </div>
+                            <div class="mb-4 w-75">
+                                <h3 class="mb-4">How to Get an Account?</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+                                    nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
+                                    eligendi voluptates, illo totam tempore nesciunt.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="accordion-item ">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed fw-bold shadow-none" type="button" data-bs-toggle="collapse"
