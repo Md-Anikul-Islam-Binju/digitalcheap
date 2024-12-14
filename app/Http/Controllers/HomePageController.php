@@ -44,7 +44,8 @@ class HomePageController extends Controller
         $reviews = Review::where('status',1)->latest()->get();
         $siteSettings = SiteSetting::where('id', 1)->first();
         $partner = Partner::where('status',1)->latest()->get();
+        $cart = session('cart', []);
         return inertia('Index',compact('sliders','categories','packages','products',
-            'services','reviews','siteSettings','partner'));
+            'services','reviews','siteSettings','partner','cart'));
     }
 }

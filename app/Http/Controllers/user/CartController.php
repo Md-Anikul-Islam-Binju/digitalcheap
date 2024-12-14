@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,17 @@ class CartController extends Controller
     {
         $siteSettings = SiteSetting::where('id', 1)->first();
         $cart = session('cart', []);
-        //dd($cart);
+        foreach ($cart as &$cartItem) {
+            $product = Product::find($cartItem['product_id']);
+            if ($product) {
+                $cartItem['image'] = asset('images/product/' . $product->file);
+            } else {
+                $cartItem['image'] = 'https://www.bootdey.com/image/220x180/FF0000/000000';
+            }
+        }
         return inertia('Cart', compact('cart', 'siteSettings'));
     }
+
+
+
 }

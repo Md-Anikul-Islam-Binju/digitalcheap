@@ -12,9 +12,11 @@ class ProductManageController extends Controller
 
     public function products()
     {
-        $product = Product::latest()->get();
+        $categories = Category::where('status', 1)->get();
+        $products  = Product::latest()->get();
         $siteSettings = SiteSetting::latest()->first();
-        return inertia('Products', compact('product','siteSettings'));
+        $cart = session('cart', []);
+        return inertia('Products', compact('products','siteSettings','cart','categories'));
     }
 
 
@@ -23,7 +25,8 @@ class ProductManageController extends Controller
         $product = Product::where('id',$id)->first();
         $siteSettings = SiteSetting::latest()->first();
         $allProduct = Product::latest()->get();
-        return inertia('ProductDetails', compact('product','siteSettings','allProduct'));
+        $cart = session('cart', []);
+        return inertia('ProductDetails', compact('product','siteSettings','allProduct','cart'));
     }
 
 

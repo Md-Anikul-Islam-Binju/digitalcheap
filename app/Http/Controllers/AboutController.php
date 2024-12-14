@@ -10,6 +10,7 @@ class AboutController extends Controller
     public function about()
     {
         $siteSettings = SiteSetting::latest()->first();
-        return inertia('About',compact('siteSettings'));
+        $cart = session('cart', []);
+        return inertia('About',compact('siteSettings','cart'));
     }
 }

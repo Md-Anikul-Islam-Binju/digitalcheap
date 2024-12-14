@@ -3,10 +3,14 @@ import Layout from "../frontend/Layout.vue";
 
 export default {
     name: "Cart",
-    layout: Layout
+    layout: Layout,
+    props:{
+        cart:Array,
+    }
 }
 </script>
 <template>
+    <title>Cart</title>
     <div class="container padding-bottom-3x mb-1 py-5">
         <!-- Shopping Cart-->
         <div class="table-responsive shopping-cart">
@@ -21,57 +25,28 @@ export default {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr v-for="(cartData, index) in cart" :key="index">
                     <td>
                         <div class="product-item">
-                            <a class="product-thumb" href="#"><img
-                                src="https://www.bootdey.com/image/220x180/FF0000/000000" alt="Product"></a>
+                            <a class="product-thumb" href="#">
+                                <img :src="cartData.image" alt="Product" />
+                            </a>
                             <div class="product-info">
-                                <h4 class="product-title"><a href="#">Unionbay Park</a></h4>
+                                <h4 class="product-title"><a href="#">{{ cartData.name }}</a></h4>
                             </div>
                         </div>
                     </td>
 
-                    <td class="text-center text-lg text-medium">$43.90</td>
-                    <td class="text-center text-lg text-medium">Free trial</td>
-                    <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title=""
-                                               data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-item">
-                            <a class="product-thumb" href="#"><img
-                                src="https://www.bootdey.com/image/220x180/5F9EA0/000000" alt="Product"></a>
-                            <div class="product-info">
-                                <h4 class="product-title"><a href="#">Daily Fabric Cap</a></h4>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="text-center text-lg text-medium">$24.89</td>
-                    <td class="text-center">Monthly</td>
-                    <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title=""
-                                               data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-item">
-                            <a class="product-thumb" href="#"><img
-                                src="https://www.bootdey.com/image/220x180/9932CC/000000" alt="Product"></a>
-                            <div class="product-info">
-                                <h4 class="product-title"><a href="#">Cole Haan Crossbody</a></h4>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="text-center text-lg text-medium">$200.00</td>
-                    <td class="text-center">Yearly</td>
+                    <td class="text-center text-lg text-medium">${{ cartData.price }}</td>
+                    <td class="text-center text-lg text-medium"> {{ cartData.cart_type === 'buy' ? 'Buy' : 'Free Trial' }}</td>
                     <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title=""
                                                data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
+
+
         <div class="shopping-cart-footer">
             <div class="column">
                 <form class="coupon-form" method="post">

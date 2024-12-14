@@ -3,7 +3,38 @@ import Layout from "../frontend/Layout.vue";
 
 export default {
     name: "Products",
-    layout: Layout
+    layout: Layout,
+    props: {
+        categories: Array,
+        products: Array,
+    },
+    data() {
+        return {
+            selectedCategory: null,  // Store the selected category
+        };
+    },
+    computed: {
+        // Filter products based on selected category
+        filteredProducts() {
+            if (this.selectedCategory === null) {
+                return this.products;
+            } else {
+                return this.products.filter(product => product.category_id === this.selectedCategory);
+            }
+        }
+    },
+    methods: {
+        // Set selected category for filtering
+        filterByCategory(categoryId) {
+            this.selectedCategory = categoryId;
+        },
+        getProductImageUrl(productImagePath) {
+            if (!productImagePath) {
+                return 'frontend/images/file.jpg'; // Fallback image
+            }
+            return `${window.location.origin}/images/product/${productImagePath}`;
+        },
+    }
 }
 </script>
 <template>
@@ -18,20 +49,13 @@ export default {
                         <h2 class="text-start h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Categories</h2>
                     </div>
                     <ul class="category-list list-unstyled">
-                        <li class="category-item active my-2">
-                            All
-                        </li>
-                        <li class="category-item my-2">
-                            SEO
-                        </li>
-                        <li class="category-item my-2">
-                            Sports
-                        </li>
-                        <li class="category-item my-2">
-                            AI
-                        </li>
-                        <li class="category-item my-2">
-                            OTT
+                        <li
+                            v-for="category in categories"
+                            :key="category.id"
+                            class="category-item my-2"
+                            :class="{ 'active': selectedCategory === category.id }"
+                            @click="filterByCategory(category.id)">
+                            {{ category.name }}
                         </li>
                     </ul>
                 </aside>
@@ -51,20 +75,13 @@ export default {
                         </div>
                         <div class="offcanvas-body">
                             <ul class="category-list list-unstyled">
-                                <li class="category-item active my-2">
-                                    All
-                                </li>
-                                <li class="category-item my-2">
-                                    SEO
-                                </li>
-                                <li class="category-item my-2">
-                                    Sports
-                                </li>
-                                <li class="category-item my-2">
-                                    AI
-                                </li>
-                                <li class="category-item my-2">
-                                    OTT
+                                <li
+                                    v-for="category in categories"
+                                    :key="category.id"
+                                    class="category-item my-2"
+                                    :class="{ 'active': selectedCategory === category.id }"
+                                    @click="filterByCategory(category.id)">
+                                    {{ category.name }}
                                 </li>
                             </ul>
 
@@ -72,71 +89,29 @@ export default {
                         </div>
                     </div>
                     <div class="row g-2">
-                        <div class="col-md-6 col-lg-4">
-                            <div id="product-1" class="single-product">
+                        <div v-for="product in filteredProducts" :key="product.id" class="col-md-6 col-lg-4">
+                            <div class="single-product">
                                 <div class="part-1">
-                                    <span class="new">New</span>
-                                    <img src="frontend/images/Netflix-product.webp" class="" alt="">
+                                    <Link class="d-inline-block" :href="`/product-details/${product.id}`">
+                                        <img :src="getProductImageUrl(product.file)" alt="Product Image">
+                                    </Link>
                                     <div class="d-flex gap-3">
                                         <a href="#">Buy Now<i class="fas fa-shopping-cart"></i></a>
                                         <a href="#">Free Trial<i class="fa-solid fa-gift"></i></a>
                                     </div>
                                 </div>
-                                <div class="part-2">
-                                    <h3 class="product-title">Netflix</h3>
-                                    <h4 class="product-old-price text-decoration-line-through">$99</h4>
-                                    <h4 class="product-price">$79</h4>
+
+                                <div class="part-2" v-if="product.discount_amount">
+                                    <h3 class="product-title">{{ product.name }}</h3>
+                                    <h4 class="product-old-price text-decoration-line-through">
+                                        ${{ product.amount }}
+                                    </h4>
+                                    <h4 class="product-price">${{ product.discount_amount }}</h4>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div id="product-1" class="single-product">
-                                <div class="part-1">
-                                    <span class="discount">15% off</span>
-                                    <img src="frontend/images/Netflix-product.webp" class="" alt="">
-                                    <div class="d-flex gap-3">
-                                        <a href="#">Buy Now<i class="fas fa-shopping-cart"></i></a>
-                                        <a href="#">Free Trial<i class="fa-solid fa-gift"></i></a>
-                                    </div>
-                                </div>
-                                <div class="part-2">
-                                    <h3 class="product-title">Netflix</h3>
-                                    <h4 class="product-old-price text-decoration-line-through">$99</h4>
-                                    <h4 class="product-price">$79</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div id="product-1" class="single-product">
-                                <div class="part-1">
-                                    <span class="discount">15% off</span>
-                                    <img src="frontend/images/Netflix-product.webp" class="" alt="">
-                                    <div class="d-flex gap-3">
-                                        <a href="#">Buy Now<i class="fas fa-shopping-cart"></i></a>
-                                        <a href="#">Free Trial<i class="fa-solid fa-gift"></i></a>
-                                    </div>
-                                </div>
-                                <div class="part-2">
-                                    <h3 class="product-title">Netflix</h3>
-                                    <h4 class="product-old-price text-decoration-line-through">$99</h4>
-                                    <h4 class="product-price">$79</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div id="product-1" class="single-product">
-                                <div class="part-1">
-                                    <span class="discount">15% off</span>
-                                    <img src="frontend/images/Netflix-product.webp" class="" alt="">
-                                    <div class="d-flex gap-3">
-                                        <a href="#">Buy Now<i class="fas fa-shopping-cart"></i></a>
-                                        <a href="#">Free Trial<i class="fa-solid fa-gift"></i></a>
-                                    </div>
-                                </div>
-                                <div class="part-2">
-                                    <h3 class="product-title">Netflix</h3>
-                                    <h4 class="product-old-price text-decoration-line-through">$99</h4>
-                                    <h4 class="product-price">$79</h4>
+
+                                <div class="part-2" v-else>
+                                    <h3 class="product-title">{{ product.name }}</h3>
+                                    <h4 class="product-price">${{ product.amount }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -175,9 +150,6 @@ export default {
             </div>
 
             <!-- ================== pricing plans ================ -->
-
-
-
             <div class="row mt-4 mixitup-container">
                 <!-- Freebie Plan -->
                 <div class="col-md-6 col-lg-4 mb-4 mix">
