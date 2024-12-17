@@ -12,6 +12,10 @@ export default {
 
 <template>
     <title>About</title>
+    <section class="cover-board-header">
+        <img src="frontend/images/ai.jpg" class="h-100 w-100" alt="">
+        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">About</h1>
+    </section>
     <!-- Why Section -->
     <section class="why-section py-5">
         <div class="container">

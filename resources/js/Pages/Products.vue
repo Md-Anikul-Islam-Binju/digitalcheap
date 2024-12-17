@@ -38,6 +38,10 @@ export default {
 }
 </script>
 <template>
+    <section class="cover-board-header">
+        <img src="frontend/images/ai.jpg" class="h-100 w-100" alt="">
+        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">Product Hub</h1>
+    </section>
     <section class="store-section my-5">
         <div class="container">
             <div class="section-title text-center mb-3 mb-md-5">

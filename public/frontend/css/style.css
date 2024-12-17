@@ -49,6 +49,13 @@ a {
   text-decoration: none;
   display: inline-block;
 }
+
+.cover-board-header {
+    color: white;
+    text-align: center;
+    position: relative;
+    height: 20vh;
+}
 /* =================Global part ends here=============== */
 
 /* =================header part starts here=============== */

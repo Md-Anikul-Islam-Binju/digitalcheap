@@ -1,24 +1,36 @@
 <script>
 import Layout from "../frontend/Layout.vue";
+
 export default {
     name: "ProductDetails",
     layout: Layout,
-    props:{
-        product:Object,
-        allProduct:Array
+    props: {
+        product: Object,
+        allProduct: Array,
     },
-    methods:{
+    computed: {
+        baseUrl() {
+            return window.location.origin;
+        },
+    },
+    methods: {
         getProductImageUrl(productImagePath) {
             if (!productImagePath) {
-                return 'frontend/images/file.jpg'; // Fallback image
+                return `${this.baseUrl}/frontend/images/file.jpg`; // Fallback image
             }
-            return `${window.location.origin}/images/product/${productImagePath}`;
+            return `${this.baseUrl}/images/product/${productImagePath}`;
         },
-    }
-}
+    },
+};
 </script>
 <template>
     <title>Details</title>
+    <section class="cover-board-header">
+        <img :src="`${baseUrl}/frontend/images/ai.jpg`" class="h-100 w-100" alt="">
+        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">
+            Product Details
+        </h1>
+    </section>
     <section class="product-details py-5">
         <div class="container">
             <div class="row g-5">
