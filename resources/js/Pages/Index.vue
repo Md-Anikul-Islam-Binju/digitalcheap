@@ -74,79 +74,6 @@ export default {
         selectCategory(categoryId) {
             this.selectedCategory = categoryId;
         },
-
-        // addToCart(product, cartType) {
-        //     const data = {
-        //         product_id: product.id,
-        //         name: product.name,
-        //         price: cartType === 'buy' ? product.discount_amount || product.amount : 0.00,
-        //         cart_type: cartType,
-        //     };
-        //
-        //     // Directly use the hardcoded route
-        //     this.$inertia.post('/cart/add', data)
-        //         .then(() => {
-        //             alert('Product added to cart successfully!');
-        //         })
-        //         .catch((error) => {
-        //             alert(error.response.data.message || 'Failed to add product to cart.');
-        //         });
-        // }
-
-        // Add to cart functionality
-        addToCart(event, product, cartType) {
-            event.preventDefault(); // Prevent link navigation or page reload
-
-            // Prepare the data to send
-            const data = {
-                product_id: product.id,
-                name: product.name,
-                price: cartType === "buy" ? product.discount_amount || product.amount : 0.0,
-                cart_type: cartType,
-            };
-
-            // Send the request to the backend
-            axios.post('/cart/add', data)
-                .then((response) => {
-                    // Show success SweetAlert
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.data.message || 'Product added to cart successfully!',
-                        confirmButtonText: 'OK',
-                    });
-                })
-                .catch((error) => {
-                    if (error.response && error.response.status === 409) {
-                        // Handle duplicate product in the cart
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Warning!',
-                            text: 'This product is already in your cart.',
-                            confirmButtonText: 'OK',
-                        });
-                    } else if (error.response && error.response.status === 401) {
-                        // Handle unauthenticated user
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Please Login',
-                            text: 'You need to log in to add products to your cart.',
-                            confirmButtonText: 'OK',
-                        });
-                        window.location.href = '/login'; // Redirect to login page
-                    } else {
-                        console.error("Error adding product to cart:", error);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'An unexpected error occurred.',
-                            confirmButtonText: 'OK',
-                        });
-                    }
-                });
-        },
-
-
     },
 
 }
@@ -330,22 +257,6 @@ export default {
                             <Link class="d-inline-block" :href="`/product-details/${product.id}`">
                                 <img :src="getProductImageUrl(product.file)" alt="Product Image">
                             </Link>
-                            <div class="d-flex gap-3">
-                                <a
-                                    href="#"
-                                    @click="addToCart($event, product, 'buy')"
-                                    style="cursor: pointer"
-                                >
-                                    Buy Now<i class="fas fa-shopping-cart"></i>
-                                </a>
-                                <a
-                                    href="#"
-                                    @click="addToCart($event, product, 'free')"
-                                    style="cursor: pointer"
-                                >
-                                    Free Trial <i class="fa-solid fa-gift"></i>
-                                </a>
-                            </div>
                         </div>
 
                         <div class="part-2" v-if="product.discount_amount">

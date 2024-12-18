@@ -26,7 +26,6 @@ use App\Http\Controllers\admin\TermsAndConditionController;
 use App\Http\Controllers\BlogSectionController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ProductManageController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TermsConditionController;
 use App\Http\Controllers\user\CartController;
@@ -63,7 +62,6 @@ Route::get('/account-registration-for-agent', [AccountManageController::class, '
 Route::get('/products', [ProductManageController::class, 'products']);
 Route::get('/product-details/{id}', [ProductManageController::class, 'productDetails']);
 
-//user Add to cart
 Route::post('/cart/add', [CartController::class, 'productAddToCart']);
 Route::get('/cart', [CartController::class, 'showProductCart']);
 

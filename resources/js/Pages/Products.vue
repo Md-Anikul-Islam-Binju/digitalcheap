@@ -99,10 +99,6 @@ export default {
                                     <Link class="d-inline-block" :href="`/product-details/${product.id}`">
                                         <img :src="getProductImageUrl(product.file)" alt="Product Image">
                                     </Link>
-                                    <div class="d-flex gap-3">
-                                        <a href="#">Buy Now<i class="fas fa-shopping-cart"></i></a>
-                                        <a href="#">Free Trial<i class="fa-solid fa-gift"></i></a>
-                                    </div>
                                 </div>
 
                                 <div class="part-2" v-if="product.discount_amount">
@@ -124,6 +120,7 @@ export default {
             </div>
         </div>
     </section>
+
     <!-- ========== Combo Offers ========== -->
     <section class="pricing">
         <div class="container">
