@@ -7,6 +7,7 @@ export default {
     layout: Layout,
     props: {
         product: Object,
+        allProduct: Array,
     },
     data() {
         return {
@@ -121,6 +122,13 @@ export default {
 </script>
 
 <template>
+    <title>Details</title>
+    <section class="cover-board-header">
+        <img :src="`${baseUrl}/frontend/images/ai.jpg`" class="h-100 w-100" alt="">
+        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">
+            Product Details
+        </h1>
+    </section>
     <section class="product-details py-5">
         <div class="container">
             <div class="row g-5">
@@ -176,6 +184,114 @@ export default {
                             <a href="#" @click="addToCart($event, product)" class="btn btn-success fw-bold text-capitalize btn-lg">Buy Now
                                 <i class="fas fa-shopping-cart"></i>
                             </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion mt-5" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold shadow-none" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Description
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="mb-4 w-75">
+                                <h3 class="mb-4">Our Services</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+                                    nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
+                                    eligendi voluptates, illo totam tempore nesciunt.</p>
+                            </div>
+                            <div class="mb-4 w-75">
+                                <h3 class="mb-4">How to Purchase a Package?</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+                                    nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
+                                    eligendi voluptates, illo totam tempore nesciunt.</p>
+                            </div>
+                            <div class="mb-4 w-75">
+                                <h3 class="mb-4">How to Get an Account?</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+                                    nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
+                                    eligendi voluptates, illo totam tempore nesciunt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item ">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold shadow-none" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Additional Information
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td>Account Type</td>
+                                    <td>Shared, Personal</td>
+                                </tr>
+                                <tr>
+                                    <td>Duration</td>
+                                    <td>1 Month, 3 Month, Half Yearly, Yearly</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item ">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold shadow-none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                                aria-controls="collapseThree">
+                            Tutorial
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/lJzVc2uN5tc?si=naK4zpACgvA8DTCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- related products -->
+    <section class="section-products py-5">
+        <div class="container">
+            <div class="section-title text-start mb-1">
+                <h2 class="text-start h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Related Products</h2>
+            </div>
+            <div class="row mt-5">
+                <!-- Single Product -->
+                <div  v-for="(product, index) in allProduct" :key="index" class="col-md-6 col-lg-4 col-xl-3">
+                    <div id="product-1" class="single-product">
+                        <div class="part-1">
+                            <span class="discount">15% off</span>
+                            <img :src="getProductImageUrl(product.file)" alt="Product Image">
+                        </div>
+                        <div class="part-2" v-if="product.discount_amount">
+                            <h3 class="product-title">{{ product.name }}</h3>
+                            <h4 class="product-old-price text-decoration-line-through">
+                                ${{ product.amount }}
+                            </h4>
+                            <h4 class="product-price">${{ product.discount_amount }}</h4>
+                        </div>
+
+                        <div class="part-2" v-else>
+                            <h3 class="product-title">{{ product.name }}</h3>
+                            <h4 class="product-price">${{ product.amount }}</h4>
                         </div>
                     </div>
                 </div>

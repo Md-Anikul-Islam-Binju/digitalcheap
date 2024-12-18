@@ -38,6 +38,7 @@ export default {
 }
 </script>
 <template>
+    <title>Product</title>
     <section class="cover-board-header">
         <img src="frontend/images/ai.jpg" class="h-100 w-100" alt="">
         <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">Product Hub</h1>
