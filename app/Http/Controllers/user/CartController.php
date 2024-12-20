@@ -11,31 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-
-//    public function productAddToCart(Request $request)
-//    {
-//        $request->validate([
-//            'product_id' => 'required|exists:products,id',
-//            'name' => 'required|string',
-//            'price' => 'nullable',
-//            'cart_type' => 'required|in:free,buy',
-//        ]);
-//        $cart = session()->get('cart', []);
-//        foreach ($cart as $item) {
-//            if ($item['product_id'] == $request->product_id && $item['cart_type'] == $request->cart_type) {
-//                return response()->json(['message' => 'Product is already in the cart'], 409);
-//            }
-//        }
-//        $cart[] = [
-//            'product_id' => $request->product_id,
-//            'name' => $request->name,
-//            'price' => $request->price,
-//            'cart_type' => $request->cart_type,
-//        ];
-//        session()->put('cart', $cart);
-//        return response()->json(['message' => 'Product added to cart successfully', 'cart' => $cart], 200);
-//    }
-
     public function productAddToCart(Request $request)
     {
         if (!Auth::check()) {
@@ -72,11 +47,6 @@ class CartController extends Controller
         return response()->json(['authenticated' => true, 'message' => 'Product added to cart successfully', 'cart' => $cart], 200);
     }
 
-
-
-
-
-
     public function showProductCart()
     {
         $siteSettings = SiteSetting::where('id', 1)->first();
@@ -89,7 +59,6 @@ class CartController extends Controller
                 $cartItem['image'] = 'https://www.bootdey.com/image/220x180/FF0000/000000';
             }
         }
-        dd($cart);
         return inertia('Cart', compact('cart', 'siteSettings'));
     }
 

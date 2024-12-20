@@ -15,7 +15,64 @@ export default {
         <img src="frontend/images/ai.jpg" class="h-100 w-100" alt="">
         <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">Cart</h1>
     </section>
-    <div class="container padding-bottom-3x mb-1 py-5">
+<!--    <div class="container padding-bottom-3x mb-1 py-5">-->
+<!--        <div class="table-responsive shopping-cart">-->
+<!--            <table class="table">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>Product Name</th>-->
+<!--                    <th class="text-center">Price</th>-->
+<!--                    <th class="text-center">Type</th>-->
+<!--                    <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">Clear Cart</a>-->
+<!--                    </th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr v-for="(cartData, index) in cart" :key="index">-->
+<!--                    <td>-->
+<!--                        <div class="product-item">-->
+<!--                            <a class="product-thumb" href="#">-->
+<!--                                <img :src="cartData.image" alt="Product" />-->
+<!--                            </a>-->
+<!--                            <div class="product-info">-->
+<!--                                <h4 class="product-title"><a href="#">{{ cartData.name }}</a></h4>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+
+<!--                    <td class="text-center text-lg text-medium">${{ cartData.price }}</td>-->
+<!--                    <td class="text-center text-lg text-medium"> {{ cartData.cart_type === 'buy' ? 'Buy' : 'Free Trial' }}</td>-->
+<!--                    <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title=""-->
+<!--                                               data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+
+
+<!--        <div class="shopping-cart-footer">-->
+<!--            <div class="column">-->
+<!--                <form class="coupon-form" method="post">-->
+<!--                    <input class="form-control form-control-sm" type="text" placeholder="Coupon code" required="">-->
+<!--                    <button class="btn btn-outline-primary btn-sm" type="submit">Apply Coupon</button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="column text-lg">Subtotal: <span class="text-medium">$289.68</span></div>-->
+<!--        </div>-->
+<!--        <div class="shopping-cart-footer">-->
+<!--            <div class="column">-->
+<!--                <a class="btn btn-outline-secondary" href="#">-->
+<!--                    <i class="icon-arrow-left"></i>&nbsp;Back to Shopping-->
+<!--                </a>-->
+<!--            </div>-->
+<!--            <div class="column">-->
+<!--                <a class="btn btn-success"-->
+<!--                   href="check-out.html">Checkout</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="container padding-bottom-3x mb-1 pt-5">
+
         <!-- Shopping Cart-->
         <div class="table-responsive shopping-cart">
             <table class="table">
@@ -23,8 +80,10 @@ export default {
                 <tr>
                     <th>Product Name</th>
                     <th class="text-center">Price</th>
-                    <th class="text-center">Type</th>
-                    <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">Clear Cart</a>
+                    <th class="text-center">Duration</th>
+                    <th class="text-center">Device Access</th>
+                    <th class="text-center">Total Price</th>
+                    <th class="text-center">Action
                     </th>
                 </tr>
                 </thead>
@@ -36,21 +95,25 @@ export default {
                                 <img :src="cartData.image" alt="Product" />
                             </a>
                             <div class="product-info">
-                                <h4 class="product-title"><a href="#">{{ cartData.name }}</a></h4>
+                                <h4 class="product-title">
+                                    <a href="#">
+                                      {{ cartData.name }}
+                                    </a>
+                                </h4>
                             </div>
                         </div>
                     </td>
 
-                    <td class="text-center text-lg text-medium">${{ cartData.price }}</td>
-                    <td class="text-center text-lg text-medium"> {{ cartData.cart_type === 'buy' ? 'Buy' : 'Free Trial' }}</td>
+                    <td class="text-center text-lg text-medium">{{ cartData.price }}</td>
+                    <td class="text-center text-lg text-medium">{{ cartData.duration }}</td>
+                    <td class="text-center text-lg text-medium">{{ cartData.device_access }}</td>
+                    <td class="text-center text-lg text-medium">{{ cartData.price * cartData.duration * cartData.device_access }}</td>
                     <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title=""
                                                data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-
-
         <div class="shopping-cart-footer">
             <div class="column">
                 <form class="coupon-form" method="post">
@@ -67,8 +130,7 @@ export default {
                 </a>
             </div>
             <div class="column">
-                <a class="btn btn-success"
-                   href="check-out.html">Checkout</a>
+                <a class="btn btn-success" href="check-out.html">Checkout</a>
             </div>
         </div>
     </div>
@@ -213,6 +275,35 @@ export default {
 @media screen and (max-width: 576px) {
     .wishlist-table .product-item .product-thumb {
         display: none !important
+    }
+
+    .shopping-cart .product-item .product-title {
+        font-size: 10px;
+    }
+
+    .shopping-cart .product-item,
+    .wishlist-table .product-item,
+    .order-table .product-item {
+        min-width: 60px;
+    }
+
+    .shopping-cart>table>thead>tr>th,
+    .shopping-cart>table>thead>tr>td,
+    .shopping-cart>table>tbody>tr>th,
+    .shopping-cart>table>tbody>tr>td,
+    .wishlist-table>table>thead>tr>th,
+    .wishlist-table>table>thead>tr>td,
+    .wishlist-table>table>tbody>tr>th,
+    .wishlist-table>table>tbody>tr>td,
+    .order-table>table>thead>tr>th,
+    .order-table>table>thead>tr>td,
+    .order-table>table>tbody>tr>th,
+    .order-table>table>tbody>tr>td {
+        font-size: 10px;
+    }
+
+    .table>:not(caption)>*>* {
+        padding: 0px .5rem;
     }
 }
 
