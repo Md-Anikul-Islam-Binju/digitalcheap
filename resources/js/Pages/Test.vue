@@ -13,7 +13,6 @@ export default {
         return {
             duration: 1, // Default duration (months)
             deviceAccess: 1, // Default device access
-            isAuthenticated: false,
         };
     },
     computed: {
