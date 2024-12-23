@@ -8,6 +8,7 @@ export default {
     props: {
         product: Object,
         allProduct: Array,
+        auth: Boolean, // Auth status passed from backend
     },
     data() {
         return {
@@ -36,6 +37,11 @@ export default {
         addToCart(event, product) {
             event.preventDefault();
 
+            if (!this.auth) {
+                this.promptLogin(); // Prompt login if the user is not authenticated
+                return;
+            }
+
             const data = {
                 product_id: product.id,
                 name: product.name,
@@ -46,93 +52,92 @@ export default {
 
             axios.post('/cart/add', data)
                 .then((response) => {
-                    if (response.data.authenticated) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: response.data.message || 'Product added to cart successfully!',
-                            confirmButtonText: 'OK',
-                        });
-                    }
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.data.message || 'Product added to cart successfully!',
+                        confirmButtonText: 'OK',
+                    });
                 })
-                .catch((error) => {
-                    if (error.response && error.response.status === 401) {
-                        // Show login modal
-                        Swal.fire({
-                            title: 'Sign up for free',
-                            html: `
-                        <div>
-                            <form id="login-form">
-                                    <div class="form-floating mb-3">
-                                      <input type="email" class="form-control" id="email" placeholder="name@example.com">
-
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                      <input type="password" class="form-control" id="password" placeholder="Password">
-                                    </div>
-
-                                    <div class="form-check text-start my-3">
-                                      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-                                      <label class="form-check-label" for="flexCheckDefault">
-                                        Remember me
-                                      </label>
-                                    </div>
-                                    <a href="#" class="mb-3">Forgot password?</a>
-                                    <button type="button" id="login-button" class="w-100 mb-2 btn btn-lg rounded-3 btn-success">Sign In</button>
-                                    <hr class="my-4">
-                                    <h2 class="fs-5 fw-bold mb-3">You Have No Account</h2>
-                                    <a href="/account-registration-for-user" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" target="_blank">
-                                      Sign Up
-                                    </a>
-                                  </form>
-                        </div>
-                    `,
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                        });
-
-                        // Attach login event to the button inside the modal
-                        setTimeout(() => {
-                            const loginButton = document.getElementById('login-button');
-                            if (loginButton) {
-                                loginButton.addEventListener('click', () => {
-                                    const email = document.getElementById('email').value;
-                                    const password = document.getElementById('password').value;
-
-                                    axios.post('/login', { email, password })
-                                        .then((res) => {
-                                            Swal.fire({
-                                                icon: 'success',
-                                                title: 'Logged In!',
-                                                text: 'You are now logged in. Please try adding the product again.',
-                                                confirmButtonText: 'OK',
-                                            });
-                                        })
-                                        .catch((err) => {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'Login Failed',
-                                                text: 'Invalid email or password.',
-                                                confirmButtonText: 'OK',
-                                            });
-                                        });
-                                });
-                            }
-                        }, 100);
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'An unexpected error occurred.',
-                            confirmButtonText: 'OK',
-                        });
-                    }
+                .catch(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An unexpected error occurred.',
+                        confirmButtonText: 'OK',
+                    });
                 });
-        }
+        },
+        promptLogin() {
+            Swal.fire({
+                title: "Login Required",
+                html: `
+                <div>
+                   <form id="login-form">
+                        <div class="form-floating mb-3">
+                          <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                        </div>
 
+                        <div class="form-floating mb-3">
+                          <input type="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+
+                        <div class="form-check text-start my-3">
+                          <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Remember me
+                          </label>
+                        </div>
+
+                        <a href="#" class="mb-3">Forgot password?</a>
+                        <button type="button" id="login-button" class="w-100 mb-2 btn btn-lg rounded-3 btn-success">Sign In</button>
+                        <hr class="my-4">
+                        <h2 class="fs-5 fw-bold mb-3">You Have No Account</h2>
+                        <a href="/account-registration-for-user" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" target="_blank">
+                          Sign Up
+                        </a>
+                   </form>
+                </div>
+                `,
+                showCancelButton: false,
+                showConfirmButton: false,
+            });
+
+            setTimeout(() => {
+                const loginButton = document.getElementById("login-button");
+                if (loginButton) {
+                    loginButton.addEventListener("click", () => {
+                        const email = document.getElementById("email").value;
+                        const password = document.getElementById("password").value;
+
+                        axios
+                            .post("/login", { email, password })
+                            .then((res) => {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Logged In!",
+                                    text: "You are now logged in. Please refresh the page to proceed.",
+                                    confirmButtonText: "OK",
+                                }).then(() => {
+                                    location.reload(); // Reload to update auth state
+                                });
+                            })
+                            .catch(() => {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Login Failed",
+                                    text: "Invalid email or password.",
+                                    confirmButtonText: "OK",
+                                });
+                            });
+                    });
+                }
+            }, 100);
+        },
     },
 };
 </script>
+
 
 <template>
     <title>Details</title>
@@ -193,9 +198,22 @@ export default {
                         </div>
 
                         <!-- buy now part -->
-                        <div class="buy-now-part mt-4">
-                            <a href="#" @click="addToCart($event, product)" class="btn btn-success fw-bold text-capitalize btn-lg">Buy Now
-                                <i class="fas fa-shopping-cart"></i>
+                        <div class="mt-4">
+                            <a
+                                v-if="auth"
+                                href="#"
+                                @click="addToCart($event, product)"
+                                class="btn btn-success fw-bold btn-lg"
+                            >
+                                Buy Now
+                            </a>
+                            <a
+                                v-else
+                                href="#"
+                                @click="promptLogin"
+                                class="btn btn-warning fw-bold btn-lg"
+                            >
+                                Login to Buy
                             </a>
                         </div>
                     </div>
