@@ -31,54 +31,52 @@ export default {
                 </thead>
                 <tbody>
                 <tr v-for="(cartData, index) in cart" :key="index">
-                    <td>
-                        <div class="product-item">
-                            <a class="product-thumb" href="#">
-                                <img :src="cartData.image" alt="Item Image" />
-                            </a>
-                            <div class="product-info">
-                                <h4 class="product-title">
-                                    <a href="#">
-                                        <!-- Conditional Name Rendering -->
-                                        <span v-if="cartData.type === 'product'">{{ cartData.name }}</span>
-                                        <span v-else-if="cartData.type === 'package'">Package #{{ cartData.package_id }}</span>
-                                    </a>
-                                </h4>
+                    <!-- Conditional Rendering Based on `product_id` or `package_id` -->
+                    <template v-if="cartData.product_id">
+                        <td>
+                            <div class="product-item">
+                                <a class="product-thumb" href="#">
+                                    <img :src="cartData.image" alt="Product" />
+                                </a>
+                                <div class="product-info">
+                                    <h4 class="product-title">
+                                        <a href="#">{{ cartData.name }}</a>
+                                    </h4>
+                                </div>
                             </div>
-                        </div>
-                    </td>
+                        </td>
+                        <td class="text-center text-lg text-medium">{{ cartData.price }}</td>
+                        <td class="text-center text-lg text-medium">Duration: {{ cartData.duration }} | Device Access: {{ cartData.device_access }}</td>
+                        <td class="text-center text-lg text-medium">{{ cartData.price * cartData.duration * cartData.device_access }}</td>
+                        <td class="text-center">
+                            <a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </template>
 
-                    <td class="text-center text-lg text-medium">
-                        <!-- Conditional Price Rendering -->
-                        <span v-if="cartData.type === 'product'">{{ cartData.price }}</span>
-                        <span v-else-if="cartData.type === 'package'">{{ cartData.package_price }}</span>
-                    </td>
-
-                    <td class="text-center text-lg text-medium">
-                        <!-- Conditional Details Rendering -->
-                        <span v-if="cartData.type === 'product'">
-                            Duration: {{ cartData.duration }} | Device Access: {{ cartData.device_access }}
-                        </span>
-                        <span v-else-if="cartData.type === 'package'">
-                            Type: {{ cartData.package_type }} | Duration: {{ cartData.package_duration }}
-                        </span>
-                    </td>
-
-                    <td class="text-center text-lg text-medium">
-                        <!-- Conditional Total Price Calculation -->
-                        <span v-if="cartData.type === 'product'">
-                            {{ cartData.price * cartData.duration * cartData.device_access }}
-                        </span>
-                        <span v-else-if="cartData.type === 'package'">
-                            {{ cartData.package_price }}
-                        </span>
-                    </td>
-
-                    <td class="text-center">
-                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item">
-                            <i class="fa fa-trash"></i>
-                        </a>
-                    </td>
+                    <template v-else-if="cartData.package_id">
+                        <td>
+                            <div class="product-item">
+                                <a class="product-thumb" href="#">
+                                    <img :src="cartData.image" alt="Package" />
+                                </a>
+                                <div class="product-info">
+                                    <h4 class="product-title">
+                                        <a href="#">Package #{{ cartData.package_id }}</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center text-lg text-medium">{{ cartData.package_price }}</td>
+                        <td class="text-center text-lg text-medium">Type: {{ cartData.package_type }} | Duration: {{ cartData.package_duration }}</td>
+                        <td class="text-center text-lg text-medium">{{ cartData.package_price }}</td>
+                        <td class="text-center">
+                            <a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </template>
                 </tr>
                 </tbody>
             </table>
@@ -104,6 +102,7 @@ export default {
         </div>
     </div>
 </template>
+
 
 <!--<template>-->
 <!--    <title>Cart</title>-->
