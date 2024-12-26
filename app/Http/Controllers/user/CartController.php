@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Package;
 use App\Models\Product;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
@@ -47,21 +48,6 @@ class CartController extends Controller
         return response()->json(['authenticated' => true, 'message' => 'Product added to cart successfully', 'cart' => $cart], 200);
     }
 
-    public function showProductCart()
-    {
-        $siteSettings = SiteSetting::where('id', 1)->first();
-        $cart = session('cart', []);
-        foreach ($cart as &$cartItem) {
-            $product = Product::find($cartItem['product_id']);
-            if ($product) {
-                $cartItem['image'] = asset('images/product/' . $product->file);
-            } else {
-                $cartItem['image'] = 'https://www.bootdey.com/image/220x180/FF0000/000000';
-            }
-        }
-        return inertia('Cart', compact('cart', 'siteSettings'));
-    }
-
 
     public function packageAddToCart(Request $request)
     {
@@ -98,20 +84,27 @@ class CartController extends Controller
     }
 
 
-    public function showPackageCart()
+    public function showCart()
     {
-
         $siteSettings = SiteSetting::where('id', 1)->first();
         $cart = session('cart', []);
-        dd($cart);
+
         foreach ($cart as &$cartItem) {
-            $product = Product::find($cartItem['product_id']);
-            if ($product) {
-                $cartItem['image'] = asset('images/product/' . $product->file);
-            } else {
-                $cartItem['image'] = 'https://www.bootdey.com/image/220x180/FF0000/000000';
+            if (isset($cartItem['product_id'])) {
+                // Handle product cart items
+                $product = Product::find($cartItem['product_id']);
+                $cartItem['type'] = 'product';
+                $cartItem['image'] = $product ? asset('images/product/' . $product->file) : 'https://www.bootdey.com/image/220x180/FF0000/000000';
+            } elseif (isset($cartItem['package_id'])) {
+                // Handle package cart items
+                $package = Package::find($cartItem['package_id']);
+                $cartItem['type'] = 'package';
+                $cartItem['image'] = $package ? asset('images/package/' . $package->file) : 'https://www.bootdey.com/image/220x180/FF0000/000000';
             }
         }
+
+        //dd($cart);
+
         return inertia('Cart', compact('cart', 'siteSettings'));
     }
 
