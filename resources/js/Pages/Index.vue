@@ -76,13 +76,60 @@ export default {
             this.selectedCategory = categoryId;
         },
 
+        // handlePackageSelection(pkg, type) {
+        //     if (!this.auth) {
+        //         this.promptLogin();
+        //         return;
+        //     }
+        //     this.addToCartPackage(pkg, type);
+        // },
+        // addToCartPackage(pkg, type) {
+        //     const data = {
+        //         package_id: pkg.id,
+        //         package_duration: this.selectedType,
+        //         package_price: pkg.pricing[this.selectedType],
+        //         package_type: type,
+        //     };
+        //
+        //     axios.post('/cart/package/add', data)
+        //         .then(response => {
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 title: 'Success!',
+        //                 text: response.data.message || 'Package added to cart successfully!',
+        //                 confirmButtonText: 'OK',
+        //             });
+        //         })
+        //         .catch(error => {
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: 'Error!',
+        //                 text: 'An unexpected error occurred.',
+        //                 confirmButtonText: 'OK',
+        //             });
+        //         });
+        // },
+        // promptLogin() {
+        //     Swal.fire({
+        //         title: 'Authentication Required',
+        //         text: 'You need to be logged in to proceed.',
+        //         icon: 'warning',
+        //         confirmButtonColor: '#3085d6',
+        //         confirmButtonText: 'Login Now',
+        //         preConfirm: () => {
+        //             this.$router.push('/login');
+        //         }
+        //     });
+        // }
+
         handlePackageSelection(pkg, type) {
             if (!this.auth) {
-                this.promptLogin();
+                this.promptLogin(); // Prompt login if the user is not authenticated
                 return;
             }
             this.addToCartPackage(pkg, type);
         },
+
         addToCartPackage(pkg, type) {
             const data = {
                 package_id: pkg.id,
@@ -100,7 +147,7 @@ export default {
                         confirmButtonText: 'OK',
                     });
                 })
-                .catch(error => {
+                .catch(() => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error!',
@@ -109,18 +156,74 @@ export default {
                     });
                 });
         },
+
         promptLogin() {
             Swal.fire({
-                title: 'Authentication Required',
-                text: 'You need to be logged in to proceed.',
-                icon: 'warning',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Login Now',
-                preConfirm: () => {
-                    this.$router.push('/login');
-                }
+                title: "Login Required",
+                html: `
+        <div>
+           <form id="login-form">
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+
+                <div class="form-check text-start my-3">
+                  <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Remember me
+                  </label>
+                </div>
+
+                <a href="#" class="mb-3">Forgot password?</a>
+                <button type="button" id="login-button" class="w-100 mb-2 btn btn-lg rounded-3 btn-success">Sign In</button>
+                <hr class="my-4">
+                <h2 class="fs-5 fw-bold mb-3">You Have No Account</h2>
+                <a href="/account-registration-for-user" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" target="_blank">
+                  Sign Up
+                </a>
+           </form>
+        </div>
+        `,
+                showCancelButton: false,
+                showConfirmButton: false,
             });
+
+            setTimeout(() => {
+                const loginButton = document.getElementById("login-button");
+                if (loginButton) {
+                    loginButton.addEventListener("click", () => {
+                        const email = document.getElementById("email").value;
+                        const password = document.getElementById("password").value;
+
+                        axios
+                            .post("/login", { email, password })
+                            .then((res) => {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Logged In!",
+                                    text: "You are now logged in. Please refresh the page to proceed.",
+                                    confirmButtonText: "OK",
+                                }).then(() => {
+                                    location.reload(); // Reload to update auth state
+                                });
+                            })
+                            .catch(() => {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Login Failed",
+                                    text: "Invalid email or password.",
+                                    confirmButtonText: "OK",
+                                });
+                            });
+                    });
+                }
+            }, 100);
         }
+
     },
 
 }
