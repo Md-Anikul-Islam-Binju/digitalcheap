@@ -88,7 +88,7 @@ class CartController extends Controller
     {
         $siteSettings = SiteSetting::where('id', 1)->first();
         $cart = session('cart', []);
-
+        $authUser = auth()->user();
         foreach ($cart as &$cartItem) {
             if (isset($cartItem['product_id'])) {
                 // Handle product cart items
@@ -105,7 +105,7 @@ class CartController extends Controller
 
         //dd($cart);
 
-        return inertia('Cart', compact('cart', 'siteSettings'));
+        return inertia('Cart', compact('cart', 'siteSettings', 'authUser'));
     }
 
 

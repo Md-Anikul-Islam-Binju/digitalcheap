@@ -6,6 +6,7 @@ export default {
     layout: Layout,
     props:{
         cart:Array,
+        authUser:Object
     }
 }
 </script>
