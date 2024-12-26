@@ -15,6 +15,7 @@ export default {
         reviews: Array,
         siteSettings: Object,
         partner : Array,
+        auth: Boolean,
     },
     data() {
         return {
@@ -74,6 +75,52 @@ export default {
         selectCategory(categoryId) {
             this.selectedCategory = categoryId;
         },
+
+        handlePackageSelection(pkg, type) {
+            if (!this.auth) {
+                this.promptLogin();
+                return;
+            }
+            this.addToCartPackage(pkg, type);
+        },
+        addToCartPackage(pkg, type) {
+            const data = {
+                package_id: pkg.id,
+                package_duration: this.selectedType,
+                package_price: pkg.pricing[this.selectedType],
+                package_type: type,
+            };
+
+            axios.post('/cart/package/add', data)
+                .then(response => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.data.message || 'Package added to cart successfully!',
+                        confirmButtonText: 'OK',
+                    });
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An unexpected error occurred.',
+                        confirmButtonText: 'OK',
+                    });
+                });
+        },
+        promptLogin() {
+            Swal.fire({
+                title: 'Authentication Required',
+                text: 'You need to be logged in to proceed.',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Login Now',
+                preConfirm: () => {
+                    this.$router.push('/login');
+                }
+            });
+        }
     },
 
 }
@@ -277,8 +324,6 @@ export default {
         </div>
     </div>
 
-
-
     <!-- Best Seller Section -->
     <section class="best-seller py-5 section-products">
         <div class="container">
@@ -371,6 +416,70 @@ export default {
     </section>
 
     <!-- Combo Offers -->
+<!--    <section class="pricing">-->
+<!--        <div class="container">-->
+<!--            <div class="section-title text-center mb-3">-->
+<!--                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Combo Offers</h2>-->
+<!--                <p class="fs-1 fw-medium text-center text-capitalize">Choose a plan that’s right for you</p>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Package Type Filter &ndash;&gt;-->
+<!--            <div class="d-flex justify-content-center align-items-center gap-3 switch-content">-->
+<!--                <div class="form-check form-check-inline" v-for="(type, index) in packageTypes" :key="index">-->
+<!--                    <input-->
+<!--                        class="form-check-input"-->
+<!--                        type="radio"-->
+<!--                        :value="type.value"-->
+<!--                        v-model="selectedType"-->
+<!--                        :id="'type-' + index"-->
+<!--                    />-->
+<!--                    <label class="form-check-label" :for="'type-' + index">{{ type.label }}</label>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Category Tabs &ndash;&gt;-->
+<!--            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">-->
+<!--                <li class="nav-item" role="presentation" v-for="category in categories" :key="category.id">-->
+<!--                    <button class="nav-link"-->
+<!--                            :class="{ active: selectedCategory === category.id }"-->
+<!--                            @click="selectCategory(category.id)">-->
+<!--                        {{ category.name }}-->
+<!--                    </button>-->
+<!--                </li>-->
+<!--            </ul>-->
+
+<!--            &lt;!&ndash; Displaying Packages &ndash;&gt;-->
+<!--            <div class="row mt-4 mixitup-container">-->
+<!--                <div v-for="pkg in filteredPackages" :key="pkg.id" class="col-md-6 col-lg-4 mb-4 mix">-->
+<!--                    <div class="pricingCard">-->
+<!--                        <div class="pricingCard-header text-left">-->
+<!--                            <h4 class="pricingCard-title">{{ pkg.name }}</h4>-->
+<!--                            <p class="pricingCard-text" v-html="pkg.details"></p>-->
+<!--                        </div>-->
+<!--                        <div class="pricingCard-body text-left">-->
+<!--                            &lt;!&ndash; Display the correct price based on selected type &ndash;&gt;-->
+<!--                            <h2 id="free-price">-->
+<!--                                ${{ pkg.pricing[selectedType] }}-->
+<!--                            </h2>-->
+<!--                            <p class="pricing-period">/ {{ selectedType }}</p>-->
+<!--                        </div>-->
+<!--                        <ul>-->
+<!--                            <li v-for="product in pkg.products" :key="product.id" class="d-flex align-items-center">-->
+<!--                                <img src="frontend/images/Correct.svg" alt="Correct Icon">-->
+<!--                                {{ product.product }}-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                        <div class="pricingCard-footer">-->
+<!--                            <a href="#">Get Free Trial Now</a>-->
+<!--                            <a href="#">Get Started Now</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+
     <section class="pricing">
         <div class="container">
             <div class="section-title text-center mb-3">
@@ -425,8 +534,8 @@ export default {
                             </li>
                         </ul>
                         <div class="pricingCard-footer">
-                            <a href="#">Get Free Trial Now</a>
-                            <a href="#">Get Started Now</a>
+                            <a href="#" @click="handlePackageSelection(pkg, 'free')">Get Free Trial Now</a>
+                            <a href="#" @click="handlePackageSelection(pkg, 'buy')">Get Started Now</a>
                         </div>
                     </div>
                 </div>

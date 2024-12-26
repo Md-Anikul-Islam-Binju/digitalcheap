@@ -63,7 +63,9 @@ Route::get('/products', [ProductManageController::class, 'products']);
 Route::get('/product-details/{id}', [ProductManageController::class, 'productDetails']);
 
 Route::post('/cart/add', [CartController::class, 'productAddToCart']);
+Route::post('/cart/package/add', [CartController::class, 'packageAddToCart']);
 Route::get('/cart', [CartController::class, 'showProductCart']);
+Route::get('/package/cart', [CartController::class, 'showPackageCart']);
 
 Route::post('/account-registration', [AccountManageController::class, 'storeRegisterInfo'])->name('account.registration');
 Route::get('/account-verify', [AccountManageController::class, 'showVerificationForm'])->name('account.verification');
