@@ -46,7 +46,9 @@ class HomePageController extends Controller
         $partner = Partner::where('status',1)->latest()->get();
         $cart = session('cart', []);
         $auth = auth()->check();
+        $authUser = auth()->user();
+
         return inertia('Index',compact('sliders','categories','packages','products',
-            'services','reviews','siteSettings','partner','cart','auth'));
+            'services','reviews','siteSettings','partner','cart','auth','authUser'));
     }
 }

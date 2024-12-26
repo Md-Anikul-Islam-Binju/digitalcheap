@@ -2,7 +2,12 @@
 import Layout from "../frontend/Layout.vue";
 export default {
     name: "TermsAndCondition",
-    layout: Layout
+    layout: Layout,
+    props: {
+        siteSettings: Object,
+        authUser: Object,
+    }
+
 }
 </script>
 

@@ -30,8 +30,9 @@ export default {
                 </tr>
                 </thead>
                 <tbody>
+
+
                 <tr v-for="(cartData, index) in cart" :key="index">
-                    <!-- Conditional Rendering Based on `product_id` or `package_id` -->
                     <template v-if="cartData.product_id">
                         <td>
                             <div class="product-item">
@@ -46,7 +47,26 @@ export default {
                             </div>
                         </td>
                         <td class="text-center text-lg text-medium">{{ cartData.price }}</td>
-                        <td class="text-center text-lg text-medium">Duration: {{ cartData.duration }} | Device Access: {{ cartData.device_access }}</td>
+
+                        <td class="text-center text-lg text-medium">
+                            <div class="d-flex flex-column w-100 align-items-center gap-2 py-1 py-lg-0">
+                                <!-- duration counter -->
+                                <div class="d-inline-flex align-items-center gap-2">
+                                    Duration:
+                                    <button id="device-decrease" class="btn btn-outline-info btn-sm">-</button>
+                                    {{ cartData.duration }}
+                                    <button id="device-increase" class="btn btn-outline-info btn-sm">+</button>
+                                </div>
+                                <!-- Devices Counter -->
+
+                                <div class="d-inline-flex align-items-center gap-2">
+                                    Device :
+                                    <button id="device-decrease" class="btn btn-outline-info btn-sm">-</button>
+                                    {{ cartData.device_access }}
+                                    <button id="device-increase" class="btn btn-outline-info btn-sm">+</button>
+                                </div>
+                            </div>
+                        </td>
                         <td class="text-center text-lg text-medium">{{ cartData.price * cartData.duration * cartData.device_access }}</td>
                         <td class="text-center">
                             <a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item">
@@ -54,7 +74,6 @@ export default {
                             </a>
                         </td>
                     </template>
-
                     <template v-else-if="cartData.package_id">
                         <td>
                             <div class="product-item">
@@ -97,83 +116,11 @@ export default {
                 </a>
             </div>
             <div class="column">
-                <a class="btn btn-success" href="check-out.html">Checkout</a>
+                <a class="btn btn-success" href="./check-out.html">Checkout</a>
             </div>
         </div>
     </div>
 </template>
-
-
-<!--<template>-->
-<!--    <title>Cart</title>-->
-<!--    <section class="cover-board-header">-->
-<!--        <img src="frontend/images/ai.jpg" class="h-100 w-100" alt="">-->
-<!--        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">Cart</h1>-->
-<!--    </section>-->
-
-<!--    <div class="container padding-bottom-3x mb-1 pt-5">-->
-<!--        &lt;!&ndash; Shopping Cart&ndash;&gt;-->
-<!--        <div class="table-responsive shopping-cart">-->
-<!--            <table class="table">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>Product Name</th>-->
-<!--                    <th class="text-center">Price</th>-->
-<!--                    <th class="text-center">Duration</th>-->
-<!--                    <th class="text-center">Device Access</th>-->
-<!--                    <th class="text-center">Total Price</th>-->
-<!--                    <th class="text-center">Action-->
-<!--                    </th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr v-for="(cartData, index) in cart" :key="index">-->
-<!--                    <td>-->
-<!--                        <div class="product-item">-->
-<!--                            <a class="product-thumb" href="#">-->
-<!--                                <img :src="cartData.image" alt="Product" />-->
-<!--                            </a>-->
-<!--                            <div class="product-info">-->
-<!--                                <h4 class="product-title">-->
-<!--                                    <a href="#">-->
-<!--                                      {{ cartData.name }}-->
-<!--                                    </a>-->
-<!--                                </h4>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </td>-->
-
-<!--                    <td class="text-center text-lg text-medium">{{ cartData.price }}</td>-->
-<!--                    <td class="text-center text-lg text-medium">{{ cartData.duration }}</td>-->
-<!--                    <td class="text-center text-lg text-medium">{{ cartData.device_access }}</td>-->
-<!--                    <td class="text-center text-lg text-medium">{{ cartData.price * cartData.duration * cartData.device_access }}</td>-->
-<!--                    <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title=""-->
-<!--                                               data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
-<!--        <div class="shopping-cart-footer">-->
-<!--            <div class="column">-->
-<!--                <form class="coupon-form" method="post">-->
-<!--                    <input class="form-control form-control-sm" type="text" placeholder="Coupon code" required="">-->
-<!--                    <button class="btn btn-outline-primary btn-sm" type="submit">Apply Coupon</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--            <div class="column text-lg">Subtotal: <span class="text-medium">$289.68</span></div>-->
-<!--        </div>-->
-<!--        <div class="shopping-cart-footer">-->
-<!--            <div class="column">-->
-<!--                <a class="btn btn-outline-secondary" href="#">-->
-<!--                    <i class="icon-arrow-left"></i>&nbsp;Back to Shopping-->
-<!--                </a>-->
-<!--            </div>-->
-<!--            <div class="column">-->
-<!--                <a class="btn btn-success" href="check-out.html">Checkout</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</template>-->
 
 <style scoped>
 .shopping-cart,
@@ -344,6 +291,20 @@ export default {
     .table>:not(caption)>*>* {
         padding: 0px .5rem;
     }
+
+    .form-control {
+        font-size: 10px;
+    }
+
+    .btn-group-sm>.btn,
+    .btn-sm {
+        --bs-btn-padding-y: 1px;
+        --bs-btn-padding-x: 6px;
+    }
+}
+
+.form-control {
+    padding: .375rem 4px;
 }
 
 .shopping-cart-footer {

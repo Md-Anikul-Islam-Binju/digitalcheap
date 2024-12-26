@@ -16,18 +16,20 @@ class ProductManageController extends Controller
         $products  = Product::latest()->get();
         $siteSettings = SiteSetting::latest()->first();
         $cart = session('cart', []);
-        return inertia('Products', compact('products','siteSettings','cart','categories'));
+        $authUser = auth()->user();
+        return inertia('Products', compact('products','siteSettings','cart','categories','authUser'));
     }
 
 
     public function productDetails($id)
     {
-        $product = Product::where('id',$id)->first();
+        $product = Product::where('id',$id)->with('category')->first();
         $siteSettings = SiteSetting::latest()->first();
         $allProduct = Product::latest()->get();
         $cart = session('cart', []);
         $auth = auth()->check();
-        return inertia('ProductDetails', compact('product','siteSettings','allProduct','cart','auth'));
+        $authUser = auth()->user();
+        return inertia('ProductDetails', compact('product','siteSettings','allProduct','cart','auth','authUser'));
     }
 
 

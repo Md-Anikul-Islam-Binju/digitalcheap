@@ -11,6 +11,7 @@ class TermsConditionController extends Controller
     {
         $siteSettings = SiteSetting::latest()->first();
         $cart = session('cart', []);
-        return inertia('TermsAndCondition',compact('siteSettings','cart'));
+        $authUser = auth()->user();
+        return inertia('TermsAndCondition',compact('siteSettings','cart','authUser'));
     }
 }

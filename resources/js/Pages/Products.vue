@@ -7,6 +7,7 @@ export default {
     props: {
         categories: Array,
         products: Array,
+        authUser: Object,
     },
     data() {
         return {

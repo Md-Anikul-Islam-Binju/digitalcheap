@@ -9,6 +9,7 @@ export default {
         product: Object,
         allProduct: Array,
         auth: Boolean, // Auth status passed from backend
+        authUser: Object, // Auth user data passed from backend
     },
     data() {
         return {
@@ -160,7 +161,7 @@ export default {
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/" class="text-capitalize">home</a></li>
-                                <li class="breadcrumb-item"><a href="#" class="text-capitalize">Education</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="text-capitalize">{{ product.category.name }}</a></li>
                             </ol>
                         </nav>
 
@@ -168,9 +169,9 @@ export default {
                         <p class="fs-3 text-prmry mb-4">$99 - $199</p>
 
                         <!-- short description -->
-                        <p class="mb-4 w-75">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-                            nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
-                            eligendi voluptates, illo totam tempore nesciunt.</p>
+                        <p class="mb-4 w-75" v-html="product.details"></p>
+
+
 
                         <!-- Devices Counter -->
                         <div class="d-flex flex-column gap-3 mb-3">
@@ -231,12 +232,6 @@ export default {
                     <div id="collapseOne" class="accordion-collapse collapse show"
                          data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <div class="mb-4 w-75">
-                                <h3 class="mb-4">Our Services</h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-                                    nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
-                                    eligendi voluptates, illo totam tempore nesciunt.</p>
-                            </div>
                             <div class="mb-4 w-75">
                                 <h3 class="mb-4">How to Purchase a Package?</h3>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae

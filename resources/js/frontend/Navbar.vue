@@ -37,22 +37,15 @@
                         <li class="nav-item">
                             <Link class="nav-link" href="/products">ProductHub</Link>
                         </li>
-<!--                        <li class="nav-item dropdown ">-->
-<!--                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>-->
-<!--                            <ul class="dropdown-menu">-->
-<!--                                <li><a class="dropdown-item" href="#">SEO</a></li>-->
-<!--                                <li><a class="dropdown-item" href="#">Sports</a></li>-->
-<!--                                <li><a class="dropdown-item" href="#">AI</a></li>-->
-<!--                                <li><a class="dropdown-item" href="#">OTT</a></li>-->
-<!--                                <li><a class="dropdown-item" href="#">Combo Offers</a></li>-->
-<!--                            </ul>-->
-<!--                        </li>-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login"  target="_blank">Login</a>
+
+                        <li class="nav-item" v-if="authUser">
+                            <a href="/dashboard" target="_blank" class="btn btn-success">{{ authUser.name }}</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/account-registration-for-user"  target="_blank">Sign Up</a>
+
+                        <li class="nav-item d-flex" v-else>
+                            <Link class="nav-link" href="/login" target="_blank">Login</Link>
+                            <Link class="nav-link" href="/account-registration-for-user" target="_blank">Sign Up</Link>
                         </li>
 
                     </ul>
@@ -92,6 +85,7 @@ export default {
     props: {
         siteSettings: Object,
         cart : Array,
+        authUser: Object
     },
     computed: {
         totalCartCount() {
@@ -109,7 +103,7 @@ export default {
         },
     },
     mounted() {
-        console.log("Cart data:", this.cart);
+        console.log("Cart data:", this.authUser);
     }
 }
 </script>

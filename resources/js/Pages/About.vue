@@ -3,7 +3,8 @@ import Layout from "../frontend/Layout.vue";
 export default {
     name: "About",
     props:{
-        siteSettings:Object
+        siteSettings:Object,
+        authUser:Object,
     },
 
     layout: Layout

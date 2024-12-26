@@ -11,6 +11,7 @@ class AboutController extends Controller
     {
         $siteSettings = SiteSetting::latest()->first();
         $cart = session('cart', []);
-        return inertia('About',compact('siteSettings','cart'));
+        $authUser = auth()->user();
+        return inertia('About',compact('siteSettings','cart','authUser'));
     }
 }
