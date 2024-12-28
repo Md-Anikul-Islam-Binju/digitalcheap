@@ -53,6 +53,7 @@ Route::get('/how-to-use', [HomePageController::class, 'howToUse'])->name('how.to
 Route::get('/how-to-access', [HomePageController::class, 'howToAccess'])->name('how.to.access');
 Route::get('/about', [AboutController::class, 'about'])->name('about');
 Route::get('/blog', [BlogSectionController::class, 'blog'])->name('blog');
+Route::get('/blog-details/{id}', [BlogSectionController::class, 'blogDetails'])->name('blog.details');
 Route::get('/terms-condition', [TermsConditionController::class, 'termsAndCondition'])->name('terms.condition');
 
 //Account Manage
