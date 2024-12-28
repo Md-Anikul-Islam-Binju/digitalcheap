@@ -54,17 +54,21 @@ export default {
                                 <!-- duration counter -->
                                 <div class="d-inline-flex align-items-center gap-2">
                                     Duration:
-                                    <button id="device-decrease" class="btn btn-outline-info btn-sm">-</button>
-                                    {{ cartData.duration }}
-                                    <button id="device-increase" class="btn btn-outline-info btn-sm">+</button>
+                                    <div class="d-inline-flex align-items-center gap-2">
+                                        <button id="device-decrease" class="btn btn-outline-success btn-sm">-</button>
+                                        {{ cartData.duration }}
+                                        <button id="device-increase" class="btn btn-outline-success btn-sm">+</button>
+                                    </div>
                                 </div>
                                 <!-- Devices Counter -->
 
-                                <div class="d-inline-flex align-items-center gap-2">
+                                <div class="d-inline-flex align-items-center gap-3 flex-shrink-0 text-nowrap">
                                     Device :
-                                    <button id="device-decrease" class="btn btn-outline-info btn-sm">-</button>
-                                    {{ cartData.device_access }}
-                                    <button id="device-increase" class="btn btn-outline-info btn-sm">+</button>
+                                    <div class="d-inline-flex align-items-center gap-2">
+                                        <button id="device-decrease" class="btn btn-outline-success btn-sm">-</button>
+                                        {{ cartData.device_access }}
+                                        <button id="device-increase" class="btn btn-outline-success btn-sm">+</button>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -78,18 +82,28 @@ export default {
                     <template v-else-if="cartData.package_id">
                         <td>
                             <div class="product-item">
-                                <a class="product-thumb" href="#">
-                                    <img :src="cartData.image" alt="Package" />
-                                </a>
                                 <div class="product-info">
                                     <h4 class="product-title">
-                                        <a href="#">Package #{{ cartData.package_id }}</a>
+                                        <a href="#">Package #{{ cartData.name }}</a>
                                     </h4>
                                 </div>
                             </div>
                         </td>
                         <td class="text-center text-lg text-medium">{{ cartData.package_price }}</td>
-                        <td class="text-center text-lg text-medium">Type: {{ cartData.package_type }} | Duration: {{ cartData.package_duration }}</td>
+                        <td class="text-center text-lg text-medium">
+                            <div class="d-flex flex-column w-100 align-items-center gap-2 py-1 py-lg-0">
+                                <div>Type: {{ cartData.package_type }} | Duration: {{ cartData.package_duration }}</div>
+                                <!-- Devices Counter -->
+                                <div class="d-inline-flex align-items-center gap-2 flex-shrink-0 text-nowrap">
+                                    Device :
+                                    <div class="d-inline-flex align-items-center gap-1 gap-md-2">
+                                        <button id="device-decrease" class="btn btn-outline-success btn-sm">-</button>
+                                        {{ cartData.device }}
+                                        <button id="device-increase" class="btn btn-outline-success btn-sm">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                         <td class="text-center text-lg text-medium">{{ cartData.package_price }}</td>
                         <td class="text-center">
                             <a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item">

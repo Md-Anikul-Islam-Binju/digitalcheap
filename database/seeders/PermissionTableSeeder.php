@@ -22,6 +22,7 @@ class PermissionTableSeeder extends Seeder
             //Panel Basic
             'basic-menu-list',
 
+
             //Manage Product
             'manage-product-section',
             'settings-on-site',

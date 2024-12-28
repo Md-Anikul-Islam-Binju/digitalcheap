@@ -76,6 +76,7 @@ class CartController extends Controller
             'package_duration' => $request->package_duration,
             'package_price' => $request->package_price,
             'package_type' => $request->package_type,
+            'device' => 1,
         ];
 
         session()->put('cart', $cart);
@@ -86,6 +87,7 @@ class CartController extends Controller
 
     public function showCart()
     {
+
         $siteSettings = SiteSetting::where('id', 1)->first();
         $cart = session('cart', []);
         $authUser = auth()->user();
@@ -98,6 +100,7 @@ class CartController extends Controller
             } elseif (isset($cartItem['package_id'])) {
                 // Handle package cart items
                 $package = Package::find($cartItem['package_id']);
+                $cartItem['name'] = $package->name;
                 $cartItem['type'] = 'package';
                 $cartItem['image'] = $package ? asset('images/package/' . $package->file) : 'https://www.bootdey.com/image/220x180/FF0000/000000';
             }
