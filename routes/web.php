@@ -65,6 +65,7 @@ Route::get('/product-details/{id}', [ProductManageController::class, 'productDet
 Route::post('/cart/add', [CartController::class, 'productAddToCart']);
 Route::post('/cart/package/add', [CartController::class, 'packageAddToCart']);
 Route::get('/cart', [CartController::class, 'showCart']);
+Route::post('/cart/update', [CartController::class, 'updateCart']);
 
 
 Route::post('/account-registration', [AccountManageController::class, 'storeRegisterInfo'])->name('account.registration');

@@ -4,12 +4,66 @@ import Layout from "../frontend/Layout.vue";
 export default {
     name: "Cart",
     layout: Layout,
-    props:{
-        cart:Array,
-        authUser:Object
+    props: {
+        cart: Array,
+        authUser: Object
+    },
+
+    computed: {
+        subtotal() {
+            return this.cart.reduce((total, item) => {
+                const price = item.package_price || item.price || 0; // Ensure price is valid
+                const duration = item.duration || 1; // Ensure duration is valid
+                const device_access = item.device_access || 1; // Ensure device_access is valid
+                return total + price * duration * device_access;
+            }, 0);
+        },
+    },
+
+    methods: {
+        increaseDuration(index) {
+            if (this.cart[index].duration < 12) {
+                this.cart[index].duration++;
+                this.updateCartSession(); // Update session on cart change
+            }
+        },
+        decreaseDuration(index) {
+            if (this.cart[index].duration > 1) {
+                this.cart[index].duration--;
+                this.updateCartSession(); // Update session on cart change
+            }
+        },
+        increaseDevice(index) {
+            if (this.cart[index].device_access < 2) {
+                this.cart[index].device_access++;
+                this.updateCartSession(); // Update session on cart change
+            }
+        },
+        decreaseDevice(index) {
+            if (this.cart[index].device_access > 1) {
+                this.cart[index].device_access--;
+                this.updateCartSession(); // Update session on cart change
+            }
+        },
+        removeFromCart(index) {
+            this.cart.splice(index, 1);
+            this.updateCartSession(); // Update session after removing item
+        },
+        updateCartSession() {
+            // Send the updated cart data to the server to save in the session
+            this.$inertia.post('/cart/update', {
+                cart: this.cart
+            }).then(() => {
+                console.log('Cart updated successfully.');
+            }).catch(error => {
+                console.error('Error updating cart:', error);
+            });
+        }
     }
-}
+};
 </script>
+
+
 <template>
     <title>Cart</title>
     <section class="cover-board-header">
@@ -48,37 +102,38 @@ export default {
                             </div>
                         </td>
                         <td class="text-center text-lg text-medium">{{ cartData.price }}</td>
-
                         <td class="text-center text-lg text-medium">
+                            <!-- Duration and Devices Counters -->
                             <div class="d-flex flex-column w-100 align-items-center gap-2 py-1 py-lg-0">
-                                <!-- duration counter -->
                                 <div class="d-inline-flex align-items-center gap-2">
                                     Duration:
                                     <div class="d-inline-flex align-items-center gap-2">
-                                        <button id="device-decrease" class="btn btn-outline-success btn-sm">-</button>
+                                        <button @click="decreaseDuration(index)" class="btn btn-outline-success btn-sm">-</button>
                                         {{ cartData.duration }}
-                                        <button id="device-increase" class="btn btn-outline-success btn-sm">+</button>
+                                        <button @click="increaseDuration(index)" class="btn btn-outline-success btn-sm">+</button>
                                     </div>
                                 </div>
-                                <!-- Devices Counter -->
-
                                 <div class="d-inline-flex align-items-center gap-3 flex-shrink-0 text-nowrap">
-                                    Device :
+                                    Device:
                                     <div class="d-inline-flex align-items-center gap-2">
-                                        <button id="device-decrease" class="btn btn-outline-success btn-sm">-</button>
+                                        <button @click="decreaseDevice(index)" class="btn btn-outline-success btn-sm">-</button>
                                         {{ cartData.device_access }}
-                                        <button id="device-increase" class="btn btn-outline-success btn-sm">+</button>
+                                        <button @click="increaseDevice(index)" class="btn btn-outline-success btn-sm">+</button>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        <td class="text-center text-lg text-medium">{{ cartData.price * cartData.duration * cartData.device_access }}</td>
+                        <td class="text-center text-lg text-medium">
+                            {{ cartData.price * cartData.duration * cartData.device_access }}
+                        </td>
                         <td class="text-center">
-                            <a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item">
+                            <a class="remove-from-cart" href="#" @click="removeFromCart(index)">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>
                     </template>
+
+
                     <template v-else-if="cartData.package_id">
                         <td>
                             <div class="product-item">
@@ -89,7 +144,9 @@ export default {
                                 </div>
                             </div>
                         </td>
-                        <td class="text-center text-lg text-medium">{{ cartData.package_price }}</td>
+                        <td class="text-center text-lg text-medium">
+                            {{ cartData.package_price || 0 }} <!-- Fallback to 0 if the price is undefined -->
+                        </td>
                         <td class="text-center text-lg text-medium">
                             <div class="d-flex flex-column w-100 align-items-center gap-2 py-1 py-lg-0">
                                 <div>Type: {{ cartData.package_type }} | Duration: {{ cartData.package_duration }}</div>
@@ -97,20 +154,26 @@ export default {
                                 <div class="d-inline-flex align-items-center gap-2 flex-shrink-0 text-nowrap">
                                     Device :
                                     <div class="d-inline-flex align-items-center gap-1 gap-md-2">
-                                        <button id="device-decrease" class="btn btn-outline-success btn-sm">-</button>
-                                        {{ cartData.device }}
-                                        <button id="device-increase" class="btn btn-outline-success btn-sm">+</button>
+                                        <button @click="decreaseDevice(index)" class="btn btn-outline-success btn-sm">-</button>
+                                        {{ cartData.device_access }}
+                                        <button @click="increaseDevice(index)" class="btn btn-outline-success btn-sm">+</button>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        <td class="text-center text-lg text-medium">{{ cartData.package_price }}</td>
+                        <td class="text-center text-lg text-medium">
+                            {{ (cartData.package_price || 0) * (cartData.device_access || 1) }} <!-- Fallback to 1 if device_access is missing -->
+                        </td>
+
                         <td class="text-center">
-                            <a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item">
+                            <a class="remove-from-cart" href="#" @click="removeFromCart(index)">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>
                     </template>
+
+
+
                 </tr>
                 </tbody>
             </table>
@@ -119,10 +182,13 @@ export default {
             <div class="column">
                 <form class="coupon-form" method="post">
                     <input class="form-control form-control-sm" type="text" placeholder="Coupon code" required="">
-                    <button class="btn btn-outline-primary btn-sm" type="submit">Apply Coupon</button>
+                    <button class="btn btn-outline-success btn-sm" type="submit">Apply Coupon</button>
                 </form>
             </div>
-            <div class="column text-lg">Subtotal: <span class="text-medium">$289.68</span></div>
+            <div class="column text-lg">Subtotal:
+                <span class="text-medium">${{ subtotal }}</span>
+            </div>
+
         </div>
         <div class="shopping-cart-footer">
             <div class="column">

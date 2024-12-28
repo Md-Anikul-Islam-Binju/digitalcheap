@@ -76,7 +76,7 @@ class CartController extends Controller
             'package_duration' => $request->package_duration,
             'package_price' => $request->package_price,
             'package_type' => $request->package_type,
-            'device' => 1,
+            'device_access' => 1,
         ];
 
         session()->put('cart', $cart);
@@ -105,10 +105,13 @@ class CartController extends Controller
                 $cartItem['image'] = $package ? asset('images/package/' . $package->file) : 'https://www.bootdey.com/image/220x180/FF0000/000000';
             }
         }
-
-        //dd($cart);
-
         return inertia('Cart', compact('cart', 'siteSettings', 'authUser'));
+    }
+
+    public function updateCart(Request $request)
+    {
+        $updatedCart = $request->input('cart');
+        session(['cart' => $updatedCart]);
     }
 
 
