@@ -38,6 +38,10 @@
                             <Link class="nav-link" href="/products">Product</Link>
                         </li>
 
+                        <li class="nav-item">
+                            <Link class="nav-link" href="/blog">Blog</Link>
+                        </li>
+
                         <li class="nav-item" v-if="authUser">
                             <a href="/dashboard" target="_blank" class="btn btn-success">{{ authUser.name }}</a>
                         </li>
