@@ -414,7 +414,7 @@ export default {
                         <a class="my-video-links" data-autoplay="true" data-vbtype="video" :href="siteSettings.how_to_use_link" target="_blank"><i class="fa-solid fa-circle-play"></i></a>
                         <h3 class="fw-bold text-center mb-4">How to Use</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_use"></p>
-                        <a href="#" class="text-prmry more-btn">Learn More <i class="fas fa-arrow-right ri"></i></a>
+                        <Link href="/how-to-use" class="text-prmry more-btn">Learn More <i class="fas fa-arrow-right ri"></i></Link>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 text-center mt-2 mt-md-0 p-3">
@@ -422,7 +422,7 @@ export default {
                         <a class="my-video-links" data-autoplay="true" data-vbtype="video" :href="siteSettings.how_to_access_link"><i class="fa-solid fa-circle-play"></i></a>
                         <h3 class="fw-bold text-center mb-4">How to Access</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_access"></p>
-                        <a href="#" class="text-prmry more-btn">Learn More <i class="fas fa-arrow-right ri"></i></a>
+                        <Link href="/how-to-access" class="text-prmry more-btn">Learn More <i class="fas fa-arrow-right ri"></i></Link>
                     </div>
                 </div>
             </div>

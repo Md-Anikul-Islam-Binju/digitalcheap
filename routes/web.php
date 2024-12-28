@@ -49,6 +49,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomePageController::class, 'frontend'])->name('home');
+Route::get('/how-to-use', [HomePageController::class, 'howToUse'])->name('how.to.use');
+Route::get('/how-to-access', [HomePageController::class, 'howToAccess'])->name('how.to.access');
 Route::get('/about', [AboutController::class, 'about'])->name('about');
 Route::get('/blog', [BlogSectionController::class, 'blog'])->name('blog');
 Route::get('/terms-condition', [TermsConditionController::class, 'termsAndCondition'])->name('terms.condition');

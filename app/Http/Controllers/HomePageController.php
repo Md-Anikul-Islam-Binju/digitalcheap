@@ -51,4 +51,21 @@ class HomePageController extends Controller
         return inertia('Index',compact('sliders','categories','packages','products',
             'services','reviews','siteSettings','partner','cart','auth','authUser'));
     }
+
+
+    public function howToUse()
+    {
+        $siteSettings = SiteSetting::latest()->first();
+        $cart = session('cart', []);
+        $authUser = auth()->user();
+        return inertia('HowToUse',compact('siteSettings','cart','authUser'));
+    }
+
+    public function howToAccess()
+    {
+        $siteSettings = SiteSetting::latest()->first();
+        $cart = session('cart', []);
+        $authUser = auth()->user();
+        return inertia('HowToAccess',compact('siteSettings','cart','authUser'));
+    }
 }
