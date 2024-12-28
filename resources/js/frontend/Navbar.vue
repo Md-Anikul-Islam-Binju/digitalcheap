@@ -35,7 +35,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <Link class="nav-link" href="/products">ProductHub</Link>
+                            <Link class="nav-link" href="/products">Product</Link>
                         </li>
 
                         <li class="nav-item" v-if="authUser">

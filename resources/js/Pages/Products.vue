@@ -410,7 +410,6 @@ export default {
 .filter-part {
     position: sticky;
     top: 0;
-    height: 100vh;
     padding: 15px;
 }
 
