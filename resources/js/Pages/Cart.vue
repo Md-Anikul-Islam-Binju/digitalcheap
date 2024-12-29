@@ -66,10 +66,10 @@ export default {
 
 <template>
     <title>Cart</title>
-    <section class="cover-board-header">
-        <img src="frontend/images/ai.jpg" class="h-100 w-100" alt="">
-        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">Cart</h1>
-    </section>
+    <div class="section-title text-center mb-1">
+        <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Cart</h2>
+        <p class="fs-1 fw-medium text-center ">Buy your tools and enjoy service</p>
+    </div>
 
     <div class="container padding-bottom-3x mb-1 pt-5">
         <!-- Shopping Cart-->
@@ -197,7 +197,7 @@ export default {
                 </a>
             </div>
             <div class="column">
-                <a class="btn btn-success" href="./check-out.html">Checkout</a>
+                <Link class="btn btn-success" href="/checkout">Checkout</Link>
             </div>
         </div>
     </div>

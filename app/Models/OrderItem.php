@@ -12,10 +12,11 @@ class OrderItem extends Model
         'order_id',
         'product_id',
         'package_id',
-        'product_name',
-        'package_name',
-        'package_product_name',
-        'is_free_or_paid',// 1=free, 2=paid
+        'name',
+        'duration',
+        'device_access',
+        'is_free_or_paid',//free or paid
         'price',
+        'type',// product or package
     ];
 }

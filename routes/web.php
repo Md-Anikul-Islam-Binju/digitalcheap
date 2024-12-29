@@ -29,6 +29,7 @@ use App\Http\Controllers\ProductManageController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TermsConditionController;
 use App\Http\Controllers\user\CartController;
+use App\Http\Controllers\user\CheckoutController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -165,6 +166,9 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::get('/terms-and-condition', [TermsAndConditionController::class, 'index'])->name('admin.termsAndCondition');
     Route::post('/terms-and-condition-update/{id?}', [TermsAndConditionController::class, 'createOrUpdateTermsAndCondition'])->name('admin.termsAndCondition.createOrUpdate');
 
+    Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout');
+    Route::post('/checkout/order', [CheckoutController::class, 'placeOrder'])->name('checkout.order');
+    Route::get('/payment', [CheckoutController::class, 'payment'])->name('payment');
 });
 
 require __DIR__.'/auth.php';

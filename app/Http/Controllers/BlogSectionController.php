@@ -13,7 +13,8 @@ class BlogSectionController extends Controller
         $siteSettings = SiteSetting::latest()->first();
         $cart = session('cart', []);
         $blogs = Blog::latest()->get();
-        return inertia('Blog',compact('siteSettings','cart','blogs'));
+        $authUser = auth()->user();
+        return inertia('Blog',compact('siteSettings','cart','blogs','authUser'));
     }
 
 
@@ -22,6 +23,7 @@ class BlogSectionController extends Controller
         $siteSettings = SiteSetting::latest()->first();
         $cart = session('cart', []);
         $blog = Blog::where('id',$id)->first();
-        return inertia('BlogDetails',compact('siteSettings','cart','blog'));
+        $authUser = auth()->user();
+        return inertia('BlogDetails',compact('siteSettings','cart','blog','authUser'));
     }
 }

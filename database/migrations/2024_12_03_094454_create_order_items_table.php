@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('package_id')->constrained()->onDelete('cascade');
-            $table->string('product_name');
-            $table->string('package_name');
-            $table->string('package_product_name');
-            $table->enum('is_free_or_paid', [1, 2])->default(2);
+            $table->foreignId('product_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('package_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('duration');
+            $table->integer('device_access');
+            $table->string('is_free_or_paid')->nullable();
+            $table->enum('type', ['product', 'package']);
             $table->decimal('price', 10, 2);
             $table->timestamps();
         });
