@@ -1,56 +1,6 @@
 <template>
-<!--    <div>-->
-<!--        <h2>Checkout</h2>-->
-
-<!--        <div class="cart-summary">-->
-<!--            &lt;!&ndash; Loop through each cart item &ndash;&gt;-->
-<!--            <div v-for="(item, index) in cart" :key="index" class="cart-item">-->
-<!--                <h4>{{ item.name }}</h4>-->
-
-<!--                &lt;!&ndash; Display details for Products &ndash;&gt;-->
-<!--                <div v-if="item.product_id">-->
-<!--                    <p>Price: ${{ item.price }}</p>-->
-<!--                    <p>Duration: {{ item.duration }} months</p>-->
-<!--                    <p>Devices: {{ item.device_access }}</p>-->
-<!--                    <p>Total: ${{ (item.price * item.duration * item.device_access).toFixed(2) }}</p>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; Display details for Packages &ndash;&gt;-->
-<!--                <div v-else-if="item.package_id">-->
-<!--                    <p>Package Price: ${{ item.package_price }}</p>-->
-<!--                    <p>Duration: {{ item.package_duration }}</p>-->
-<!--                    <p>Devices: {{ item.device_access }}</p>-->
-<!--                    <p>Total: ${{ (item.package_price * item.device_access).toFixed(2) }}</p>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash; Total Summary Section &ndash;&gt;-->
-<!--            <div class="total-summary">-->
-<!--                <h3>Subtotal: ${{ subtotal.toFixed(2) }}</h3>-->
-<!--                <h3>Delivery Fee: $10.00</h3>-->
-<!--                <h3>Total: ${{ finalTotal.toFixed(2) }}</h3>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash; Payment Method Selection &ndash;&gt;-->
-<!--            <form @submit.prevent="placeOrder">-->
-<!--                <div class="payment-method">-->
-<!--                    <label for="payment_method">Select Payment Method</label>-->
-<!--                    <select v-model="paymentMethod" id="payment_method" class="form-control">-->
-<!--                        <option value="credit_card">Credit Card</option>-->
-<!--                        <option value="paypal">PayPal</option>-->
-<!--                        <option value="bank_transfer">Bank Transfer</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-
-<!--                <button type="submit" class="btn btn-success">Place Order</button>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-
-
-
-
-
+    <title>Checkout</title>
+    <h2>Checkout</h2>
     <div class="container">
         <div class="row mt-3 mt-5">
             <div class="col-md-6 mb-3 mb-md-0">
@@ -64,8 +14,8 @@
                         <p>Sub-Total Price: <span> ${{ (item.price * item.duration * item.device_access).toFixed(2) }}</span></p>
                     </div>
 
-                    <div v-else-if="item.package_id" class="product-info my-2">
-                        <h4>Artificial Intelligence</h4>
+                    <div v-else-if="item.package_id" :key="index" class="product-info my-2">
+                        <h4>Package {{ index+1 }}</h4>
                         <p>Duration: <span>{{ item.package_duration }}</span></p>
                         <p>Price: <span>${{ item.package_price }}</span></p>
                         <p>Device: <span>{{ item.device_access }}</span></p>
