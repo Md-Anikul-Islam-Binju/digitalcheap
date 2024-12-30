@@ -1,7 +1,11 @@
 <template>
     <title>Checkout</title>
-    <h2>Checkout</h2>
+
     <div class="container">
+        <br>
+        <div class="section-title text-center mb-1">
+            <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Checkout</h2>
+        </div>
         <div class="row mt-3 mt-5">
             <div class="col-md-6 mb-3 mb-md-0">
                 <h2 class="fs-2 text-success mb-2 mb-md-3">Product Info</h2>

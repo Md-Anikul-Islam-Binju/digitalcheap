@@ -66,7 +66,9 @@ export default {
 
 <template>
     <title>Cart</title>
+
     <div class="section-title text-center mb-1">
+        <br>
         <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Cart</h2>
         <p class="fs-1 fw-medium text-center ">Buy your tools and enjoy service</p>
     </div>
