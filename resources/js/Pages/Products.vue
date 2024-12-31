@@ -1,5 +1,6 @@
 <script>
 import Layout from "../frontend/Layout.vue";
+import Swal from "sweetalert2";
 
 export default {
     name: "Products",
@@ -9,6 +10,7 @@ export default {
         products: Array,
         authUser: Object,
         packages: Array,
+        auth: Boolean,
     },
     data() {
         return {
@@ -52,6 +54,120 @@ export default {
             }
             return `${window.location.origin}/images/product/${productImagePath}`;
         },
+
+        handlePackageSelection(pkg, type) {
+            if (!this.auth) {
+                this.promptLogin(); // Prompt login if the user is not authenticated
+                return;
+            }
+            this.addToCartPackage(pkg, type);
+        },
+        addToCartPackage(pkg, type) {
+            const data = {
+                package_id: pkg.id,
+                package_duration: this.selectedType,
+                package_price: pkg.pricing[this.selectedType],
+                package_type: type,
+            };
+
+            axios.post('/cart/package/add', data)
+                .then(response => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.data.message || 'Package added to cart successfully!',
+                        confirmButtonText: 'OK',
+                    });
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An unexpected error occurred.',
+                        confirmButtonText: 'OK',
+                    });
+                });
+        },
+
+        promptLogin() {
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollPosition}px`;
+            document.body.style.width = '100%';
+            Swal.fire({
+                title: "Login Required",
+                html: `
+            <div>
+                <form id="login-form">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+
+                    <div class="form-check text-start my-3">
+                        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <a href="#" class="mb-3">Forgot password?</a>
+                    <button type="button" id="login-button" class="w-100 mb-2 btn btn-lg rounded-3 btn-success">Sign In</button>
+                    <hr class="my-4">
+                    <h2 class="fs-5 fw-bold mb-3">You Have No Account</h2>
+                    <a href="/account-registration-for-user" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" target="_blank">
+                        Sign Up
+                    </a>
+                </form>
+            </div>
+        `,
+                showCancelButton: false,
+                showConfirmButton: false,
+                willClose: () => {
+
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.width = '';
+
+
+                    window.scrollTo(0, scrollPosition);
+                }
+            });
+
+            setTimeout(() => {
+                const loginButton = document.getElementById("login-button");
+                if (loginButton) {
+                    loginButton.addEventListener("click", () => {
+                        const email = document.getElementById("email").value;
+                        const password = document.getElementById("password").value;
+
+                        axios
+                            .post("/login", { email, password })
+                            .then((res) => {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Logged In!",
+                                    text: "You are now logged in. Please refresh the page to proceed.",
+                                    confirmButtonText: "OK",
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            })
+                            .catch(() => {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Login Failed",
+                                    text: "Invalid email or password.",
+                                    confirmButtonText: "OK",
+                                });
+                            });
+                    });
+                }
+            }, 100);
+        },
     }
 }
 </script>
@@ -59,8 +175,9 @@ export default {
     <title>Product</title>
     <section class="cover-board-header">
         <img src="frontend/images/ai.jpg" class="h-100 w-100" alt="">
-        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">Product Hub</h1>
+        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">Product</h1>
     </section>
+
     <section class="store-section my-5">
         <div class="container">
             <div class="section-title text-center mb-3 mb-md-5">
@@ -161,17 +278,6 @@ export default {
                     <label class="form-check-label" :for="'type-' + index">{{ type.label }}</label>
                 </div>
             </div>
-
-            <!-- Category Tabs -->
-<!--            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">-->
-<!--                <li class="nav-item" role="presentation" v-for="category in categories" :key="category.id">-->
-<!--                    <button class="nav-link"-->
-<!--                            :class="{ active: selectedCategory === category.id }"-->
-<!--                            @click="filterByCategory(category.id)">-->
-<!--                        {{ category.name }}-->
-<!--                    </button>-->
-<!--                </li>-->
-<!--            </ul>-->
 
             <!-- Displaying Packages -->
             <div class="row mt-4 mixitup-container">

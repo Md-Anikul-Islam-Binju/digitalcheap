@@ -39,7 +39,8 @@ class ProductManageController extends Controller
         $siteSettings = SiteSetting::latest()->first();
         $cart = session('cart', []);
         $authUser = auth()->user();
-        return inertia('Products', compact('products','siteSettings','cart','categories','authUser','packages'));
+        $auth = auth()->check();
+        return inertia('Products', compact('products','siteSettings','cart','categories','authUser','packages','auth'));
     }
 
 

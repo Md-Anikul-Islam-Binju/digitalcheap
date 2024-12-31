@@ -305,7 +305,9 @@ export default {
                     <div id="product-1" class="single-product">
                         <div class="part-1">
                             <span class="discount">15% off</span>
-                            <img :src="getProductImageUrl(product.file)" alt="Product Image">
+                            <Link class="d-inline-block" :href="`/product-details/${product.id}`">
+                               <img :src="getProductImageUrl(product.file)" alt="Product Image">
+                            </Link>
                         </div>
                         <div class="part-2" v-if="product.discount_amount">
                             <h3 class="product-title">{{ product.name }}</h3>
