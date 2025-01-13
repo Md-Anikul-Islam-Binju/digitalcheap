@@ -628,7 +628,13 @@ color: white;
 
   /* =================mobile device responsive parts ends here================ */
 }
+@media (max-width:1199.98px) {
+  .logo-img{
+    width: 150px !important;
+  }
+}
 @media screen and (min-width: 768px) and (max-width: 992px) {
+
   /* header part */
   .form-width {
     width: 100%;
@@ -652,14 +658,14 @@ color: white;
 @media screen and (min-width: 768px) and (max-width: 992px) {
     .currency-width{
         margin-top: 10px;
-        width: 100% !important;
+        width: 495px !important;
     }
 }
 
 @media screen and (max-width: 767px) {
     .currency-width{
         margin-top: 9px;
-        width: 40%;
+        width: 315%;
     }
 
 }
