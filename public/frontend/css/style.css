@@ -628,6 +628,17 @@ color: white;
 
   /* =================mobile device responsive parts ends here================ */
 }
+
+@media (max-width:1199.98px) {
+  .logo-img{
+    width: 150px !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .form-width{
+      width: 130px !important;
+  }
+}
 @media screen and (min-width: 768px) and (max-width: 992px) {
   /* header part */
   .form-width {
@@ -649,19 +660,18 @@ color: white;
 /* =================Responsive parts ends here================ */
 
 
-@media screen and (min-width: 768px) and (max-width: 992px) {
-    .currency-width{
-        margin-top: 10px;
-        width: 100% !important;
-    }
+@media screen and (min-width: 768px) and (max-width: 991.98px) {
+  .currency-width{
+      margin-top: 10px;
+      width: 495px !important;
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .currency-width{
-        margin-top: 9px;
-        width: 40%;
-    }
-
+  .currency-width{
+      margin-top: 9px;
+      width: 315%;
+  }
 }
 
 @media screen and (max-width: 576px) {

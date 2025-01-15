@@ -23,23 +23,16 @@
 
                 <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
                     <a class="navbar-brand col-lg-2 me-0 mt-2 mt-lg-0 d-none d-lg-block" href="/">
-                        <img :src="getLogoUrl(siteSettings?.logo)" alt="" style="height: 60px;">
+                        <img :src="getLogoUrl(siteSettings?.logo)" alt="" style="height: 60px;" class="logo-img">
                     </a>
 
                     <ul class="navbar-nav mx-auto justify-content-lg-center">
                         <li class="nav-item">
                             <Link class="nav-link active" aria-current="page" href="/">Home</Link>
                         </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" href="/about">About</Link>
-                        </li>
 
                         <li class="nav-item">
                             <Link class="nav-link" href="/products">Product</Link>
-                        </li>
-
-                        <li class="nav-item">
-                            <Link class="nav-link" href="/blog">Blog</Link>
                         </li>
 
                         <li class="nav-item" v-if="authUser">
@@ -47,10 +40,14 @@
                         </li>
 
 
-                        <li class="nav-item d-flex" v-else>
-                            <Link class="nav-link" href="/login" target="_blank">Login</Link>
-                            <Link class="nav-link" href="/account-registration-for-user" target="_blank">Sign Up</Link>
-                        </li>
+                        <div class="nav-item d-lg-flex" v-else>
+                            <li class="nav-item">
+                                <Link class="nav-link" href="/login" target="_blank">Login</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link text-nowrap" href="/account-registration-for-user" target="_blank">Sign Up</Link>
+                            </li>
+                        </div>
 
                     </ul>
 
