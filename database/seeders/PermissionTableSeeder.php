@@ -109,6 +109,7 @@ class PermissionTableSeeder extends Seeder
             //Dashboard
             'cart-list',
             'login-log-list',
+            'live-chat',
         ];
         foreach ($permissions as $permission) {
             if (!Permission::where('name', $permission)->exists()) {

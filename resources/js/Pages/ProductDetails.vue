@@ -21,6 +21,10 @@ export default {
         baseUrl() {
             return window.location.origin;
         },
+        totalPrice() {
+            const basePrice = this.product.discount_amount || this.product.amount; // Use discount price if available
+            return basePrice * this.duration * this.deviceAccess;
+        },
     },
     methods: {
         getProductImageUrl(productImagePath) {
@@ -142,14 +146,12 @@ export default {
 
 <template>
     <title>Details</title>
-    <section class="cover-board-header">
-        <img :src="`${baseUrl}/frontend/images/ai.jpg`" class="h-100 w-100" alt="">
-        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">
-            Product Details
-        </h1>
-    </section>
+
     <section class="product-details py-5">
         <div class="container">
+            <div class="section-title text-center mb-3 mb-md-5">
+                <h2 class="text-start h3 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Product Details</h2>
+            </div>
             <div class="row g-5">
                 <div class="col-lg-6 d-flex align-items-center text-center justify-content-center">
                     <div class="product-img">
@@ -194,9 +196,22 @@ export default {
                         </div>
 
                         <hr>
+
                         <div class="pricing-part">
-                            <h4 class="text-danger"><strike>$199</strike> <span class="ms-2 fw-bold">$99</span></h4>
+                            <div class="part-2">
+                                <h4 class="product-price">${{ totalPrice }}</h4>
+                            </div>
                         </div>
+
+                        <div class="pricing-part">
+                            <div class="part-2" v-if="product.discount_amount">
+                                <h4 class="product-old-price text-decoration-line-through">
+                                    ${{ product.amount }}
+                                </h4>
+                            </div>
+                        </div>
+
+
 
                         <!-- buy now part -->
                         <div class="mt-4">

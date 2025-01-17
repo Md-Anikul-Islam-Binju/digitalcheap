@@ -57,7 +57,7 @@
                         </form>
                         <a class="btn btn-outline-success mt-2 mt-lg-0 ">Affiliate</a>
 
-                        <a class="btn btn-success mt-2 mt-lg-0">Live Chat</a>
+                        <a class="btn btn-success mt-2 mt-lg-0" href="/chatify">Live Chat</a>
 
                         <div class="currency-width shadow-none">
                             <select class="form-select shadow-none rounded border-success" aria-label="Default select example">
