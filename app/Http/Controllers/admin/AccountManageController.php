@@ -41,7 +41,7 @@ class AccountManageController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $verificationCode = rand(100000, 999999);
-
+        $clientIp = $request->header('X-Forwarded-For') ?? $request->ip();
 
 
         try {
@@ -54,6 +54,7 @@ class AccountManageController extends Controller
                 'verification_code' => $verificationCode,
                 'status' => 0,
                 'is_registration_by' => $input['is_registration_by'],
+                'device_ip' => $clientIp,
             ]);
 
             // Send verification email

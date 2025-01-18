@@ -17,6 +17,7 @@ class User extends Authenticatable
         'email',
         'verification_code',
         'password',
+        'device_ip',
         'is_registration_by',
         'email_verified_at',
         'verification_code',
