@@ -155,7 +155,7 @@ export default {
             <div class="row g-5">
                 <div class="col-lg-6 d-flex align-items-center text-center justify-content-center">
                     <div class="product-img">
-                        <img :src="getProductImageUrl(product.file)" class="w-full img-fluid d-block" alt="" style="height: 550px;">
+                        <img :src="getProductImageUrl(product.file)" class="w-full img-fluid d-block" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">
