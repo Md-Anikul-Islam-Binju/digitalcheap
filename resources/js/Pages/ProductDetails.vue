@@ -299,7 +299,9 @@ export default {
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/lJzVc2uN5tc?si=naK4zpACgvA8DTCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <div class="w-full text-center">
+                                <iframe width="560" class="player" src="https://www.youtube.com/embed/p_eq98EINOI?si=pUpTrD9pdR9lXzfg&amp;start=62" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -342,3 +344,17 @@ export default {
         </div>
     </section>
 </template>
+<style>
+            .player {
+                aspect-ratio: 16 / 9;
+                @media screen and (max-width: 767.98px) {
+                    max-width: 400px;
+                }
+                @media screen and (max-width: 575.98px) {
+                    max-width: 300px;
+                }
+                @media screen and (max-width: 375.98px) {
+                    max-width: 250px;
+                }
+            }
+</style>
