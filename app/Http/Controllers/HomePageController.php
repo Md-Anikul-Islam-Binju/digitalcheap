@@ -68,4 +68,13 @@ class HomePageController extends Controller
         $authUser = auth()->user();
         return inertia('HowToAccess',compact('siteSettings','cart','authUser'));
     }
+
+
+    public function howToBecomeAffiliate()
+    {
+        $siteSettings = SiteSetting::latest()->first();
+        $cart = session('cart', []);
+        $authUser = auth()->user();
+        return inertia('AffiliateJoin',compact('siteSettings','cart','authUser'));
+    }
 }

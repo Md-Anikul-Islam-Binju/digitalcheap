@@ -56,7 +56,7 @@
                         <form role="search" class="form-width">
                             <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                         </form>
-                        <a class="btn btn-outline-success mt-2 mt-lg-0 ">Affiliate</a>
+                        <Link class="btn btn-outline-success mt-2 mt-lg-0" href="/how-to-become-affiliate">Affiliate</Link>
 
                         <a class="btn btn-success mt-2 mt-lg-0" href="/chatify">Live Chat</a>
 
