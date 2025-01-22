@@ -230,6 +230,16 @@
                     </li>
                 @endcan
 
+                @can('live-chat')
+                <li class="side-nav-item">
+                    <a href="{{url('chatify')}}" class="side-nav-link">
+                        <i class="ri-chat-1-line"></i>
+                        <span> Live Chat </span>
+                    </a>
+                </li>
+                @endcan
+
+
 
 
 

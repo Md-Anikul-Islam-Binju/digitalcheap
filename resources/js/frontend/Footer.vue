@@ -59,7 +59,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 mx-auto text-center" >
-                        <p class="mt-3" style="line-height: 1.8;">Copyright © 2024 <a class="fw-600" style="color: #00fe9c;" href="/">CoderNetix</a>. All Rights Reserved.</p>
+                        <p class="mt-3" style="line-height: 1.8;">Copyright © 2025 <a class="fw-600" style="color: #00fe9c;" href="/">CoderNetix</a>. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>

@@ -19,6 +19,8 @@ export default {
     },
     data() {
         return {
+            isModalOpen: false,
+            videoUrl: "",
             selectedCategory: null, // Default to show all categories
             selectedType: "Monthly", // Default to "Monthly"
             packageTypes: [
@@ -111,86 +113,6 @@ export default {
                 });
         },
 
-        // promptLogin() {
-        //
-        //     const scrollPosition = window.scrollY;
-        //
-        //     Swal.fire({
-        //         title: "Login Required",
-        //         html: `
-        // <div>
-        //    <form id="login-form">
-        //         <div class="form-floating mb-3">
-        //           <input type="email" class="form-control" id="email" placeholder="name@example.com">
-        //         </div>
-        //
-        //         <div class="form-floating mb-3">
-        //           <input type="password" class="form-control" id="password" placeholder="Password">
-        //         </div>
-        //
-        //         <div class="form-check text-start my-3">
-        //           <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-        //           <label class="form-check-label" for="flexCheckDefault">
-        //             Remember me
-        //           </label>
-        //         </div>
-        //
-        //         <a href="#" class="mb-3">Forgot password?</a>
-        //         <button type="button" id="login-button" class="w-100 mb-2 btn btn-lg rounded-3 btn-success">Sign In</button>
-        //         <hr class="my-4">
-        //         <h2 class="fs-5 fw-bold mb-3">You Have No Account</h2>
-        //         <a href="/account-registration-for-user" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" target="_blank">
-        //           Sign Up
-        //         </a>
-        //    </form>
-        // </div>
-        // `,
-        //         showCancelButton: false,
-        //         showConfirmButton: false,
-        //         willOpen: () => {
-        //
-        //             document.body.style.overflow = "hidden";
-        //         },
-        //         willClose: () => {
-        //
-        //             document.body.style.overflow = "";
-        //             window.scrollTo(0, scrollPosition);
-        //         }
-        //     });
-        //
-        //     setTimeout(() => {
-        //         const loginButton = document.getElementById("login-button");
-        //         if (loginButton) {
-        //             loginButton.addEventListener("click", () => {
-        //                 const email = document.getElementById("email").value;
-        //                 const password = document.getElementById("password").value;
-        //
-        //                 axios
-        //                     .post("/login", { email, password })
-        //                     .then((res) => {
-        //                         Swal.fire({
-        //                             icon: "success",
-        //                             title: "Logged In!",
-        //                             text: "You are now logged in. Please refresh the page to proceed.",
-        //                             confirmButtonText: "OK",
-        //                         }).then(() => {
-        //                             location.reload();
-        //                         });
-        //                     })
-        //                     .catch(() => {
-        //                         Swal.fire({
-        //                             icon: "error",
-        //                             title: "Login Failed",
-        //                             text: "Invalid email or password.",
-        //                             confirmButtonText: "OK",
-        //                         });
-        //                     });
-        //             });
-        //         }
-        //     }, 100);
-        // }
-
-
         promptLogin() {
             const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
             document.body.style.position = 'fixed';
@@ -269,7 +191,25 @@ export default {
                     });
                 }
             }, 100);
-        }
+        },
+
+        // openVideoModal(videoUrl) {
+        //     this.$refs.videoIframe.src = videoUrl;
+        //     const modal = new bootstrap.Modal(this.$refs.videoModal);
+        //     modal.show();
+        // },
+        // closeVideoModal() {
+        //     this.$refs.videoIframe.src = '';
+        // },
+        openModal(videoUrl) {
+            this.videoUrl = videoUrl;
+            this.isModalOpen = true;
+        },
+        closeModal() {
+            this.isModalOpen = false;
+            this.videoUrl = "";
+        },
+
 
 
     },
@@ -402,29 +342,54 @@ export default {
     </section>
 
     <!-- Usability -->
-    <section class="usabilty-section py-5">
+    <section class="usability-section py-5">
         <div class="container">
             <div class="section-title text-center mb-1">
-                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Useablity</h2>
+                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Usability</h2>
                 <p class="fs-1 fw-medium text-center text-capitalize">Designed for Your Ease</p>
             </div>
             <div class="row align-items-center mt-2">
                 <div class="col-12 col-md-6 text-center p-3 mt-3 mt-md-0">
-                    <div class="use-card p-4 shadow-lg  rounded">
-                        <a class="my-video-links" data-autoplay="true" data-vbtype="video" :href="siteSettings.how_to_use_link" target="_blank"><i class="fa-solid fa-circle-play"></i></a>
+                    <div class="use-card p-4 shadow-lg rounded">
+                        <button
+                            class="my-video-links btn btn-link"
+                            @click="openModal('https://www.youtube.com/embed/QMpp2g4KTlQ?autoplay=1')"
+                        >
+                            <i class="fa-solid fa-circle-play"></i>
+                        </button>
                         <h3 class="fw-bold text-center mb-4">How to Use</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_use"></p>
-                        <Link href="/how-to-use" class="text-prmry more-btn">Learn More <i class="fas fa-arrow-right ri"></i></Link>
+                        <Link href="/how-to-use" class="text-prmry more-btn">
+                            Learn More <i class="fas fa-arrow-right ri"></i>
+                        </Link>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 text-center mt-2 mt-md-0 p-3">
-                    <div class="use-card p-4 shadow-lg  rounded">
-                        <a class="my-video-links" data-autoplay="true" data-vbtype="video" :href="siteSettings.how_to_access_link"><i class="fa-solid fa-circle-play"></i></a>
+                    <div class="use-card p-4 shadow-lg rounded">
+                        <button
+                            class="my-video-links btn btn-link"
+                            @click="openModal('https://www.youtube.com/embed/0hx4iWzMVhc?autoplay=1')"
+                        >
+                            <i class="fa-solid fa-circle-play"></i>
+                        </button>
                         <h3 class="fw-bold text-center mb-4">How to Access</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_access"></p>
-                        <Link href="/how-to-access" class="text-prmry more-btn">Learn More <i class="fas fa-arrow-right ri"></i></Link>
+                        <Link href="/how-to-access" class="text-prmry more-btn">
+                            Learn More <i class="fas fa-arrow-right ri"></i>
+                        </Link>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div v-if="isModalOpen" class="modal-overlay">
+            <div class="modal-content">
+                <button class="modal-close" @click="closeModal">&times;</button>
+                <iframe
+                    :src="videoUrl"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                ></iframe>
             </div>
         </div>
     </section>
@@ -667,5 +632,40 @@ export default {
 </template>
 
 <style scoped>
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
 
+.modal-content {
+    position: relative;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+}
+
+.modal-content iframe {
+    width: 100%;
+    height: 450px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
 </style>

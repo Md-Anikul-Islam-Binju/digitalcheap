@@ -21,6 +21,10 @@ export default {
         baseUrl() {
             return window.location.origin;
         },
+        totalPrice() {
+            const basePrice = this.product.discount_amount || this.product.amount; // Use discount price if available
+            return basePrice * this.duration * this.deviceAccess;
+        },
     },
     methods: {
         getProductImageUrl(productImagePath) {
@@ -142,18 +146,16 @@ export default {
 
 <template>
     <title>Details</title>
-    <section class="cover-board-header">
-        <img :src="`${baseUrl}/frontend/images/ai.jpg`" class="h-100 w-100" alt="">
-        <h1 class="text-center fw-bold text-uppercase display-5 position-absolute top-50 start-50 translate-middle">
-            Product Details
-        </h1>
-    </section>
+
     <section class="product-details py-5">
         <div class="container">
+            <div class="section-title text-center mb-3 mb-md-5">
+                <h2 class="text-start h3 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Product Details</h2>
+            </div>
             <div class="row g-5">
                 <div class="col-lg-6 d-flex align-items-center text-center justify-content-center">
                     <div class="product-img">
-                        <img :src="getProductImageUrl(product.file)" class="w-full img-fluid d-block" alt="" style="height: 550px;">
+                        <img :src="getProductImageUrl(product.file)" class="w-full img-fluid d-block" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -194,9 +196,22 @@ export default {
                         </div>
 
                         <hr>
+
                         <div class="pricing-part">
-                            <h4 class="text-danger"><strike>$199</strike> <span class="ms-2 fw-bold">$99</span></h4>
+                            <div class="part-2">
+                                <h4 class="product-price">${{ totalPrice }}</h4>
+                            </div>
                         </div>
+
+                        <div class="pricing-part">
+                            <div class="part-2" v-if="product.discount_amount">
+                                <h4 class="product-old-price text-decoration-line-through">
+                                    ${{ product.amount }}
+                                </h4>
+                            </div>
+                        </div>
+
+
 
                         <!-- buy now part -->
                         <div class="mt-4">
@@ -284,7 +299,9 @@ export default {
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/lJzVc2uN5tc?si=naK4zpACgvA8DTCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <div class="w-full text-center">
+                                <iframe width="560" class="player" src="https://www.youtube.com/embed/p_eq98EINOI?si=pUpTrD9pdR9lXzfg&amp;start=62" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -327,3 +344,17 @@ export default {
         </div>
     </section>
 </template>
+<style>
+            .player {
+                aspect-ratio: 16 / 9;
+                @media screen and (max-width: 767.98px) {
+                    max-width: 400px;
+                }
+                @media screen and (max-width: 575.98px) {
+                    max-width: 300px;
+                }
+                @media screen and (max-width: 375.98px) {
+                    max-width: 250px;
+                }
+            }
+</style>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('verification_code')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('device_ip')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
