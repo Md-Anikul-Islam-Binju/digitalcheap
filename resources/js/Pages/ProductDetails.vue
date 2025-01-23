@@ -149,9 +149,6 @@ export default {
 
     <section class="product-details py-5">
         <div class="container">
-            <div class="section-title text-center mb-3 mb-md-5">
-                <h2 class="text-start h3 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Product Details</h2>
-            </div>
             <div class="row g-5">
                 <div class="col-lg-6 d-flex align-items-center text-center justify-content-center">
                     <div class="product-img">
