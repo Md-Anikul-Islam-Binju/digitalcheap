@@ -357,4 +357,9 @@ export default {
                     max-width: 250px;
                 }
             }
+            .product-img img{
+                @media (min-width: 991.98px) {
+                    height: 550px;
+                }
+            }
 </style>
