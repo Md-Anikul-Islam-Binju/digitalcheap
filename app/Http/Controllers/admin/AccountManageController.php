@@ -31,12 +31,11 @@ class AccountManageController extends Controller
         $this->validate($request, [
             'is_registration_by' => 'required',
             'name' => 'required',
-            'phone' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
         ]);
 
-        //dd($request->all());
+       // dd($request->all());
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
@@ -49,7 +48,7 @@ class AccountManageController extends Controller
             $user = User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
-                'phone' => $input['phone'],
+                'phone' => $input['phone'] ?? null,
                 'password' => $input['password'],
                 'verification_code' => $verificationCode,
                 'status' => 0,
@@ -79,6 +78,8 @@ class AccountManageController extends Controller
 
     public function verify(Request $request)
     {
+        //dd($request->all());
+
         $this->validate($request, [
             'verification_code' => 'required',
         ]);

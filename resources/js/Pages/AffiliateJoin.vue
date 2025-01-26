@@ -15,6 +15,20 @@
         </div>
     </section>
 
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-12 col-12">
+                    <!-- text center -->
+                    <div  class="text-center">
+                        <iframe class="w-100" width="560" height="460" src="https://www.youtube.com/embed/o9NckLXvYT8?si=d_6bTtN73SH169Cc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <h1 class="display-5 fw-bold text-capitalize mt-3">How to Access a netflix account</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="pb-8">
         <div class="container">
             <div class="row justify-content-center">

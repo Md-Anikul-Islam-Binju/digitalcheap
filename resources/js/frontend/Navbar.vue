@@ -46,8 +46,12 @@
                                 <a href="#" class="nav-link" @click.prevent="openLoginModal">Login</a>
                             </li>
 
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link text-nowrap" href="/account-registration-for-user" target="_blank">Sign Up</a>-->
+<!--                            </li>-->
+
                             <li class="nav-item">
-                                <a class="nav-link text-nowrap" href="/account-registration-for-user" target="_blank">Sign Up</a>
+                                <a class="nav-link text-nowrap" href="#" @click.prevent="openRegistrationModal">Sign Up</a>
                             </li>
                         </div>
                     </ul>
@@ -210,6 +214,167 @@ export default {
         },
 
 
+        // Open Registration Modal
+        openRegistrationModal() {
+            Swal.fire({
+                title: "Register",
+                html: `
+                    <form id="registration-form">
+                        <div class="form-floating mb-3">
+                            <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+                            <label for="email">Email address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" id="password" class="form-control" placeholder="Password" required>
+                            <label for="password">Password</label>
+                        </div>
+                        <button type="button" id="register-button" class="btn btn-success w-100">Register</button>
+                    </form>
+                `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+
+            setTimeout(() => {
+                const registerButton = document.getElementById("register-button");
+                if (registerButton) {
+                    registerButton.addEventListener("click", this.handleRegistration);
+                }
+            }, 100);
+        },
+
+        // async handleRegistration() {
+        //     const name = document.getElementById("name").value;
+        //     const email = document.getElementById("email").value;
+        //     const password = document.getElementById("password").value;
+        //
+        //     // Define the value of is_registration_by explicitly
+        //     const is_registration_by = "User"; // or dynamically set this value if needed
+        //
+        //     try {
+        //         const response = await axios.post("/account-registration", { is_registration_by, name, email, password });
+        //
+        //         if (response.status === 200) {
+        //             Swal.fire({
+        //                 icon: "success",
+        //                 title: "Registration Successful",
+        //                 text: "A verification email has been sent to your address.",
+        //                 timer: 3000,
+        //                 showConfirmButton: false,
+        //             });
+        //         }
+        //     } catch (error) {
+        //         Swal.fire({
+        //             icon: "error",
+        //             title: "Registration Failed",
+        //             text: "Please check the details and try again.",
+        //             confirmButtonText: "OK",
+        //         });
+        //     }
+        // },
+
+
+        async handleRegistration() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Define the value of is_registration_by explicitly
+            const is_registration_by = "User"; // or dynamically set this value if needed
+
+            try {
+                const response = await axios.post("/account-registration", { is_registration_by, name, email, password });
+
+                if (response.status === 200) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Registration Successful",
+                        text: "A verification email has been sent to your address.",
+                        timer: 3000,
+                        showConfirmButton: false,
+                    });
+
+                    // Automatically open the verification modal after registration
+                    setTimeout(() => {
+                        this.openVerificationModal();
+                    }, 3000); // Wait 3 seconds before showing the verification modal (to allow the success alert to close)
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Registration Failed",
+                    text: "Please check the details and try again.",
+                    confirmButtonText: "OK",
+                });
+            }
+        },
+
+
+        // Open Verification Modal
+        openVerificationModal() {
+            Swal.fire({
+                title: "Verify Your Email",
+                html: `
+                    <form id="verification-form">
+                        <div class="form-floating mb-3">
+                            <input type="text" id="verification-code" class="form-control" placeholder="Verification Code" required>
+                            <label for="verification-code">Verification Code</label>
+                        </div>
+                        <button type="button" id="verify-button" class="btn btn-success w-100">Verify</button>
+                    </form>
+                `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+
+            setTimeout(() => {
+                const verifyButton = document.getElementById("verify-button");
+                if (verifyButton) {
+                    verifyButton.addEventListener("click", this.handleVerification);
+                }
+            }, 100);
+        },
+
+
+
+
+        async handleVerification() {
+            const verificationCode = document.getElementById("verification-code").value;
+
+            try {
+                const response = await axios.post("/account-verify-complete", { verification_code: verificationCode });  // changed 'code' to 'verification_code'
+
+                if (response.status === 200) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Verification Successful",
+                        text: "Your account is now verified.",
+                        timer: 2000,
+                        showConfirmButton: false,
+                    }).then(() => {
+                        // Close the modal after success
+                        Swal.close();
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Verification Failed",
+                    text: "Invalid verification code. Please try again.",
+                    confirmButtonText: "OK",
+                    allowOutsideClick: false, // Prevent modal close when clicking outside
+                }).then(() => {
+                    // After clicking OK, reopen the verification modal
+                    this.openVerificationModal();
+                });
+            }
+        }
 
 
 

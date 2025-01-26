@@ -29,7 +29,7 @@ export default {
 
                     <p class="mb-4">Available 24/7/365, we believe that exceptional service is essential. Our team is committed to making your experience smooth and enjoyable. We listen, respond promptly, and offer personalized support to meet your needs. Whether guiding you through options or addressing concerns, we’re here every step of the way. Your satisfaction drives us, and we aim to exceed expectations. With us, you're not just a customer; you’re a valued part of our community.</p>
 
-                    <a href="#" class="btn btn-success">Learn More</a>
+
                 </div>
             </div>
         </div>

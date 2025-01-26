@@ -220,6 +220,9 @@ export default {
 <template>
     <title>Home</title>
     <!-- hero section -->
+
+
+
     <section class="hero-section">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="5000">
             <div class="carousel-indicators">
@@ -228,12 +231,15 @@ export default {
             </div>
             <div class="carousel-inner">
                 <div v-for="(sliderData, index) in sliders" :key="sliderData.id" :class="['carousel-item', { active: index === 0 }]">
-                    <img :src="getSliderUrl(sliderData.file)" class="d-block w-100 object-fit-cover" alt="...">
+                    <a :href="sliderData.link" target="_blank" rel="noopener noreferrer" class="d-block">
+                        <img :src="getSliderUrl(sliderData.file)" class="d-block w-100 object-fit-cover" alt="...">
+                    </a>
                     <div class="overlay"></div>
                 </div>
             </div>
         </div>
     </section>
+
 
 
     <!-- core values section -->
@@ -299,7 +305,7 @@ export default {
 
                     <p class="mb-4">Available 24/7/365, we believe that exceptional service is essential. Our team is committed to making your experience smooth and enjoyable. We listen, respond promptly, and offer personalized support to meet your needs. Whether guiding you through options or addressing concerns, we’re here every step of the way. Your satisfaction drives us, and we aim to exceed expectations. With us, you're not just a customer; you’re a valued part of our community.</p>
 
-                    <a href="#" class="btn btn-success">Learn More</a>
+                    <Link href="/about" class="btn btn-success">Learn More</Link>
                 </div>
             </div>
         </div>
@@ -453,9 +459,6 @@ export default {
                         <div class="part-1">
                             <span class="discount">15% off</span>
                             <img src="frontend/images/Netflix-product.webp" class="" alt="">
-                            <div>
-                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
-                            </div>
                         </div>
                         <div class="part-2">
                             <h3 class="product-title">Netflix Subscription</h3>
@@ -469,9 +472,7 @@ export default {
                         <div class="part-1">
                             <span class="discount">15% off</span>
                             <img src="frontend/images/Netflix-product.webp" class="" alt="">
-                            <div>
-                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
-                            </div>
+
                         </div>
                         <div class="part-2">
                             <h3 class="product-title">Netflix Subscription</h3>
@@ -485,9 +486,7 @@ export default {
                         <div class="part-1">
                             <span class="discount">15% off</span>
                             <img src="frontend/images/Netflix-product.webp" class="" alt="">
-                            <div>
-                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
-                            </div>
+
                         </div>
                         <div class="part-2">
                             <h3 class="product-title">Netflix Subscription</h3>
@@ -501,9 +500,7 @@ export default {
                         <div class="part-1">
                             <span class="discount">15% off</span>
                             <img src="frontend/images/Netflix-product.webp" class="" alt="">
-                            <div>
-                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
-                            </div>
+
                         </div>
                         <div class="part-2">
                             <h3 class="product-title">Netflix Subscription</h3>
@@ -517,9 +514,7 @@ export default {
                         <div class="part-1">
                             <span class="new">new</span>
                             <img src="frontend/images/Netflix-product.webp" class="" alt="">
-                            <div>
-                                <a href="#">Buy Now <i class="fas fa-shopping-cart"></i></a>
-                            </div>
+
                         </div>
                         <div class="part-2">
                             <h3 class="product-title">Netflix Subscription</h3>
@@ -668,4 +663,6 @@ export default {
     font-size: 1.5rem;
     cursor: pointer;
 }
+
+
 </style>
