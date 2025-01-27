@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
-                    <a class="navbar-brand col-lg-2 me-0 mt-2 mt-lg-0 d-none d-lg-block" href="/">
+                    <a class="navbar-brand me-0 mt-2 mt-lg-0 d-none d-lg-block" href="/">
                         <img :src="getLogoUrl(siteSettings?.logo)" alt="" style="height: 60px;" class="logo-img">
                     </a>
 
