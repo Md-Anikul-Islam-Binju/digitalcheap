@@ -13,6 +13,8 @@
                             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                             <a href="#"><i class="fa-brands fa-instagram"></i></a>
                             <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
                         </div>
                     </div>
                     <div class="col-6 mt-3 mt-md-0 col-md-2">
