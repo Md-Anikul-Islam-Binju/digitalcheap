@@ -224,13 +224,17 @@ export default {
 
 
     <section class="hero-section">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="5000">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true"
+            data-bs-interval="5000">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
             </div>
             <div class="carousel-inner">
-                <div v-for="(sliderData, index) in sliders" :key="sliderData.id" :class="['carousel-item', { active: index === 0 }]">
+                <div v-for="(sliderData, index) in sliders" :key="sliderData.id"
+                    :class="['carousel-item', { active: index === 0 }]">
                     <a :href="sliderData.link" target="_blank" rel="noopener noreferrer" class="d-block">
                         <img :src="getSliderUrl(sliderData.file)" class="d-block w-100 object-fit-cover" alt="...">
                     </a>
@@ -248,7 +252,8 @@ export default {
             <div class="section-title text-center mb-1">
                 <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Core Values</h2>
             </div>
-            <div class="row align-items-center mt-md-5 justify-content-center gap-2 gap-md-0 justify-content-md-between">
+            <div
+                class="row align-items-center mt-md-5 justify-content-center gap-2 gap-md-0 justify-content-md-between">
                 <div class="col-5 col-md-2 text-center p-3 shadow-sm rounded value-card">
                     <div class="mb-1 fs-1">
                         <i class="fa-solid fa-comments"></i>
@@ -303,7 +308,11 @@ export default {
                 <div class="col-12 col-md-6 mt-5 mt-md-0 ps-lg-5">
                     <h3 class="fw-bold text-success text-center text-md-start mb-4">Your Satisfaction, Our Priority</h3>
 
-                    <p class="mb-4">Available 24/7/365, we believe that exceptional service is essential. Our team is committed to making your experience smooth and enjoyable. We listen, respond promptly, and offer personalized support to meet your needs. Whether guiding you through options or addressing concerns, we’re here every step of the way. Your satisfaction drives us, and we aim to exceed expectations. With us, you're not just a customer; you’re a valued part of our community.</p>
+                    <p class="mb-4">Available 24/7/365, we believe that exceptional service is essential. Our team is
+                        committed to making your experience smooth and enjoyable. We listen, respond promptly, and offer
+                        personalized support to meet your needs. Whether guiding you through options or addressing
+                        concerns, we’re here every step of the way. Your satisfaction drives us, and we aim to exceed
+                        expectations. With us, you're not just a customer; you’re a valued part of our community.</p>
 
                     <Link href="/about" class="btn btn-success">Learn More</Link>
                 </div>
@@ -319,10 +328,11 @@ export default {
                 <p class="fs-1 fw-medium text-center text-capitalize">How can we help you</p>
             </div>
             <div class="row mt-5">
-                <div  v-for="(servicesData, index) in services" :key="index" class="col-sm-6 col-lg-3">
+                <div v-for="(servicesData, index) in services" :key="index" class="col-sm-6 col-lg-3">
                     <div class="featured-box px-md-4 text-center mb-4">
                         <div class="featured-box-icon">
-                            <img src="frontend/images/why.jpg" class="mx-auto img-fluid object-fit-cover rounded" alt="">
+                            <img src="frontend/images/why.jpg" class="mx-auto img-fluid object-fit-cover rounded"
+                                alt="">
                         </div>
                         <h4 class="fw-600 mb-3">{{ servicesData.name }}</h4>
                         <p class="text-muted mb-0" style="line-height: 1.8;" v-html="servicesData.details"></p>
@@ -340,9 +350,9 @@ export default {
                 <p class="fs-1 fw-medium text-center text-capitalize">Collaborating for Growth</p>
             </div>
             <marquee class="mt-5 row" scrollamount="5" loop="3" behavior="scroll" direction="left">
-               <span v-for="partnerData in partner"  :key="partnerData.id">
-                <img style="width: 250px;"  :src="getPartnerImageUrl(partnerData.file)" alt="">
-               </span>
+                <span v-for="partnerData in partner" :key="partnerData.id">
+                    <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
+                </span>
             </marquee>
         </div>
     </section>
@@ -357,31 +367,27 @@ export default {
             <div class="row align-items-center mt-2">
                 <div class="col-12 col-md-6 text-center p-3 mt-3 mt-md-0">
                     <div class="use-card p-4 shadow-lg rounded">
-                        <button
-                            class="my-video-links btn btn-link"
-                            @click="openModal('https://www.youtube.com/embed/QMpp2g4KTlQ?autoplay=1')"
-                        >
+                        <button class="my-video-links btn btn-link"
+                            @click="openModal('https://www.youtube.com/embed/QMpp2g4KTlQ?autoplay=1')">
                             <i class="fa-solid fa-circle-play"></i>
                         </button>
                         <h3 class="fw-bold text-center mb-4">How to Use</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_use"></p>
                         <Link href="/how-to-use" class="text-prmry more-btn">
-                            Learn More <i class="fas fa-arrow-right ri"></i>
+                        Learn More <i class="fas fa-arrow-right ri"></i>
                         </Link>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 text-center mt-2 mt-md-0 p-3">
                     <div class="use-card p-4 shadow-lg rounded">
-                        <button
-                            class="my-video-links btn btn-link"
-                            @click="openModal('https://www.youtube.com/embed/0hx4iWzMVhc?autoplay=1')"
-                        >
+                        <button class="my-video-links btn btn-link"
+                            @click="openModal('https://www.youtube.com/embed/0hx4iWzMVhc?autoplay=1')">
                             <i class="fa-solid fa-circle-play"></i>
                         </button>
                         <h3 class="fw-bold text-center mb-4">How to Access</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_access"></p>
                         <Link href="/how-to-access" class="text-prmry more-btn">
-                            Learn More <i class="fas fa-arrow-right ri"></i>
+                        Learn More <i class="fas fa-arrow-right ri"></i>
                         </Link>
                     </div>
                 </div>
@@ -390,12 +396,7 @@ export default {
         <div v-if="isModalOpen" class="modal-overlay">
             <div class="modal-content">
                 <button class="modal-close" @click="closeModal">&times;</button>
-                <iframe
-                    :src="videoUrl"
-                    frameborder="0"
-                    allow="autoplay; encrypted-media"
-                    allowfullscreen
-                ></iframe>
+                <iframe :src="videoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
     </section>
@@ -413,18 +414,14 @@ export default {
             </div>
             <div class="row mt-5">
                 <!-- Dynamic Products -->
-                <div
-                    v-for="(product, index) in products"
-                    :key="index"
-                    class="col-md-6 col-lg-4 col-xl-3"
-                >
+                <div v-for="(product, index) in products" :key="index" class="col-md-6 col-lg-4 col-xl-3">
                     <div :id="'product-' + product.id" class="single-product">
                         <div class="part-1">
-                        <span v-if="product.discount" class="discount">
-                            {{ product.discount }}% off
-                        </span>
+                            <span v-if="product.discount" class="discount">
+                                {{ product.discount }}% off
+                            </span>
                             <Link class="d-inline-block" :href="`/product-details/${product.id}`">
-                                <img :src="getProductImageUrl(product.file)" alt="Product Image">
+                            <img :src="getProductImageUrl(product.file)" alt="Product Image">
                             </Link>
                         </div>
 
@@ -537,13 +534,8 @@ export default {
             <!-- Package Type Filter -->
             <div class="d-flex justify-content-center align-items-center gap-3 switch-content">
                 <div class="form-check form-check-inline" v-for="(type, index) in packageTypes" :key="index">
-                    <input
-                        class="form-check-input"
-                        type="radio"
-                        :value="type.value"
-                        v-model="selectedType"
-                        :id="'type-' + index"
-                    />
+                    <input class="form-check-input" type="radio" :value="type.value" v-model="selectedType"
+                        :id="'type-' + index" />
                     <label class="form-check-label" :for="'type-' + index">{{ type.label }}</label>
                 </div>
             </div>
@@ -551,9 +543,8 @@ export default {
             <!-- Category Tabs -->
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation" v-for="category in categories" :key="category.id">
-                    <button class="nav-link"
-                            :class="{ active: selectedCategory === category.id }"
-                            @click="selectCategory(category.id)">
+                    <button class="nav-link" :class="{ active: selectedCategory === category.id }"
+                        @click="selectCategory(category.id)">
                         {{ category.name }}
                     </button>
                 </li>
@@ -600,18 +591,14 @@ export default {
             </div>
             <marquee class="mt-5 row" scrollamount="5" loop="3" behavior="scroll" direction="left">
                 <div v-for="reviewData in reviews" :key="reviewData.id" class="col-lg-4 text-center">
-                    <div class="review-card p-4 mx-auto"
-                         >
-                        <img :src="getReviewImageUrl(reviewData.file)"
-                             class="mb-3"
-                             style="border-radius: 50%; width: 80px; height: 80px; object-fit: cover;"
-                             alt="">
+                    <div class="review-card p-4 mx-auto">
+                        <img :src="getReviewImageUrl(reviewData.file)" class="mb-3"
+                            style="border-radius: 50%; width: 80px; height: 80px; object-fit: cover;" alt="">
                         <p class="text-secondary text-center mb-3"
-                           style="height: 80px; overflow: hidden; text-overflow: ellipsis; font-size: 16px; line-height: 1.4;"
-                           v-html="reviewData.message"></p>
+                            style="height: 80px; overflow: hidden; text-overflow: ellipsis; font-size: 16px; line-height: 1.4;"
+                            v-html="reviewData.message"></p>
                         <div class="text-center">
-                            <h2 class="fw-medium text-success mb-1"
-                                style="font-size: 18px; line-height: 1.2;">
+                            <h2 class="fw-medium text-success mb-1" style="font-size: 18px; line-height: 1.2;">
                                 {{ reviewData.name }}
                             </h2>
                             <p style="font-size: 14px; margin: 0; color: #666;">
@@ -624,6 +611,15 @@ export default {
         </div>
     </section>
 
+
+    <section class="payment-gatways pt-2 ">
+        <div class="row">
+            <div class="section-title text-center mb-3">
+                <p class="fs-2 fw-medium text-center text-capitalize">Our Payment Gatways</p>
+            </div>
+        </div>
+        <img src="frontend/images/payment-gateways.jpg" class="w-100 img-fluid" alt="payment">
+    </section>
 </template>
 
 <style scoped>
