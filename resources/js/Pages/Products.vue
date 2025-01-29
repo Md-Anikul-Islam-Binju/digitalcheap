@@ -181,7 +181,7 @@ export default {
     <section class="store-section my-5">
         <div class="container">
             <div class="section-title text-center mb-3 mb-md-5">
-                <h2 class="text-start h3 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Our Products</h2>
+                <h2 class="text-start h3 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Individual pricing</h2>
             </div>
             <div class="store-part d-flex gap-5 w-100">
                 <aside class="filter-part w-25 d-none d-md-block">
