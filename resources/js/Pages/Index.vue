@@ -643,6 +643,10 @@ export default {
     border-radius: 10px;
     width: 80%;
     max-width: 800px;
+    @media screen and (max-width: 1399.98px) {
+        height: 320px !important;
+        margin-top: 20px;
+    }
 }
 
 .modal-content iframe {
