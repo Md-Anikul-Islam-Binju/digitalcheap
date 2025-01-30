@@ -370,21 +370,25 @@ export default {
     </section>
 </template>
 <style>
-            .player {
-                aspect-ratio: 16 / 9;
-                @media screen and (max-width: 767.98px) {
-                    max-width: 400px;
-                }
-                @media screen and (max-width: 575.98px) {
-                    max-width: 300px;
-                }
-                @media screen and (max-width: 375.98px) {
-                    max-width: 250px;
-                }
-            }
-            .product-img img{
-                @media (min-width: 991.98px) {
-                    height: 550px;
-                }
-            }
+   .player {
+       aspect-ratio: 16 / 9;
+
+       @media screen and (max-width: 767.98px) {
+           max-width: 400px;
+       }
+
+       @media screen and (max-width: 575.98px) {
+           max-width: 300px;
+       }
+
+       @media screen and (max-width: 375.98px) {
+           max-width: 250px;
+       }
+   }
+
+   .product-img img {
+       @media (min-width: 991.98px) {
+           height: 550px;
+       }
+   }
 </style>
