@@ -1,3 +1,16 @@
+
+$(document).ready(function() {
+	$('.popup-youtube').magnificPopup({
+		disableOn: 250,
+		type: 'iframe',
+		mainClass: 'mfp-fade',
+		removalDelay: 160,
+		preloader: false,
+
+		fixedContentPos: false
+	});
+});
+
 // for slick slider
 
 $(".my-slider").slick({

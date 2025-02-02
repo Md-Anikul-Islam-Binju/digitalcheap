@@ -394,10 +394,9 @@ export default {
             <div class="row align-items-center mt-2">
                 <div class="col-12 col-md-6 text-center p-3 mt-3 mt-md-0">
                     <div class="use-card p-4 shadow-lg rounded">
-                        <button class="my-video-links btn btn-link"
-                            @click="openModal('https://www.youtube.com/embed/QMpp2g4KTlQ?autoplay=1')">
+                        <a class="popup-youtube my-video-links" href="http://www.youtube.com/watch?v=6rRRAVSilss">
                             <i class="fa-solid fa-circle-play"></i>
-                        </button>
+                        </a>
                         <h3 class="fw-bold text-center mb-4">How to Use</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_use"></p>
                         <Link href="/how-to-use" class="text-prmry more-btn">
@@ -407,10 +406,9 @@ export default {
                 </div>
                 <div class="col-12 col-md-6 text-center mt-2 mt-md-0 p-3">
                     <div class="use-card p-4 shadow-lg rounded">
-                        <button class="my-video-links btn btn-link"
-                            @click="openModal('https://www.youtube.com/embed/0hx4iWzMVhc?autoplay=1')">
+                        <a class="popup-youtube my-video-links" href="http://www.youtube.com/watch?v=qal34e9v_pk">
                             <i class="fa-solid fa-circle-play"></i>
-                        </button>
+                        </a>
                         <h3 class="fw-bold text-center mb-4">How to Access</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_access"></p>
                         <Link href="/how-to-access" class="text-prmry more-btn">
@@ -418,12 +416,6 @@ export default {
                         </Link>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div v-if="isModalOpen" class="modal-overlay">
-            <div class="modal-content">
-                <button class="modal-close" @click="closeModal">&times;</button>
-                <iframe :src="videoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
     </section>
