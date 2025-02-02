@@ -722,7 +722,6 @@ a {
 }
 
 @media screen and (max-width: 576px) {
-    .currency-width {
 
     .currency-width{
         width: 30% !important;
