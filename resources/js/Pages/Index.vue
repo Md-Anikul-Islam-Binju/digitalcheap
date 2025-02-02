@@ -384,11 +384,20 @@ export default {
                 <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Our Partner</h2>
                 <p class="fs-1 fw-medium text-center text-capitalize">Collaborating for Growth</p>
             </div>
-            <marquee class="mt-5 row" scrollamount="5" loop="3" behavior="scroll" direction="left">
-                <span v-for="partnerData in partner" :key="partnerData.id">
-                    <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
-                </span>
-            </marquee>
+            <div class="partner-slider-section overflow-hidden">
+                <div class="slider-main d-flex align-items-center justify-content-center">
+                    <div class="slider-item d-flex align-items-center">
+                        <span v-for="partnerData in partner" :key="partnerData.id">
+                                <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
+                        </span>
+                    </div>
+                    <div class="slider-item d-flex align-items-center">
+                        <span v-for="partnerData in partner" :key="partnerData.id">
+                                <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -402,10 +411,9 @@ export default {
             <div class="row align-items-center mt-2">
                 <div class="col-12 col-md-6 text-center p-3 mt-3 mt-md-0">
                     <div class="use-card p-4 shadow-lg rounded">
-                        <button class="my-video-links btn btn-link"
-                            @click="openModal('https://www.youtube.com/embed/QMpp2g4KTlQ?autoplay=1')">
+                        <a class="popup-youtube my-video-links" href="http://www.youtube.com/watch?v=6rRRAVSilss">
                             <i class="fa-solid fa-circle-play"></i>
-                        </button>
+                        </a>
                         <h3 class="fw-bold text-center mb-4">How to Use</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_use"></p>
                         <Link href="/how-to-use" class="text-prmry more-btn">
@@ -415,10 +423,9 @@ export default {
                 </div>
                 <div class="col-12 col-md-6 text-center mt-2 mt-md-0 p-3">
                     <div class="use-card p-4 shadow-lg rounded">
-                        <button class="my-video-links btn btn-link"
-                            @click="openModal('https://www.youtube.com/embed/0hx4iWzMVhc?autoplay=1')">
+                        <a class="popup-youtube my-video-links" href="http://www.youtube.com/watch?v=qal34e9v_pk">
                             <i class="fa-solid fa-circle-play"></i>
-                        </button>
+                        </a>
                         <h3 class="fw-bold text-center mb-4">How to Access</h3>
                         <p class="text-muted" v-html="siteSettings.how_to_access"></p>
                         <Link href="/how-to-access" class="text-prmry more-btn">
@@ -426,12 +433,6 @@ export default {
                         </Link>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div v-if="isModalOpen" class="modal-overlay">
-            <div class="modal-content">
-                <button class="modal-close" @click="closeModal">&times;</button>
-                <iframe :src="videoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
     </section>
@@ -645,59 +646,6 @@ export default {
             </marquee>
         </div>
     </section>
-
-
-    <section class="payment-gatways pt-2 ">
-        <div class="row">
-            <div class="section-title text-center mb-3">
-                <p class="fs-2 fw-medium text-center text-capitalize">Our Payment Gatways</p>
-            </div>
-        </div>
-        <img src="frontend/images/payment-gateways.jpg" class="w-100 img-fluid" alt="payment">
-    </section>
 </template>
 
-<style scoped>
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
 
-.modal-content {
-    position: relative;
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 800px;
-    @media screen and (max-width: 1399.98px) {
-        height: 320px !important;
-        margin-top: 20px;
-    }
-}
-
-.modal-content iframe {
-    width: 100%;
-    height: 450px;
-}
-
-.modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-
-</style>
