@@ -183,7 +183,7 @@ export default {
 <template>
     <title>Details</title>
 
-    <section class="product-details py-5">
+    <section class="product-details py-5 overflow-hidden">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6 d-flex align-items-center text-center justify-content-center">
