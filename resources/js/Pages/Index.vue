@@ -629,59 +629,6 @@ export default {
             </marquee>
         </div>
     </section>
-
-
-    <section class="payment-gatways pt-2 ">
-        <div class="row">
-            <div class="section-title text-center mb-3">
-                <p class="fs-2 fw-medium text-center text-capitalize">Our Payment Gatways</p>
-            </div>
-        </div>
-        <img src="frontend/images/payment-gateways.jpg" class="w-100 img-fluid" alt="payment">
-    </section>
 </template>
 
-<style scoped>
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
 
-.modal-content {
-    position: relative;
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 800px;
-    @media screen and (max-width: 1399.98px) {
-        height: 320px !important;
-        margin-top: 20px;
-    }
-}
-
-.modal-content iframe {
-    width: 100%;
-    height: 450px;
-}
-
-.modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-
-</style>
