@@ -376,11 +376,20 @@ export default {
                 <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Our Partner</h2>
                 <p class="fs-1 fw-medium text-center text-capitalize">Collaborating for Growth</p>
             </div>
-            <marquee class="mt-5 row" scrollamount="5" loop="3" behavior="scroll" direction="left">
-                <span v-for="partnerData in partner" :key="partnerData.id">
-                    <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
-                </span>
-            </marquee>
+            <div class="partner-slider-section overflow-hidden">
+                <div class="slider-main d-flex align-items-center justify-content-center">
+                    <div class="slider-item d-flex align-items-center">
+                        <span v-for="partnerData in partner" :key="partnerData.id">
+                                <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
+                        </span>
+                    </div>
+                    <div class="slider-item d-flex align-items-center">
+                        <span v-for="partnerData in partner" :key="partnerData.id">
+                                <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
