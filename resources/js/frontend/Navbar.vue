@@ -32,8 +32,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <Link class="nav-link" href="/products">
-                                <b>Pricing</b>
+                            <Link class="nav-link fw-semibold" href="/products">
+                                Pricing
                             </Link>
                         </li>
 
