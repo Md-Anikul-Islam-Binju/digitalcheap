@@ -9,7 +9,7 @@
                     <div class="text-center">
                         <h4 class="display-4 fw-bold">How to Join Become  a Affiliate</h4>
                         <p class="lead px-8">Read our terms below to learn more about your rights and responsibilities as a Product Name user.</p>
-                        <a href="#" class="btn btn-success mt-2 mt-lg-0" @click.prevent="openLoginModal">Affiliate</a>
+                        <a href="#" class="btn btn-success mt-2 mt-lg-0" @click.prevent="openLoginModal">Join Affiliate</a>
                     </div>
                 </div>
             </div>
