@@ -59,9 +59,11 @@
                     </ul>
 
                     <div class="d-lg-flex d-flex flex-wrap justify-content-lg-end align-items-center gap-2 mt-1 mt-lg-0">
-                        <form role="search" class="form-width">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+
+                        <form role="search" @submit.prevent="searchProduct" class="form-width">
+                            <input class="form-control" type="search" v-model="searchQuery" placeholder="Search" aria-label="Search">
                         </form>
+
                         <Link class="btn btn-outline-success mt-2 mt-lg-0" href="/how-to-become-affiliate">Affiliate</Link>
 
 <!--                        <a class="btn btn-success mt-2 mt-lg-0" href="/chatify">Live Chat</a>-->
@@ -110,8 +112,10 @@ export default {
                 password: "",
                 remember: false,
             },
+            searchQuery: '',
             passwordVisible: false,
             csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+
         };
     },
 
@@ -125,6 +129,13 @@ export default {
 
 
     methods:{
+
+        searchProduct() {
+            // Use Inertia to redirect to the search page with the search query
+            if (this.searchQuery) {
+                this.$inertia.get('/search', { q: this.searchQuery });  // Inertia redirect
+            }
+        },
 
         loginWithGoogle() {
             window.location.href = '/login/google'; // Redirect to the Laravel route handling Google login

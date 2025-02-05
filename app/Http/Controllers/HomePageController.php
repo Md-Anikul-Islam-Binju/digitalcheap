@@ -11,6 +11,7 @@ use App\Models\Service;
 use App\Models\SiteSetting;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HomePageController extends Controller
 {
@@ -77,4 +78,48 @@ class HomePageController extends Controller
         $authUser = auth()->user();
         return inertia('AffiliateJoin',compact('siteSettings','cart','authUser'));
     }
+
+
+
+//    public function search(Request $request)
+//    {
+//        $query = $request->input('q');
+//        // Get products matching the query (you can adjust the logic to match product names or other fields)
+//        $products = Product::where('name', 'like', '%' . $query . '%')->latest()->get();
+//
+//        // Other data you may need
+//        $siteSettings = SiteSetting::where('id', 1)->first();
+//        $cart = session('cart', []);
+//        $auth = auth()->check();
+//        $authUser = auth()->user();
+//
+//        // Return results to the frontend
+//        return inertia('SearchProduct', compact('siteSettings', 'cart', 'authUser', 'products', 'auth'));
+//    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('q');  // Get the search query from URL
+
+        // Fetch products that match the query
+        $products = Product::where('name', 'like', '%' . $query . '%')->latest()->get();
+
+        // Retrieve site settings and other necessary data
+        $siteSettings = SiteSetting::where('id', 1)->first();
+        $cart = session('cart', []);  // Get cart data
+        $auth = auth()->check();  // Check if user is authenticated
+        $authUser = auth()->user();  // Get the authenticated user
+        return inertia('SearchProduct', compact('siteSettings', 'cart', 'authUser', 'products', 'auth'));
+        //dd($products);
+
+        // Return data to Inertia with the SearchProduct component
+//        return Inertia::render('SearchProduct', [
+//            'products' => $products,
+//            'siteSettings' => $siteSettings,
+//            'cart' => $cart,
+//            'authUser' => $authUser,
+//            'auth' => $auth,
+//        ]);
+    }
+
 }

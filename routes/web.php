@@ -53,6 +53,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomePageController::class, 'frontend'])->name('home');
 Route::get('/how-to-use', [HomePageController::class, 'howToUse'])->name('how.to.use');
 Route::get('/how-to-access', [HomePageController::class, 'howToAccess'])->name('how.to.access');
+Route::get('/search', [HomePageController::class, 'search'])->name('search');
 
 Route::get('/how-to-become-affiliate', [HomePageController::class, 'howToBecomeAffiliate'])->name('how.to.become.affiliate');
 
