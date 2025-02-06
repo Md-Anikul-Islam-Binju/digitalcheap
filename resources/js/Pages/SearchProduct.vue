@@ -28,7 +28,7 @@ export default {
         <div class="container">
             <div class="section-title text-center mb-1">
                 <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">
-                    Search Results for "{{ searchQuery }}"
+                    Search Results
                 </h2>
             </div>
             <div class="row mt-5">

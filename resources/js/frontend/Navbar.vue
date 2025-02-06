@@ -2,12 +2,10 @@
     <header class="sticky-top">
         <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Thirteenth navbar example">
             <div class="container">
-
                 <div class="d-flex d-lg-none align-items-center justify-content-between w-100">
                     <Link class="navbar-brand d-inline d-lg-none" href="/">
                         <img :src="getLogoUrl(siteSettings?.logo)" style="width: 120px;" alt="">
                     </Link>
-
                     <div class="d-flex gap-3 align-items-center">
                         <Link class="cart-icon position-relative d-block d-lg-none text-dark" style="width: 30px;">
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">{{totalCartCount}}</span>
@@ -25,7 +23,6 @@
                     <a class="navbar-brand me-0 mt-2 mt-lg-0 d-none d-lg-block" href="/">
                         <img :src="getLogoUrl(siteSettings?.logo)" alt="" style="height: 60px;" class="logo-img">
                     </a>
-
                     <ul class="navbar-nav mx-auto justify-content-lg-center">
                         <li class="nav-item">
                             <Link class="nav-link active" aria-current="page" href="/">Home</Link>
@@ -36,22 +33,14 @@
                                 Pricing
                             </Link>
                         </li>
-
                         <li class="nav-item" v-if="authUser">
                             <a href="/dashboard" target="_blank" class="btn btn-success">{{ authUser.name }}</a>
                         </li>
 
-
                         <div class="nav-item d-lg-flex" v-else>
-
                             <li class="nav-item">
                                 <a href="#" class="nav-link" @click.prevent="openLoginModal">Login</a>
                             </li>
-
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link text-nowrap" href="/account-registration-for-user" target="_blank">Sign Up</a>-->
-<!--                            </li>-->
-
                             <li class="nav-item">
                                 <a class="nav-link text-nowrap" href="#" @click.prevent="openRegistrationModal">Sign Up</a>
                             </li>
@@ -63,12 +52,9 @@
                         <form role="search" @submit.prevent="searchProduct" class="form-width">
                             <input class="form-control" type="search" v-model="searchQuery" placeholder="Search" aria-label="Search">
                         </form>
-
                         <Link class="btn btn-outline-success mt-2 mt-lg-0" href="/how-to-become-affiliate">Affiliate</Link>
-
-<!--                        <a class="btn btn-success mt-2 mt-lg-0" href="/chatify">Live Chat</a>-->
+                        <!-- <a class="btn btn-success mt-2 mt-lg-0" href="/chatify">Live Chat</a>-->
                         <a href="#" class="btn btn-success mt-2 mt-lg-0" @click.prevent="openLoginModal">Live Chat</a>
-
                         <div class="currency-width shadow-none">
                             <select class="form-select shadow-none rounded border-success" aria-label="Default select example">
                                 <option selected>USD</option>
@@ -83,8 +69,6 @@
                             </Link>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </nav>
@@ -98,13 +82,11 @@ import Swal from "sweetalert2";
 
 export default {
     name: "Navbar",
-
     props: {
         siteSettings: Object,
         cart : Array,
         authUser: Object
     },
-
     data() {
         return {
             loginForm: {
@@ -115,18 +97,14 @@ export default {
             searchQuery: '',
             passwordVisible: false,
             csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-
         };
     },
-
     computed: {
         totalCartCount() {
             // Calculates the total cart count dynamically
             return this.cart.reduce((total, item) => total + (item.quantity || 1), 0);
         },
     },
-
-
 
     methods:{
 
@@ -154,9 +132,6 @@ export default {
             }
             return `${window.location.origin}/${logoPath}`;
         },
-
-
-
         openLoginModal() {
             Swal.fire({
                 title: "Login",
@@ -198,8 +173,6 @@ export default {
                             Sign up with Google
                         </button>
                     </form>
-
-
                 `,
                 showCloseButton: true, // Enables the close button
                 closeButtonHtml: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
@@ -233,10 +206,8 @@ export default {
         async handleLogin() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-
             try {
                 const response = await axios.post("/login", { email, password });
-
                 if (response.status === 200) {
                     Swal.fire({
                         icon: "success",
@@ -267,7 +238,6 @@ export default {
             }
         },
 
-
         // Open Registration Modal
         openRegistrationModal() {
             Swal.fire({
@@ -294,14 +264,11 @@ export default {
 
                         </div>
                         <button type="button" id="register-button" class="btn btn-success w-100">Register</button>
-
-
                     </form>
 
                       <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
                         <hr class="my-4">
                         <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
-
                        <button id="google-login" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="30px">
                                 <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
@@ -344,10 +311,8 @@ export default {
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-
             // Define the value of is_registration_by explicitly
             const is_registration_by = "User"; // or dynamically set this value if needed
-
             try {
                 const response = await axios.post("/account-registration", { is_registration_by, name, email, password });
 
@@ -374,7 +339,6 @@ export default {
                 });
             }
         },
-
 
         // Open Verification Modal
         openVerificationModal() {
