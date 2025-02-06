@@ -481,11 +481,10 @@ export default {
     </div>
 
     <!-- Best Seller Section -->
-    <section class="best-seller py-5 section-products">
+    <section v-if="mostSellingProducts" class="best-seller py-5 section-products">
         <div class="container">
             <div class="section-title text-center mb-1">
                 <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Best Sells</h2>
-
             </div>
             <div class="row mt-5 my-slider">
                 <div v-for="(product, index) in mostSellingProducts" :key="index" class="col-md-6 col-lg-4 col-xl-3">
