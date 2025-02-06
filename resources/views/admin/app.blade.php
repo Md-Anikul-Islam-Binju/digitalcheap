@@ -249,6 +249,15 @@
                     </li>
                 @endcan
 
+                @can('user-order-list')
+                    <li class="side-nav-item">
+                        <a href="{{route('user.list')}}" class="side-nav-link">
+                            <i class="ri-user-3-line"></i>
+                            <span> Manage  User Order </span>
+                        </a>
+                    </li>
+                @endcan
+
 
 
 
