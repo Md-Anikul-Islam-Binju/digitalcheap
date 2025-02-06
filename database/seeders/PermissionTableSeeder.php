@@ -110,6 +110,9 @@ class PermissionTableSeeder extends Seeder
             'cart-list',
             'login-log-list',
             'live-chat',
+
+            //For Order
+            'order-list',
         ];
         foreach ($permissions as $permission) {
             if (!Permission::where('name', $permission)->exists()) {

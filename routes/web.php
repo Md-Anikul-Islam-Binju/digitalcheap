@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\CurrencyController;
 use App\Http\Controllers\admin\FaqController;
 
+use App\Http\Controllers\admin\OrderManageController;
 use App\Http\Controllers\admin\PackageController;
 use App\Http\Controllers\admin\PartnerController;
 use App\Http\Controllers\admin\ProductController;
@@ -178,6 +179,10 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout');
     Route::post('/checkout/order', [CheckoutController::class, 'placeOrder'])->name('checkout.order');
     Route::get('/payment', [CheckoutController::class, 'payment'])->name('payment');
+
+
+    //Order Section
+    Route::get('/order-list', [OrderManageController::class, 'index'])->name('order.list');
 });
 
 require __DIR__.'/auth.php';

@@ -240,6 +240,16 @@
                 @endcan
 
 
+                @can('order-list')
+                    <li class="side-nav-item">
+                        <a href="{{route('order.list')}}" class="side-nav-link">
+                            <i class="ri-shopping-cart-2-line"></i>
+                            <span> Order  </span>
+                        </a>
+                    </li>
+                @endcan
+
+
 
 
 

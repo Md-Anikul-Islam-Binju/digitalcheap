@@ -19,4 +19,9 @@ class OrderItem extends Model
         'price',
         'type',// product or package
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }
