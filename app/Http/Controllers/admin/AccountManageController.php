@@ -89,11 +89,8 @@ class AccountManageController extends Controller
         return view('auth.registrationVerification');
     }
 
-
     public function verify(Request $request)
     {
-        //dd($request->all());
-
         $this->validate($request, [
             'verification_code' => 'required',
         ]);
@@ -115,10 +112,9 @@ class AccountManageController extends Controller
 
             $user->assignRole($role);
 
-            Toastr::success('Your account has been verified. You can now login.', 'Success');
-            return redirect()->route('dashboard');
+            return response()->json(['message' => 'Your account has been verified. You can now login.'], 200);
         } else {
-            return back()->withErrors(['verification_code' => 'Invalid verification code.']);
+            return response()->json(['message' => 'Invalid verification code.'], 400);
         }
     }
 

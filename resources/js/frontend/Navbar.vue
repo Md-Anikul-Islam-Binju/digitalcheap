@@ -402,42 +402,33 @@ export default {
             }, 100);
         },
 
-
-
-
         async handleVerification() {
             const verificationCode = document.getElementById("verification-code").value;
 
             try {
-                const response = await axios.post("/account-verify-complete", { verification_code: verificationCode });  // changed 'code' to 'verification_code'
+                const response = await axios.post("/account-verify-complete", { verification_code: verificationCode });
 
                 if (response.status === 200) {
                     Swal.fire({
                         icon: "success",
                         title: "Verification Successful",
-                        text: "Your account is now verified.",
+                        text: response.data.message,
                         timer: 2000,
                         showConfirmButton: false,
                     }).then(() => {
-                        // Close the modal after success
-                        Swal.close();
+                        window.location.href = '/'; // Redirect to the dashboard
                     });
                 }
             } catch (error) {
                 Swal.fire({
                     icon: "error",
                     title: "Verification Failed",
-                    text: "Invalid verification code. Please try again.",
-                    confirmButtonText: "OK",
-                    allowOutsideClick: false, // Prevent modal close when clicking outside
+                    text: error.response?.data?.message || 'An error occurred. Please try again.',
                 }).then(() => {
-                    // After clicking OK, reopen the verification modal
                     this.openVerificationModal();
                 });
             }
         }
-
-
 
     },
     mounted() {
