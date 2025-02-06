@@ -25,11 +25,7 @@ class OrderManageController extends Controller
     {
         //show order only auth user
         $orders = Order::where('user_id', auth()->id())->with('orderItems')->latest()->get();
-        dd($orders);
         return view('admin.pages.order.index', compact('orders'));
-
-
-
     }
 
 }
