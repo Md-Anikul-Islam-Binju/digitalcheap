@@ -269,7 +269,11 @@ export default {
                     <div class="row g-2">
                         <div v-for="product in filteredProducts" :key="product.id" class="col-md-6 col-lg-4">
                             <div class="single-product">
+
                                 <div class="part-1">
+                                     <span v-if="product.discount_amount" class="discount">
+                                       {{ ( product.discount_amount / product.amount)*100 }}% off
+                                     </span>
                                     <Link class="d-inline-block" :href="`/product-details/${product.id}`">
                                         <img :src="getProductImageUrl(product.file)" alt="Product Image">
                                     </Link>

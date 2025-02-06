@@ -354,7 +354,9 @@ export default {
                 <div  v-for="(product, index) in allProduct" :key="index" class="col-md-6 col-lg-4 col-xl-3">
                     <div id="product-1" class="single-product">
                         <div class="part-1">
-                            <span class="discount">15% off</span>
+                            <span v-if="product.discount_amount" class="discount">
+                                {{ ( product.discount_amount / product.amount)*100 }}% off
+                            </span>
                             <Link class="d-inline-block" :href="`/product-details/${product.id}`">
                                <img :src="getProductImageUrl(product.file)" alt="Product Image">
                             </Link>

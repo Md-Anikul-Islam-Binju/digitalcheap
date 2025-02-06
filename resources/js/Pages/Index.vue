@@ -16,6 +16,7 @@ export default {
         siteSettings: Object,
         partner : Array,
         auth: Boolean,
+        mostSellingProducts: Array,
     },
     data() {
         return {
@@ -453,8 +454,8 @@ export default {
                 <div v-for="(product, index) in products" :key="index" class="col-md-6 col-lg-4 col-xl-3">
                     <div :id="'product-' + product.id" class="single-product">
                         <div class="part-1">
-                            <span v-if="product.discount" class="discount">
-                                {{ product.discount }}% off
+                            <span v-if="product.discount_amount" class="discount">
+                                {{ ( product.discount_amount / product.amount)*100 }}% off
                             </span>
                             <Link class="d-inline-block" :href="`/product-details/${product.id}`">
                             <img :src="getProductImageUrl(product.file)" alt="Product Image">
@@ -483,75 +484,32 @@ export default {
     <section class="best-seller py-5 section-products">
         <div class="container">
             <div class="section-title text-center mb-1">
-                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Best Sellers</h2>
+                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Best Sells</h2>
 
             </div>
             <div class="row mt-5 my-slider">
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div id="product-3" class="single-product">
+                <div v-for="(product, index) in mostSellingProducts" :key="index" class="col-md-6 col-lg-4 col-xl-3">
+                    <div :id="'product-' + product.id" class="single-product">
                         <div class="part-1">
-                            <span class="discount">15% off</span>
-                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
+                            <span v-if="product.discount_amount" class="discount">
+                                {{ ( product.discount_amount / product.amount)*100 }}% off
+                            </span>
+                            <Link class="d-inline-block" :href="`/product-details/${product.id}`">
+                                <img :src="getProductImageUrl(product.file)" alt="Product Image">
+                            </Link>
                         </div>
-                        <div class="part-2">
-                            <h3 class="product-title">Netflix Subscription</h3>
-                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
-                            <h4 class="product-price">$49.99</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div id="product-3" class="single-product">
-                        <div class="part-1">
-                            <span class="discount">15% off</span>
-                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
 
+                        <div class="part-2" v-if="product.discount_amount">
+                            <h3 class="product-title">{{ product.name }}</h3>
+                            <h4 class="product-old-price text-decoration-line-through">
+                                ${{ product.amount }}
+                            </h4>
+                            <h4 class="product-price">${{ product.discount_amount }}</h4>
                         </div>
-                        <div class="part-2">
-                            <h3 class="product-title">Netflix Subscription</h3>
-                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
-                            <h4 class="product-price">$49.99</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div id="product-3" class="single-product">
-                        <div class="part-1">
-                            <span class="discount">15% off</span>
-                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
 
-                        </div>
-                        <div class="part-2">
-                            <h3 class="product-title">Netflix Subscription</h3>
-                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
-                            <h4 class="product-price">$49.99</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div id="product-3" class="single-product">
-                        <div class="part-1">
-                            <span class="discount">15% off</span>
-                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
-
-                        </div>
-                        <div class="part-2">
-                            <h3 class="product-title">Netflix Subscription</h3>
-                            <h4 class="product-old-price text-decoration-line-through">$79.99</h4>
-                            <h4 class="product-price">$49.99</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div id="product-3" class="single-product">
-                        <div class="part-1">
-                            <span class="new">new</span>
-                            <img src="frontend/images/Netflix-product.webp" class="" alt="">
-
-                        </div>
-                        <div class="part-2">
-                            <h3 class="product-title">Netflix Subscription</h3>
-                            <h4 class="product-price">$49.99</h4>
+                        <div class="part-2" v-else>
+                            <h3 class="product-title">{{ product.name }}</h3>
+                            <h4 class="product-price">${{ product.amount }}</h4>
                         </div>
                     </div>
                 </div>
