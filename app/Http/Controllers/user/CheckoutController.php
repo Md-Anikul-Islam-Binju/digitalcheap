@@ -151,7 +151,10 @@ class CheckoutController extends Controller
     public function payment()
     {
         // Logic for the payment page or processing
-        return inertia('Payment'); // Assuming you have a payment.blade.php view
+        $siteSettings = SiteSetting::latest()->first();
+        $cart = session('cart', []);
+        $authUser = auth()->user();
+        return inertia('Payment',compact('siteSettings','cart','authUser')); // Assuming you have a payment.blade.php view
     }
 
 
