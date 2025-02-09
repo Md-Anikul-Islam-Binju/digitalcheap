@@ -4,10 +4,10 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class AccountSettingController extends Controller
 {
@@ -48,6 +48,7 @@ class AccountSettingController extends Controller
         $user = $id ? User::findOrFail($id) : new User;
         // Update user fields except for files
         $user->fill($request->except(['profile']));
+        // Handle profile image upload
         // Handle profile image upload
         if ($request->hasFile('profile')) {
             // Delete the previous profile image if it exists

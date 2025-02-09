@@ -112,7 +112,15 @@ class PermissionTableSeeder extends Seeder
             'live-chat',
 
             //For Order
+            'order-manage',
             'order-list',
+            'order-today',
+            'order-monthly',
+            'order-yearly',
+
+
+
+
             'user-order-list',
 
             //account-setting

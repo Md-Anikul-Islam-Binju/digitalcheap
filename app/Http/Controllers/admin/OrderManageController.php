@@ -28,6 +28,29 @@ class OrderManageController extends Controller
         return view('admin.pages.order.index', compact('orders'));
     }
 
+    //order today
+    public function orderToday()
+    {
+        $orders = Order::where('user_id', auth()->id())->whereDate('created_at', today())->with('orderItems')->latest()->get();
+        return view('admin.pages.order.index', compact('orders'));
+    }
+
+    //order this month
+    public function orderMonthly()
+    {
+        $orders = Order::where('user_id', auth()->id())->whereMonth('created_at', date('m'))->with('orderItems')->latest()->get();
+        return view('admin.pages.order.index', compact('orders'));
+    }
+
+    //order this year
+    public function orderYearly()
+    {
+        $orders = Order::where('user_id', auth()->id())->whereYear('created_at', date('Y'))->with('orderItems')->latest()->get();
+        return view('admin.pages.order.index', compact('orders'));
+    }
+
+
+
     public function userManageByAdmin()
     {
         $users = User::where('is_registration_by','=','User')->latest()->get();

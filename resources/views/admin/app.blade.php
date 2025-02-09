@@ -251,14 +251,58 @@
                 @endcan
 
 
-                @can('order-list')
+
+
+
+
+
+                @can('order-manage')
                     <li class="side-nav-item">
-                        <a href="{{route('order.list')}}" class="side-nav-link">
-                            <i class="ri-shopping-cart-2-line"></i>
-                            <span> Order  </span>
+                        <a data-bs-toggle="collapse" href="#sidebarPagesOrder" aria-expanded="false" aria-controls="sidebarPagesOrder" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> Order </span>
+                            <span class="menu-arrow"></span>
                         </a>
+                        <div class="collapse" id="sidebarPagesOrder">
+                            <ul class="side-nav-second-level">
+
+
+                                @can('order-list')
+                                    <li>
+                                        <a href="{{route('order.list')}}">All Order</a>
+                                    </li>
+                                @endcan
+
+                                    @can('order-today')
+                                        <li>
+                                            <a href="{{route('order.instant')}}">Instant Order</a>
+                                        </li>
+                                    @endcan
+
+
+                                    @can('order-monthly')
+                                        <li>
+                                            <a href="{{route('order.monthly')}}">Monthly Order</a>
+                                        </li>
+                                    @endcan
+
+                                    @can('order-yearly')
+                                        <li>
+                                            <a href="{{route('order.yearly')}}">Yearly Order</a>
+                                        </li>
+                                    @endcan
+
+
+
+                            </ul>
+                        </div>
                     </li>
                 @endcan
+
+
+
+
+
 
                 @can('user-order-list')
                     <li class="side-nav-item">
