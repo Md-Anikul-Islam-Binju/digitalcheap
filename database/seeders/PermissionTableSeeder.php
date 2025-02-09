@@ -117,14 +117,16 @@ class PermissionTableSeeder extends Seeder
             'order-today',
             'order-monthly',
             'order-yearly',
-
-
-
-
             'user-order-list',
 
             //account-setting
-            'account-setting'
+            'account-setting',
+
+
+            //For User
+            'user-manage',
+            'active-user-list',
+            'inactive-user-list',
 
         ];
         foreach ($permissions as $permission) {

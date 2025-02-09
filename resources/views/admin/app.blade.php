@@ -194,7 +194,54 @@
                 </li>
                 @endcan
 
-                @can('settings-on-site')
+
+
+                @can('user-manage')
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#sidebarPagesUser" aria-expanded="false" aria-controls="sidebarPagesUser" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> Customer </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarPagesUser">
+                            <ul class="side-nav-second-level">
+
+
+                                @can('active-user-list')
+                                    <li>
+                                        <a href="{{route('active.user')}}">Active Customer</a>
+                                    </li>
+                                @endcan
+
+                                @can('inactive-user-list')
+                                    <li>
+                                        <a href="{{route('inactive.user')}}">Inactive Customer</a>
+                                    </li>
+                                @endcan
+
+
+                                @can('order-monthly')
+                                    <li>
+                                        <a href="{{route('order.monthly')}}">Monthly Order</a>
+                                    </li>
+                                @endcan
+
+                                @can('order-yearly')
+                                    <li>
+                                        <a href="{{route('order.yearly')}}">Yearly Order</a>
+                                    </li>
+                                @endcan
+
+
+
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
+
+
+
+            @can('settings-on-site')
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#sidebarPagesSetting" aria-expanded="false" aria-controls="sidebarPagesSetting" class="side-nav-link">
                             <i class="ri-drag-move-fill"></i>
@@ -241,7 +288,7 @@
                 @endcan
 
 
-            @can('live-chat')
+               @can('live-chat')
                 <li class="side-nav-item">
                     <a href="{{url('chatify')}}" class="side-nav-link">
                         <i class="ri-chat-1-line"></i>
