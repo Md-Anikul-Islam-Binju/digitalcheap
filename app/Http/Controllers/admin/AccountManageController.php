@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Yoeunes\Toastr\Facades\Toastr;
 
 class AccountManageController extends Controller
@@ -108,6 +109,41 @@ class AccountManageController extends Controller
             return response()->json(['message' => 'Invalid verification code.'], 400);
         }
     }
+
+    public function affiliateLinkCreateUpdate(Request $request, $id = null)
+    {
+
+        // Validate input data
+        $rules = [
+            'status' => 'nullable|in:0,1',  // Ensuring status is either 0 or 1
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Find or create user
+        $user = $id ? User::findOrFail($id) : new User;
+
+        // Check if the user has a referral code; if not, generate one
+        if (!$user->referral_code) {
+            $user->referral_code = rand(100000, 999999);  // Generate referral code
+            $user->referral_code_status = 1;  // Default status is off (0)
+        } else {
+            // Update referral_code_status based on the toggle status from the form
+            $user->referral_code_status = ($request->status == 1) ? 1 : 0;
+        }
+
+        // Save user data
+        $user->save();
+
+        // Return success message
+        $message = $id ? 'Affiliate link updated successfully!' : 'Affiliate link created successfully!';
+        return redirect()->back()->with('success', $message);
+    }
+
+
 
 
 }

@@ -194,7 +194,7 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     //Site Setting
     Route::get('/account-setting', [AccountSettingController::class, 'index'])->name('account.setting');
     Route::post('/account-settings-create-update/{id?}', [AccountSettingController::class, 'createOrUpdateAccount'])->name('account.settings.create.update');
-
+    Route::post('/affiliate-link-create-update/{id?}', [AccountManageController::class, 'affiliateLinkCreateUpdate'])->name('affiliate.link.create.update');
     //User Manage
     Route::get('/active-user-list', [AdminDashboardController::class, 'activeUser'])->name('active.user');
     Route::get('/inactive-user-list', [AdminDashboardController::class, 'inactiveUser'])->name('inactive.user');
