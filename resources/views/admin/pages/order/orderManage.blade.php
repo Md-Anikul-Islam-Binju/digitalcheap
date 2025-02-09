@@ -45,11 +45,44 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$item->type=='product'? 'Product' : 'Package'}}</td>
                                 <td>{{$item->name}}</td>
-                                <td>{{$item->duration}}</td>
+                                <td>
+                                    @if($item->type=='product')
+                                        {{$item->duration}} Month
+                                    @else
+                                        @if($item->duration == 'Monthly')
+                                            {{$item->duration}}
+                                        @elseif($item->duration == 'Half Yearly')
+                                            {{$item->duration}}
+                                        @elseif($item->duration == 'Yearly')
+                                            {{$item->duration}}
+                                        @endif
+                                    @endif
+                                </td>
                                 <td>{{$item->device_access}}</td>
-                                <td>{{$item->type=='paid'? 'Paid' : 'Free'}}</td>
+                                <td>
+                                    @if($item->type=='product')
+                                        {{$item->is_free_or_paid=='paid'? 'Paid' : 'Free'}}
+                                    @else
+                                        @if($item->is_free_or_paid == 'buy')
+                                            Paid
+                                        @elseif($item->is_free_or_paid == 'free')
+                                            Free
+                                        @endif
+                                    @endif
+
+                                </td>
                                 <td>{{$item->price}}</td>
-                                <td>{{$item->price * $item->duration}}</td>
+                                @if($item->type=='product')
+                                    <td>{{$item->price * $item->duration}}</td>
+                                @else
+                                    @if($item->duration == 'Monthly')
+                                        <td>{{$item->price * 1}}</td>
+                                    @elseif($item->duration == 'Half Yearly')
+                                        <td>{{$item->price * 6}}</td>
+                                    @elseif($item->duration == 'Yearly')
+                                        <td>{{$item->price * 12}}</td>
+                                    @endif
+                                @endif
                                 <td>Approved</td>
                             </tr>
                         @endforeach
