@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('profile')->nullable();
             $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->string('is_registration_by')->nullable();
             $table->integer('verification_code')->nullable();
             $table->timestamp('email_verified_at')->nullable();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0);
             $table->string('google_id')->nullable()->unique();
             $table->string('avatar')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
