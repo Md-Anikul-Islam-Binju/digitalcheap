@@ -200,7 +200,7 @@
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#sidebarPagesUser" aria-expanded="false" aria-controls="sidebarPagesUser" class="side-nav-link">
                             <i class="ri-drag-move-fill"></i>
-                            <span> Customer </span>
+                            <span> User </span>
                             <span class="menu-arrow"></span>
                         </a>
                         <div class="collapse" id="sidebarPagesUser">
@@ -209,31 +209,15 @@
 
                                 @can('active-user-list')
                                     <li>
-                                        <a href="{{route('active.user')}}">Active Customer</a>
+                                        <a href="{{route('active.user')}}">Active User</a>
                                     </li>
                                 @endcan
 
                                 @can('inactive-user-list')
                                     <li>
-                                        <a href="{{route('inactive.user')}}">Inactive Customer</a>
+                                        <a href="{{route('inactive.user')}}">Inactive User</a>
                                     </li>
                                 @endcan
-
-
-                                @can('order-monthly')
-                                    <li>
-                                        <a href="{{route('order.monthly')}}">Monthly Order</a>
-                                    </li>
-                                @endcan
-
-                                @can('order-yearly')
-                                    <li>
-                                        <a href="{{route('order.yearly')}}">Yearly Order</a>
-                                    </li>
-                                @endcan
-
-
-
                             </ul>
                         </div>
                     </li>
@@ -295,6 +279,15 @@
                         <span> Live Chat </span>
                     </a>
                 </li>
+                @endcan
+
+                @can('my-affiliate')
+                    <li class="side-nav-item">
+                        <a href="{{route('my.affiliate')}}" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> My Affiliate </span>
+                        </a>
+                    </li>
                 @endcan
 
 

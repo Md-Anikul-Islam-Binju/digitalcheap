@@ -144,6 +144,18 @@ class AccountManageController extends Controller
     }
 
 
+   //My Affiliate code under user
+    public function myAffiliateUnderUser()
+    {
+
+        $user = User::where('id', auth()->user()->id)->first();
+        $myCode = $user->referral_code;
+        $users = User::where('referral_join_code', $myCode)->get();
+        return view('admin.pages.account.affiliateUnderUser', compact('users'));
+
+    }
+
+
 
 
 }
