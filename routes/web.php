@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\admin\AccountManageController;
+use App\Http\Controllers\admin\AccountSettingController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\CategoryController;
@@ -186,6 +187,10 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
 
     Route::get('/user-list', [OrderManageController::class, 'userManageByAdmin'])->name('user.list');
     Route::get('/order-list-manage-by-admin/{id}', [OrderManageController::class, 'orderManageByAdmin'])->name('order.list.manage.by.admin');
+
+    //Site Setting
+    Route::get('/account-setting', [AccountSettingController::class, 'index'])->name('account.setting');
+    Route::post('/account-settings-create-update/{id?}', [AccountSettingController::class, 'createOrUpdateAccount'])->name('account.settings.create.update');
 });
 
 require __DIR__.'/auth.php';

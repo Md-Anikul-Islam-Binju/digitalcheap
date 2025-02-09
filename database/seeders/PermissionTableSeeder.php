@@ -114,6 +114,10 @@ class PermissionTableSeeder extends Seeder
             //For Order
             'order-list',
             'user-order-list',
+
+            //account-setting
+            'account-setting'
+
         ];
         foreach ($permissions as $permission) {
             if (!Permission::where('name', $permission)->exists()) {

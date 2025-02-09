@@ -48,22 +48,13 @@ class AccountManageController extends Controller
             //dd($input);
             // Create user with verification code
             $user = User::create([
-
-
                 'name' => $input['name'],
                 'email' => $input['email'],
-
-
-
                 'phone' => $input['phone'] ?? null,
                 'password' => $input['password'],
-
-
                 'verification_code' => $verificationCode,
                 'status' => 0,
                 'is_registration_by' => $input['is_registration_by'],
-
-
                 'device_ip' => $clientIp,
 
             ]);

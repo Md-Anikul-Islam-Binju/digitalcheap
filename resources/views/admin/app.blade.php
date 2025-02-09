@@ -230,7 +230,18 @@
                     </li>
                 @endcan
 
-                @can('live-chat')
+
+                @can('account-setting')
+                    <li class="side-nav-item">
+                        <a href="{{route('account.setting')}}" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> Account Setting </span>
+                        </a>
+                    </li>
+                @endcan
+
+
+            @can('live-chat')
                 <li class="side-nav-item">
                     <a href="{{url('chatify')}}" class="side-nav-link">
                         <i class="ri-chat-1-line"></i>
