@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Yoeunes\Toastr\Facades\Toastr;
+use function PHPUnit\Framework\isEmpty;
 
 class AccountManageController extends Controller
 {
@@ -27,6 +28,8 @@ class AccountManageController extends Controller
     public function storeRegisterInfo(Request $request)
     {
 
+
+        $referralCode = $request->input('referral_code');
 
         // Validate input
         $this->validate($request, [
@@ -57,6 +60,7 @@ class AccountManageController extends Controller
                 'status' => 0,
                 'is_registration_by' => $input['is_registration_by'],
                 'device_ip' => $clientIp,
+                'referral_join_code' => $referralCode ?? null,
 
             ]);
 
@@ -148,9 +152,22 @@ class AccountManageController extends Controller
     public function myAffiliateUnderUser()
     {
 
+
         $user = User::where('id', auth()->user()->id)->first();
+        //dd($user);
         $myCode = $user->referral_code;
-        $users = User::where('referral_join_code', $myCode)->get();
+        //dd($myCode);
+        $users = [];
+        if($myCode){
+            $users = User::where('referral_join_code', $myCode)->get();
+        }else{
+
+        }
+
+        //dd($users);
+
+
+
         return view('admin.pages.account.affiliateUnderUser', compact('users'));
 
     }

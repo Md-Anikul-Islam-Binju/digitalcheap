@@ -67,6 +67,7 @@
                                                 </button>
                                             </div>
                                         </div>
+                                        <input type="hidden" name="referral_code" value="{{ request()->query('code') }}">
 
                                         <div class="mb-0 text-start">
                                             <button class="btn btn-soft-primary w-100" type="submit"><i class="ri-login-circle-fill me-1"></i> <span class="fw-bold">Sign Up</span> </button>
