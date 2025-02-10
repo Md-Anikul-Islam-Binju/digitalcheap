@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\LoginLog;
 use App\Models\News;
+use App\Models\Order;
 use App\Models\Project;
 use App\Models\ProjectFile;
 use App\Models\Showcase;
@@ -19,7 +20,16 @@ class AdminDashboardController extends Controller
     public function index()
     {
        $loginLog = LoginLog::orderBy('last_login','desc')->get();
-       return view('admin.dashboard', compact('loginLog'));
+
+
+        $user = User::where('id', auth()->user()->id)->first();
+        $myCode = $user->referral_code;
+        $totalClient = 0;
+        if($myCode){
+            $totalClient = User::where('referral_join_code', $myCode)->count();
+        }
+        $orders = Order::where('user_id', auth()->id())->with('orderItems')->latest()->count();
+        return view('admin.dashboard', compact('loginLog','totalClient','orders'));
     }
 
     public function unauthorized()

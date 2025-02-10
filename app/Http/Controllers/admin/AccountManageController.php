@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\AccountVerificationMail;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -154,22 +155,12 @@ class AccountManageController extends Controller
 
 
         $user = User::where('id', auth()->user()->id)->first();
-        //dd($user);
         $myCode = $user->referral_code;
-        //dd($myCode);
         $users = [];
         if($myCode){
             $users = User::where('referral_join_code', $myCode)->get();
-        }else{
-
         }
-
-        //dd($users);
-
-
-
         return view('admin.pages.account.affiliateUnderUser', compact('users'));
-
     }
 
 
