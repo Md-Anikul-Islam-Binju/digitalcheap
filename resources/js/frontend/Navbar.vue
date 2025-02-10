@@ -398,6 +398,24 @@ export default {
     mounted() {
         console.log("Cart data:", this.authUser);
         console.log("Auth User:", this.authUser);
+        
+        $(document).ready(function () {
+            // Close navbar when clicking a nav-link
+            $(".navbar-nav .nav-link").on("click", function () {
+                $(".navbar-collapse").collapse("hide");
+            });
+
+            // Close navbar when clicking outside
+            $(document).on("click", function (event) {
+                var $navbar = $(".navbar");
+                var $navbarCollapse = $(".navbar-collapse");
+
+                if (!$navbar.is(event.target) && $navbar.has(event.target).length === 0) {
+                    $navbarCollapse.collapse("hide");
+                }
+            });
+        });
+
     }
 }
 </script>
