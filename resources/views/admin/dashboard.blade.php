@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-3 col-sm-6">
+             <div class="col-xxl-3 col-sm-6">
                 <div class="card widget-flat text-bg-purple">
                     <div class="card-body">
                         <div class="float-end">
