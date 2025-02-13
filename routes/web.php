@@ -184,9 +184,7 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
 
     //Order Section
     Route::get('/order-list', [OrderManageController::class, 'index'])->name('order.list');
-    Route::get('/instant-order-list', [OrderManageController::class, 'orderToday'])->name('order.instant');
-    Route::get('/monthly-order-list', [OrderManageController::class, 'orderMonthly'])->name('order.monthly');
-    Route::get('/yearly-order-list', [OrderManageController::class, 'orderYearly'])->name('order.yearly');
+    Route::get('/active-order-list', [OrderManageController::class, 'orderActive'])->name('order.active');
 
     Route::get('/user-list', [OrderManageController::class, 'userManageByAdmin'])->name('user.list');
     Route::get('/order-list-manage-by-admin/{id}', [OrderManageController::class, 'orderManageByAdmin'])->name('order.list.manage.by.admin');

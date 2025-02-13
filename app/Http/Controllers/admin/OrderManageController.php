@@ -22,32 +22,117 @@ class OrderManageController extends Controller
             return $next($request);
         })->only('index');
     }
-    public function index()
+
+    public function index(Request $request)
     {
-        $orders = Order::where('user_id', auth()->id())->with('orderItems')->latest()->get();
+        // Start the base query for orders with their orderItems
+        $query = Order::where('user_id', auth()->id())
+            ->whereHas('orderItems', function ($q) use ($request) {
+                $createdAt = $request->input('created_at');
+                $date = now(); // current date for comparison
+
+                // Apply filter based on the created_at value in orderItems table
+                if ($createdAt) {
+                    if ($createdAt == 'today') {
+                        $q->whereDate('created_at', $date->toDateString());
+                    } elseif ($createdAt == 'week') {
+                        $q->whereBetween('created_at', [
+                            $date->startOfWeek()->toDateString(),
+                            $date->endOfWeek()->toDateString()
+                        ]);
+                    } elseif ($createdAt == 'month') {
+                        $q->whereMonth('created_at', $date->month)
+                            ->whereYear('created_at', $date->year);
+                    } elseif ($createdAt == 'year') {
+                        $q->whereYear('created_at', $date->year);
+                    }
+                }
+            })
+            ->with(['orderItems' => function ($q) use ($request) {
+                // Apply the same filter on the orderItems relationship
+                $createdAt = $request->input('created_at');
+                $date = now();
+
+                if ($createdAt) {
+                    if ($createdAt == 'today') {
+                        $q->whereDate('created_at', $date->toDateString());
+                    } elseif ($createdAt == 'week') {
+                        $q->whereBetween('created_at', [
+                            $date->startOfWeek()->toDateString(),
+                            $date->endOfWeek()->toDateString()
+                        ]);
+                    } elseif ($createdAt == 'month') {
+                        $q->whereMonth('created_at', $date->month)
+                            ->whereYear('created_at', $date->year);
+                    } elseif ($createdAt == 'year') {
+                        $q->whereYear('created_at', $date->year);
+                    }
+                }
+            }]);
+
+        // Get the filtered orders
+        $orders = $query->get();
         return view('admin.pages.order.index', compact('orders'));
     }
 
-    //order today
-    public function orderToday()
+
+    public function orderActive()
     {
-        $orders = Order::where('user_id', auth()->id())->whereDate('created_at', today())->with('orderItems')->latest()->get();
-        return view('admin.pages.order.index', compact('orders'));
+        $orders = Order::where('user_id', auth()->id())
+            ->whereHas('orderItems', function ($q) {
+                $q->where(function ($q) {
+                    // For type 'product' with duration in months as integer
+                    $q->where('type', 'product')
+                        ->whereRaw('DATE_ADD(created_at, INTERVAL duration MONTH) >= CURDATE()');
+                })
+                    ->orWhere(function ($q) {
+                        // For type 'package' with specific duration text
+                        $q->where('type', 'package')
+                            ->where(function ($q) {
+                                $q->where('duration', 'Monthly')
+                                    ->whereRaw('DATE_ADD(created_at, INTERVAL 1 MONTH) >= CURDATE()');
+                            })
+                            ->orWhere(function ($q) {
+                                $q->where('duration', 'Half Yearly')
+                                    ->whereRaw('DATE_ADD(created_at, INTERVAL 6 MONTH) >= CURDATE()');
+                            })
+                            ->orWhere(function ($q) {
+                                $q->where('duration', 'Yearly')
+                                    ->whereRaw('DATE_ADD(created_at, INTERVAL 12 MONTH) >= CURDATE()');
+                            });
+                    });
+            })
+            ->with(['orderItems' => function ($q) {
+                $q->where(function ($q) {
+                    // For product: Check if within duration months
+                    $q->where('type', 'product')
+                        ->whereRaw('DATE_ADD(created_at, INTERVAL duration MONTH) >= CURDATE()');
+                })
+                    ->orWhere(function ($q) {
+                        // For package: Check if within the correct period
+                        $q->where('type', 'package')
+                            ->where(function ($q) {
+                                $q->where('duration', 'Monthly')
+                                    ->whereRaw('DATE_ADD(created_at, INTERVAL 1 MONTH) >= CURDATE()');
+                            })
+                            ->orWhere(function ($q) {
+                                $q->where('duration', 'Half Yearly')
+                                    ->whereRaw('DATE_ADD(created_at, INTERVAL 6 MONTH) >= CURDATE()');
+                            })
+                            ->orWhere(function ($q) {
+                                $q->where('duration', 'Yearly')
+                                    ->whereRaw('DATE_ADD(created_at, INTERVAL 12 MONTH) >= CURDATE()');
+                            });
+                    });
+            }])
+            ->latest()
+            ->get();
+
+        return view('admin.pages.order.activeOrder', compact('orders'));
     }
 
-    //order this month
-    public function orderMonthly()
-    {
-        $orders = Order::where('user_id', auth()->id())->whereMonth('created_at', date('m'))->with('orderItems')->latest()->get();
-        return view('admin.pages.order.index', compact('orders'));
-    }
 
-    //order this year
-    public function orderYearly()
-    {
-        $orders = Order::where('user_id', auth()->id())->whereYear('created_at', date('Y'))->with('orderItems')->latest()->get();
-        return view('admin.pages.order.index', compact('orders'));
-    }
+
 
 
 

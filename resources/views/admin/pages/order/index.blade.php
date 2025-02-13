@@ -20,10 +20,24 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <div class="d-flex">
+                <div class="col-2">
                 {{--Order filter--}}
+                    <form action="{{ route('order.list') }}" method="get">
+                        <div class="col-12">
+                            <label for="example-select" class="form-label">Status</label>
+                            <select name="created_at" class="form-select">
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="year">This Year</option>
+                            </select><br>
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </div>
+
+                    </form>
 
                 </div>
+
             </div>
             <div class="card-body">
                 <table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
