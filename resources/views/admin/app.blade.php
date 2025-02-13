@@ -266,7 +266,7 @@
                     <li class="side-nav-item">
                         <a href="{{route('account.setting')}}" class="side-nav-link">
                             <i class="ri-drag-move-fill"></i>
-                            <span> Account Setting </span>
+                            <span> Account </span>
                         </a>
                     </li>
                 @endcan
@@ -309,30 +309,15 @@
 
                                 @can('order-list')
                                     <li>
-                                        <a href="{{route('order.list')}}">All Order</a>
+                                        <a href="{{route('order.list')}}">Order History</a>
                                     </li>
                                 @endcan
 
-                                    @can('order-today')
-                                        <li>
-                                            <a href="{{route('order.instant')}}">Instant Order</a>
-                                        </li>
-                                    @endcan
-
-
-                                    @can('order-monthly')
-                                        <li>
-                                            <a href="{{route('order.monthly')}}">Monthly Order</a>
-                                        </li>
-                                    @endcan
-
-                                    @can('order-yearly')
-                                        <li>
-                                            <a href="{{route('order.yearly')}}">Yearly Order</a>
-                                        </li>
-                                    @endcan
-
-
+                                @can('order-active')
+                                    <li>
+                                        <a href="{{route('order.active')}}">Active Subscription</a>
+                                    </li>
+                                @endcan
 
                             </ul>
                         </div>

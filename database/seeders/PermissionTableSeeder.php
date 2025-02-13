@@ -114,9 +114,7 @@ class PermissionTableSeeder extends Seeder
             //For Order
             'order-manage',
             'order-list',
-            'order-today',
-            'order-monthly',
-            'order-yearly',
+            'order-active',
             'user-order-list',
 
             //account-setting
