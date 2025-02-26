@@ -123,6 +123,12 @@ class PermissionTableSeeder extends Seeder
             'join-category-edit',
             'join-category-delete',
 
+            //Country
+            'country-list',
+            'country-create',
+            'country-edit',
+            'country-delete',
+
             //account-setting
             'account-setting',
             'my-affiliate',

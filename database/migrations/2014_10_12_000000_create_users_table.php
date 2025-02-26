@@ -30,6 +30,11 @@ return new class extends Migration
             $table->integer('referral_code')->nullable();
             $table->integer('referral_code_status')->default(0);
             $table->integer('referral_join_code')->nullable();
+
+            //update
+            $table->integer('join_category_id')->nullable();
+            $table->integer('country_id')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

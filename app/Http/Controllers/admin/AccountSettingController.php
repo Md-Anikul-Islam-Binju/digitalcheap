@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
+use App\Models\JoinCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -26,7 +28,9 @@ class AccountSettingController extends Controller
     public function index()
     {
         $user = User::where('id', auth()->user()->id)->first();
-        return view('admin.pages.account.index', compact('user'));
+        $joinCategory = JoinCategory::latest()->get();
+        $countryAll = Country::latest()->get();
+        return view('admin.pages.account.index', compact('user', 'joinCategory', 'countryAll'));
     }
 
     public function createOrUpdateAccount(Request $request, $id = null)
@@ -38,6 +42,8 @@ class AccountSettingController extends Controller
             'phone' => 'nullable|unique:users,phone,' . $id,
             'profile' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:5120',
             'address' => 'nullable',
+            'join_category_id' => 'nullable',
+            'country_id' => 'nullable',
         ];
         // Validate the request data
         $validator = Validator::make($request->all(), $rules);

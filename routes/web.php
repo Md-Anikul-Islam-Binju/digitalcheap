@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\CategoryController;
 
+use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\CurrencyController;
 use App\Http\Controllers\admin\FaqController;
@@ -170,6 +171,13 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::post('/join-category-store', [JoinCategoryController::class, 'store'])->name('join.category.store');
     Route::put('/join-category-update/{id}', [JoinCategoryController::class, 'update'])->name('join.category.update');
     Route::get('/join-category-delete/{id}', [JoinCategoryController::class, 'destroy'])->name('join.category.destroy');
+
+    //Country Section
+    Route::get('/country-section', [CountryController::class, 'index'])->name('country.section');
+    Route::post('/country-store', [CountryController::class, 'store'])->name('country.store');
+    Route::put('/country-update/{id}', [CountryController::class, 'update'])->name('country.update');
+    Route::get('/country-delete/{id}', [CountryController::class, 'destroy'])->name('country.destroy');
+
 
 
     //Role and User Section

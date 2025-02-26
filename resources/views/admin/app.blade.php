@@ -157,6 +157,12 @@
                                     <a href="{{route('join.category.section')}}">Join Category</a>
                                 </li>
                             @endcan
+
+                            @can('country-list')
+                                <li>
+                                    <a href="{{route('country.section')}}">Country</a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>

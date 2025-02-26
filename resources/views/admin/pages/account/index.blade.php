@@ -73,6 +73,29 @@
                                             <img src="{{asset($user? $user->profile:'' )}}" alt="Current Image" class="mt-2" style="max-width: 50px;">
                                         @endif
                                     </div>
+
+
+                                    <div class="mb-3 col-md-4">
+                                        <label for="join_category_id" class="form-label text-capitalize">Join Category</label>
+                                        <select name="join_category_id" class="form-select">
+                                            <option value="">Select Category</option>
+                                            @foreach($joinCategory as $category)
+                                                <option value="{{$category->id}}" {{ $user && $user->join_category_id == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3 col-md-4">
+                                        <label for="country_id" class="form-label text-capitalize">Country</label>
+                                        <select name="country_id" class="form-select">
+                                            <option value="">Select Country</option>
+                                            @foreach($countryAll as $country)
+                                                <option value="{{$country->id}}" {{ $user && $user->country_id == $country->id ? 'selected' : '' }}>{{$country->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>
