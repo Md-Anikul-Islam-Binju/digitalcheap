@@ -27,13 +27,15 @@ return new class extends Migration
             $table->string('google_id')->nullable()->unique();
             $table->string('avatar')->nullable();
             $table->tinyInteger('status')->default(1);
-            $table->integer('referral_code')->nullable();
-            $table->integer('referral_code_status')->default(0);
-            $table->integer('referral_join_code')->nullable();
+
+            $table->string('referral_join_code')->nullable();
 
             //update
             $table->integer('join_category_id')->nullable();
             $table->integer('country_id')->nullable();
+
+            //user-name
+            $table->string('user_name')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

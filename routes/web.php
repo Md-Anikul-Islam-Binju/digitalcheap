@@ -208,7 +208,6 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::get('/account-setting', [AccountSettingController::class, 'index'])->name('account.setting');
     Route::post('/account-settings-create-update/{id?}', [AccountSettingController::class, 'createOrUpdateAccount'])->name('account.settings.create.update');
 
-    Route::post('/affiliate-link-create-update/{id?}', [AccountManageController::class, 'affiliateLinkCreateUpdate'])->name('affiliate.link.create.update');
     Route::get('/my-affiliate', [AccountManageController::class, 'myAffiliateUnderUser'])->name('my.affiliate');
     //User Manage
     Route::get('/active-user-list', [AdminDashboardController::class, 'activeUser'])->name('active.user');

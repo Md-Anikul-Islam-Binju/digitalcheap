@@ -24,20 +24,6 @@
                         </div>
 
                         <div class="card-body">
-                            @if($user && $user->referral_code_status == 1)
-                                <div class="mb-3">
-                                    <label class="form-label">Registration Link</label>
-                                    <div class="d-flex align-items-center">
-                                        <input type="text" class="form-control" value="{{ url('/account-registration-for-user?code=' . $user->referral_code) }}" id="referralLink" readonly>
-                                        <button type="button" class="btn btn-info ms-2" onclick="copyReferralLink()">Copy</button>
-                                    </div>
-                                </div>
-                            @else
-                                <p>Your affiliate link is currently inactive.</p>
-                            @endif
-                        </div>
-
-                        <div class="card-body">
                             <form action="{{route('account.settings.create.update',$user ? $user->id : null)}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row g-2">
@@ -112,26 +98,13 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="{{ route('affiliate.link.create.update', $user ? $user->id : null) }}" method="post">
-                                @csrf
-                                <div class="row g-2">
-                                    <div class="mb-3 col-md-4">
-                                        <label class="form-label">Affiliate Status</label>
-                                        <div class="form-check form-switch">
-                                            <!-- Hidden input to send 0 when checkbox is off -->
-                                            <input type="hidden" name="status" value="0">
-
-                                            <!-- Toggle switch that sends 1 when checked -->
-                                            <input class="form-check-input" type="checkbox" role="switch" name="status" value="1"
-                                                   @if($user && $user->referral_code_status == 1) checked @endif id="statusToggle">
-                                            <label class="form-check-label" for="statusToggle" id="statusLabel">
-                                                @if($user && $user->referral_code_status == 1) On @else Off @endif
-                                            </label>
-                                        </div>
-                                    </div>
+                            <div class="mb-3">
+                                <label class="form-label">Registration Link</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="text" class="form-control" value="{{ url('/account-registration-for-user?code=' . $user->user_name) }}" id="referralLink" readonly>
+                                    <button type="button" class="btn btn-info ms-2" onclick="copyReferralLink()">Copy</button>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
