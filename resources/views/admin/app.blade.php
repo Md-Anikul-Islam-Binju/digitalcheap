@@ -151,6 +151,12 @@
                                     <a href="{{route('partner.section')}}">Partner</a>
                                 </li>
                             @endcan
+
+                            @can('join-category-list')
+                                <li>
+                                    <a href="{{route('join.category.section')}}">Join Category</a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>

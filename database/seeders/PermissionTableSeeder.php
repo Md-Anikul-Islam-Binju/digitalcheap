@@ -117,6 +117,12 @@ class PermissionTableSeeder extends Seeder
             'order-active',
             'user-order-list',
 
+            //Join Category
+            'join-category-list',
+            'join-category-create',
+            'join-category-edit',
+            'join-category-delete',
+
             //account-setting
             'account-setting',
             'my-affiliate',

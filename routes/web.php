@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\CurrencyController;
 use App\Http\Controllers\admin\FaqController;
 
+use App\Http\Controllers\admin\JoinCategoryController;
 use App\Http\Controllers\admin\OrderManageController;
 use App\Http\Controllers\admin\PackageController;
 use App\Http\Controllers\admin\PartnerController;
@@ -163,6 +164,12 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::post('/review-store', [ReviewController::class, 'store'])->name('review.store');
     Route::put('/review-update/{id}', [ReviewController::class, 'update'])->name('review.update');
     Route::get('/review-delete/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
+
+    //Join Category Section
+    Route::get('/join-category-section', [JoinCategoryController::class, 'index'])->name('join.category.section');
+    Route::post('/join-category-store', [JoinCategoryController::class, 'store'])->name('join.category.store');
+    Route::put('/join-category-update/{id}', [JoinCategoryController::class, 'update'])->name('join.category.update');
+    Route::get('/join-category-delete/{id}', [JoinCategoryController::class, 'destroy'])->name('join.category.destroy');
 
 
     //Role and User Section
