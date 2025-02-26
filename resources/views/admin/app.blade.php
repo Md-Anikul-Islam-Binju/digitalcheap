@@ -92,8 +92,8 @@
             <span class="logo-lg">
                 <img src="{{URL::to($siteSetting->logo)}}" alt="logo" style="height: 50px;">
             </span>
-            <span class="logo-sm">
-                <img src="{{URL::to($siteSetting->logo)}}" alt="small logo">
+            <span class="logo-sm ">
+                <img class="rounded" src="{{URL::to($siteSetting->favicon)}}" alt="small logo" style="height: 40px;">
             </span>
         </a>
         @endif
