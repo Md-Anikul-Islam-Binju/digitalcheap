@@ -67,17 +67,6 @@
         @can('user-dashboard-cart')
         <div class="row">
             <div class="col-xxl-3 col-sm-6">
-                <div class="card widget-flat text-bg-pink">
-                    <div class="card-body">
-                        <div class="float-end">
-                            <i class="ri-app-store-line widget-icon"></i>
-                        </div>
-                        <h6 class="text-uppercase mt-0" title="Customers">Total Client</h6>
-                        <h2 class="my-2">{{$totalClient}}</h2>
-                    </div>
-                </div>
-            </div>
-             <div class="col-xxl-3 col-sm-6">
                 <div class="card widget-flat text-bg-purple">
                     <div class="card-body">
                         <div class="float-end">
@@ -85,6 +74,19 @@
                         </div>
                         <h6 class="text-uppercase mt-0" title="Customers">Total Order</h6>
                         <h2 class="my-2">{{$orders}}</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xxl-3 col-sm-6">
+                <div class="card widget-flat text-bg-pink">
+                    <div class="card-body">
+                        <div class="float-end">
+                            <i class="ri-app-store-line widget-icon"></i>
+                        </div>
+                        <h6 class="text-uppercase mt-0" title="Customers">Total Client</h6>
+                        <h2 class="my-2">{{$totalClient}}</h2>
                     </div>
                 </div>
             </div>

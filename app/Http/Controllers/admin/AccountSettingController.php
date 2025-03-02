@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\JoinCategory;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -30,7 +31,10 @@ class AccountSettingController extends Controller
         $user = User::where('id', auth()->user()->id)->first();
         $joinCategory = JoinCategory::latest()->get();
         $countryAll = Country::latest()->get();
-        return view('admin.pages.account.index', compact('user', 'joinCategory', 'countryAll'));
+
+        $buyOrder = Order::where('user_id', auth()->user()->id)->count();
+        //dd($buyOrder);
+        return view('admin.pages.account.index', compact('user', 'joinCategory', 'countryAll', 'buyOrder'));
     }
 
     public function createOrUpdateAccount(Request $request, $id = null)

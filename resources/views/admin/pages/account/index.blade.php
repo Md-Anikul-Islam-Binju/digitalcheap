@@ -19,8 +19,25 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between">
                             <h4 class="header-title">Account Information</h4>
+                            @if($buyOrder>=1 && $buyOrder<=3)
+                                <div>
+                                    <h6 class="text-center">SILVER</h6>
+                                    <img src="{{URL::to('backend/images/si.png')}}" alt="" style="width: 50px;">
+                                </div>
+
+                            @elseif($buyOrder>=4 && $buyOrder<=9)
+                                <div>
+                                    <h6 class="text-center">GOLD</h6>
+                                    <img src="{{URL::to('backend/images/go.png')}}" alt="" style="width: 50px;">
+                                </div>
+                            @elseif($buyOrder>=10)
+                                <div>
+                                    <h6 class="text-center">PLATINUM</h6>
+                                    <img src="{{URL::to('backend/images/pl.png')}}" alt="" style="width: 50px;">
+                                </div>
+                            @endif
                         </div>
 
                         <div class="card-body">
