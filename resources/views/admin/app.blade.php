@@ -73,6 +73,12 @@
                             <i class="ri-account-circle-line fs-18 align-middle me-1"></i>
                             <span>My Account</span>
                         </a>
+
+                        <a href="{{route('password.edit')}}" class="dropdown-item">
+                            <i class="ri-account-circle-line fs-18 align-middle me-1"></i>
+                            <span>Change Password</span>
+                        </a>
+
                         <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="ri-logout-box-line fs-18 align-middle me-1"></i>
                             <span>Logout</span>

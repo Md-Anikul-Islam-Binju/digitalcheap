@@ -212,6 +212,9 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     //User Manage
     Route::get('/active-user-list', [AdminDashboardController::class, 'activeUser'])->name('active.user');
     Route::get('/inactive-user-list', [AdminDashboardController::class, 'inactiveUser'])->name('inactive.user');
+
+    Route::get('/password/update', [AdminDashboardController::class, 'editPassword'])->name('password.edit');
+    Route::post('/password/change', [AdminDashboardController::class, 'updatePassword'])->name('password.change');
 });
 
 require __DIR__.'/auth.php';

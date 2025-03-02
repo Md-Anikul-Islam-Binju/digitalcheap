@@ -14,6 +14,9 @@ use App\Models\Training;
 use App\Models\User;
 use App\Models\Venue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AdminDashboardController extends Controller
 {
@@ -49,6 +52,34 @@ class AdminDashboardController extends Controller
     {
         $inactiveUser = User::where('is_registration_by','=','User')->where('status',0)->get();
         return view('admin.pages.user.inactiveUser', compact('inactiveUser'));
+    }
+
+    public function editPassword()
+    {
+        return view('admin.passwordUpdate');
+    }
+
+    public function updatePassword(Request $request)
+    {
+
+        $request->validate([
+            'current_password' => ['required'],
+            'new_password' => ['required', 'min:8', 'confirmed'],
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            throw ValidationException::withMessages([
+                'current_password' => 'The current password is incorrect.',
+            ]);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return back()->with('status', 'Password updated successfully!');
     }
 
 
