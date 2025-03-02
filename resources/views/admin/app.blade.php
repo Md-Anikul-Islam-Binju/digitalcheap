@@ -337,6 +337,34 @@
                 @endcan
 
 
+                @can('pricing-list')
+                    <li class="side-nav-item">
+                        <a href="{{url('/products')}}"  target="_blank" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> Pricing </span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('use-guide')
+                    <li class="side-nav-item">
+                        <a href="{{url('/how-to-use')}}" target="_blank" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> How To Use </span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('extension-list')
+                    <li class="side-nav-item">
+                        <a href="#" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> Extension </span>
+                        </a>
+                    </li>
+                @endcan
+
+
 
 
 

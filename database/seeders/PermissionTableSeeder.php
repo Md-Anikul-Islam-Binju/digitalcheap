@@ -138,7 +138,12 @@ class PermissionTableSeeder extends Seeder
             'user-manage',
             'active-user-list',
             'inactive-user-list',
-            'user-dashboard-cart'
+            'user-dashboard-cart',
+
+            //For User
+            'pricing-list',
+            'use-guide',
+            'extension-list',
 
         ];
         foreach ($permissions as $permission) {
