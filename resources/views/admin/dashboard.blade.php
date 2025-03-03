@@ -65,43 +65,85 @@
         @endcan
 
         @can('user-dashboard-cart')
+
+
+
         <div class="row">
-            <div class="col-xxl-3 col-sm-6">
-                <div class="card widget-flat text-bg-purple">
-                    <div class="card-body">
-                        <div class="float-end">
-                            <i class="ri-profile-line widget-icon"></i>
+            <div class="col-xxl-9">
+                <div class="row">
+                    <div class="col-xxl-4 col-sm-6">
+                        <div class="card widget-flat text-bg-purple">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="ri-profile-line widget-icon"></i>
+                                </div>
+                                <h6 class="text-uppercase mt-0" title="Customers">Total Order</h6>
+                                <h2 class="my-2">{{$orders}}</h2>
+                            </div>
                         </div>
-                        <h6 class="text-uppercase mt-0" title="Customers">Total Order</h6>
-                        <h2 class="my-2">{{$orders}}</h2>
+                    </div>
+
+                    <div class="col-xxl-4 col-sm-6">
+                        <div class="card widget-flat text-bg-purple">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="ri-profile-line widget-icon"></i>
+                                </div>
+                                <h6 class="text-uppercase mt-0" title="Customers">Total Active Order</h6>
+                                <h2 class="my-2">{{$activeOrder}}</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-4 col-sm-6">
+                        <div class="card widget-flat text-bg-purple">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="ri-app-store-line widget-icon"></i>
+                                </div>
+                                <h6 class="text-uppercase mt-0" title="Customers">Total Inactive Order</h6>
+                                <h2 class="my-2">{{$inactiveOrder}}</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-4 col-sm-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Your Active Subscriptions:</h4>
+                                </div>
+                            </div>
+                            @foreach($ordersItemAll as $key => $ordersItem)
+                                @foreach($ordersItem->orderItems as $item)
+                                    <a href="http://127.0.0.1:8000/">
+                                        <div class="col-xxl-12 col-sm-6">
+                                            <div class="card widget-flat text-bg-primary">
+                                                <div class="card-body">
+                                                    <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>
+                                                    <h5 class="my-2">
+                                                        @if($item->type=='product')
+                                                            {{$item->duration}} Month
+                                                        @else
+                                                            @if($item->duration == 'Monthly')
+                                                                {{$item->duration}}
+                                                            @elseif($item->duration == 'Half Yearly')
+                                                                {{$item->duration}}
+                                                            @elseif($item->duration == 'Yearly')
+                                                                {{$item->duration}}
+                                                            @endif
+                                                        @endif
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-xxl-3 col-sm-6">
-                <div class="card widget-flat text-bg-purple">
-                    <div class="card-body">
-                        <div class="float-end">
-                            <i class="ri-profile-line widget-icon"></i>
-                        </div>
-                        <h6 class="text-uppercase mt-0" title="Customers">Total Active Order</h6>
-                        <h2 class="my-2">{{$activeOrder}}</h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xxl-3 col-sm-6">
-                <div class="card widget-flat text-bg-purple">
-                    <div class="card-body">
-                        <div class="float-end">
-                            <i class="ri-app-store-line widget-icon"></i>
-                        </div>
-                        <h6 class="text-uppercase mt-0" title="Customers">Total Inactive Order</h6>
-                        <h2 class="my-2">{{$inactiveOrder}}</h2>
-                    </div>
-                </div>
-            </div>
-
             <div class="col-xxl-3 col-sm-6">
                 <div class="card">
                     <div class="card-body">
@@ -149,44 +191,8 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box">
-                        <h4 class="page-title">Your Active Subscriptions:</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @foreach($ordersItemAll as $key => $ordersItem)
-                    @foreach($ordersItem->orderItems as $item)
-                    <a href="http://127.0.0.1:8000/">
-                        <div class="col-xxl-2 col-sm-6">
-                            <div class="card widget-flat text-bg-primary">
-                                <div class="card-body">
-                                    <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>
-                                    <h5 class="my-2">
-                                        @if($item->type=='product')
-                                            {{$item->duration}} Month
-                                        @else
-                                            @if($item->duration == 'Monthly')
-                                                {{$item->duration}}
-                                            @elseif($item->duration == 'Half Yearly')
-                                                {{$item->duration}}
-                                            @elseif($item->duration == 'Yearly')
-                                                {{$item->duration}}
-                                            @endif
-                                        @endif
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    @endforeach
-                @endforeach
-            </div>
         </div>
+
         @endcan
 
 
