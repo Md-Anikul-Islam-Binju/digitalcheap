@@ -142,7 +142,13 @@ class AccountManageController extends Controller
         if($myCode){
             $users = User::where('referral_join_code', $myCode)->get();
         }
-        return view('admin.pages.account.affiliateUnderUser', compact('users'));
+
+        $totalClient = 0;
+        if($myCode){
+            $totalClient = User::where('referral_join_code', $myCode)->count();
+        }
+        $user = User::where('id', auth()->user()->id)->with('joinCategory','country')->first();
+        return view('admin.pages.account.affiliateUnderUser', compact('users','user','totalClient'));
     }
 
 

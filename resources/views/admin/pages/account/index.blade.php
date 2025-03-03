@@ -113,7 +113,6 @@
                         <div class="card-header">
                             <h4 class="header-title">Affiliate Information</h4>
                         </div>
-
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label">Registration Link</label>
@@ -135,17 +134,6 @@
         </div>
     </div>
 
-    <script>
-        // Change label text dynamically when the switch is toggled
-        document.getElementById('statusToggle').addEventListener('change', function() {
-            var label = document.getElementById('statusLabel');
-            if (this.checked) {
-                label.textContent = 'On';
-            } else {
-                label.textContent = 'Off';
-            }
-        });
-    </script>
 
     <script>
         function copyReferralLink() {
