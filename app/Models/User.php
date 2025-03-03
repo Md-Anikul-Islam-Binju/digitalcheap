@@ -37,4 +37,13 @@ class User extends Authenticatable
         //'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function joinCategory()
+    {
+        return $this->belongsTo(JoinCategory::class,'join_category_id');
+    }
+    public function country()
+    {
+        return $this->belongsTo(Country::class,'country_id');
+    }
 }

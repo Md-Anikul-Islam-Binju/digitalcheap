@@ -102,6 +102,57 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-xxl-3 col-sm-6">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            @if($user->profile)
+                                <img src="{{asset($user? $user->profile:'' )}}" class="rounded-circle avatar-lg" alt="profile-image" style="height: 50px; width: 50px;">
+                            @else
+                                <div class="avatar-lg rounded-circle bg-primary text-center">
+                                    <div class="avatar-title font-22 text-white">
+                                        {{Str::limit($user->name,1,'')}}
+                                    </div>
+                                </div>
+                            @endif
+
+                        </div>
+                        <h5 class="card-title text-center mt-1">{{$user->name}}</h5>
+                        <p class="card-text text-center mt-1">{{$user->email}}</p>
+                        <div class="card-header d-flex justify-content-between">
+                            <h4 class="header-title">Account Batch</h4>
+                            @if($buyOrder>=1 && $buyOrder<=3)
+                                <div>
+                                    <h6 class="text-center">SILVER</h6>
+                                    <img src="{{URL::to('backend/images/si.png')}}" alt="" style="width: 50px;">
+                                </div>
+
+                            @elseif($buyOrder>=4 && $buyOrder<=9)
+                                <div>
+                                    <h6 class="text-center">GOLD</h6>
+                                    <img src="{{URL::to('backend/images/go.png')}}" alt="" style="width: 50px;">
+                                </div>
+                            @elseif($buyOrder>=10)
+                                <div>
+                                    <h6 class="text-center">PLATINUM</h6>
+                                    <img src="{{URL::to('backend/images/pl.png')}}" alt="" style="width: 50px;">
+                                </div>
+                            @endif
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"> <b>Phone:</b> {{$user->phone}}</li>
+                            <li class="list-group-item"> <b>Address:</b> {{$user->address}}</li>
+                            <li class="list-group-item"> <b>Country:</b> {{$user->phone}}</li>
+                            <li class="list-group-item"> <b>Join As:</b> {{$user->joinCategory->name}}</li>
+                            <li class="list-group-item"> <b>Country:</b> {{$user->country->name}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
         @endcan
 
