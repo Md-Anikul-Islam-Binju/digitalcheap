@@ -32,10 +32,12 @@ class AdminDashboardController extends Controller
             $totalClient = User::where('referral_join_code', $myCode)->count();
         }
         $orders = Order::where('user_id', auth()->id())->with('orderItems')->latest()->count();
+        $activeOrder = Order::where('user_id', auth()->id())->where('status', 1)->with('orderItems')->latest()->count();
+        $inactiveOrder = Order::where('user_id', auth()->id())->where('status', 0)->with('orderItems')->latest()->count();
 
         $user = User::where('id', auth()->user()->id)->with('joinCategory','country')->first();
         $buyOrder = Order::where('user_id', auth()->user()->id)->count();
-        return view('admin.dashboard', compact('loginLog','totalClient','orders','user','buyOrder'));
+        return view('admin.dashboard', compact('loginLog','totalClient','orders','user','buyOrder','activeOrder','inactiveOrder'));
     }
 
     public function unauthorized()
