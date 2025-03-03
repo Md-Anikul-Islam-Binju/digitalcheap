@@ -66,7 +66,6 @@
 
         @can('user-dashboard-cart')
         <div class="row">
-
             <div class="col-xxl-3 col-sm-6">
                 <div class="card widget-flat text-bg-purple">
                     <div class="card-body">
@@ -104,7 +103,6 @@
             </div>
 
             <div class="col-xxl-3 col-sm-6">
-
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center">
@@ -150,11 +148,50 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
 
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Your Active Subscriptions:</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach($ordersItemAll as $key => $ordersItem)
+                    @foreach($ordersItem->orderItems as $item)
+                    <a href="http://127.0.0.1:8000/">
+                        <div class="col-xxl-2 col-sm-6">
+                            <div class="card widget-flat text-bg-primary">
+                                <div class="card-body">
+                                    <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>
+                                    <h5 class="my-2">
+                                        @if($item->type=='product')
+                                            {{$item->duration}} Month
+                                        @else
+                                            @if($item->duration == 'Monthly')
+                                                {{$item->duration}}
+                                            @elseif($item->duration == 'Half Yearly')
+                                                {{$item->duration}}
+                                            @elseif($item->duration == 'Yearly')
+                                                {{$item->duration}}
+                                            @endif
+                                        @endif
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    @endforeach
+                @endforeach
+            </div>
         </div>
         @endcan
+
+
+
+
 
         @can('login-log-list')
         <div class="col-12">

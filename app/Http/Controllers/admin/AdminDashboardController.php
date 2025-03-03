@@ -20,7 +20,7 @@ use Illuminate\Validation\ValidationException;
 
 class AdminDashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
        $loginLog = LoginLog::orderBy('last_login','desc')->get();
 
@@ -37,7 +37,56 @@ class AdminDashboardController extends Controller
 
         $user = User::where('id', auth()->user()->id)->with('joinCategory','country')->first();
         $buyOrder = Order::where('user_id', auth()->user()->id)->count();
-        return view('admin.dashboard', compact('loginLog','totalClient','orders','user','buyOrder','activeOrder','inactiveOrder'));
+
+
+        // Start the base query for orders with their orderItems
+        $query = Order::where('user_id', auth()->id())
+            ->whereHas('orderItems', function ($q) use ($request) {
+                $createdAt = $request->input('created_at');
+                $date = now(); // current date for comparison
+
+                // Apply filter based on the created_at value in orderItems table
+                if ($createdAt) {
+                    if ($createdAt == 'today') {
+                        $q->whereDate('created_at', $date->toDateString());
+                    } elseif ($createdAt == 'week') {
+                        $q->whereBetween('created_at', [
+                            $date->startOfWeek()->toDateString(),
+                            $date->endOfWeek()->toDateString()
+                        ]);
+                    } elseif ($createdAt == 'month') {
+                        $q->whereMonth('created_at', $date->month)
+                            ->whereYear('created_at', $date->year);
+                    } elseif ($createdAt == 'year') {
+                        $q->whereYear('created_at', $date->year);
+                    }
+                }
+            })
+            ->with(['orderItems' => function ($q) use ($request) {
+                // Apply the same filter on the orderItems relationship
+                $createdAt = $request->input('created_at');
+                $date = now();
+
+                if ($createdAt) {
+                    if ($createdAt == 'today') {
+                        $q->whereDate('created_at', $date->toDateString());
+                    } elseif ($createdAt == 'week') {
+                        $q->whereBetween('created_at', [
+                            $date->startOfWeek()->toDateString(),
+                            $date->endOfWeek()->toDateString()
+                        ]);
+                    } elseif ($createdAt == 'month') {
+                        $q->whereMonth('created_at', $date->month)
+                            ->whereYear('created_at', $date->year);
+                    } elseif ($createdAt == 'year') {
+                        $q->whereYear('created_at', $date->year);
+                    }
+                }
+            }]);
+
+        // Get the filtered orders
+        $ordersItemAll = $query->get();
+        return view('admin.dashboard', compact('loginLog','totalClient','orders','user','buyOrder','activeOrder','inactiveOrder','ordersItemAll'));
     }
 
     public function unauthorized()
