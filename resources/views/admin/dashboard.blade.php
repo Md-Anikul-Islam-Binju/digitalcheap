@@ -120,6 +120,12 @@
                                         <div class="col-xxl-12 col-sm-6">
                                             <div class="card widget-flat text-bg-primary">
                                                 <div class="card-body">
+                                                    <div class="float-end">
+                                                        @php
+                                                            $product = App\Models\Product::where('id',$item->product_id)->first();
+                                                        @endphp
+                                                        <img src="{{asset('images/product/'. $product->file )}}" alt="Current Image" style="height: 80px;width: 80px;">
+                                                    </div>
                                                     <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>
                                                     <h5 class="my-2">
                                                         @if($item->type=='product')
