@@ -9,7 +9,11 @@ class Country extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'iso',
         'name',
-        'status',
+        'iso3',
+        'numcode',
+        'phonecode',
+        'status'
     ];
 }

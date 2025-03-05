@@ -93,7 +93,7 @@
                                         <select name="country_id" class="form-select">
                                             <option value="">Select Country</option>
                                             @foreach($countryAll as $country)
-                                                <option value="{{$country->id}}" {{ $user && $user->country_id == $country->id ? 'selected' : '' }}>{{$country->name}}</option>
+                                                <option value="{{$country->id}}" {{ $user && $user->country_id == $country->id ? 'selected' : '' }}>{{$country->iso}} - {{$country->name}} </option>
                                             @endforeach
                                         </select>
                                     </div>
