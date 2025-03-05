@@ -10,5 +10,8 @@ php artisan migrate
 php artisan db:seed --class=PermissionTableSeeder
 # Admin Create
 php artisan db:seed --class=CreateAdminUserSeeder
+# Country Create
+php artisan db:seed --class=CountrySeeder
+
 
 
