@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\SiteSetting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -146,6 +147,17 @@ class OrderManageController extends Controller
         $orders = Order::where('user_id', $id)->with('orderItems')->latest()->get();
         return view('admin.pages.order.orderManage', compact('orders'));
     }
+
+
+    public function invoice(Request $request,$id)
+    {
+
+        $order = Order::where('id', $id)->with('orderItems')->first();
+        $user = auth()->user();
+        $siteSetting = SiteSetting::first();
+        return view('admin.pages.order.invoice', compact('order','user','siteSetting'));
+    }
+
 
 
 }

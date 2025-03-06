@@ -199,6 +199,7 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
 
     //Order Section
     Route::get('/order-list', [OrderManageController::class, 'index'])->name('order.list');
+    Route::get('/order-invoice/{id}', [OrderManageController::class, 'invoice'])->name('order.invoice');
     Route::get('/active-order-list', [OrderManageController::class, 'orderActive'])->name('order.active');
 
     Route::get('/user-list', [OrderManageController::class, 'userManageByAdmin'])->name('user.list');

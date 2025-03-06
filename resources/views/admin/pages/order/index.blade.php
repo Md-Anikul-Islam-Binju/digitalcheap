@@ -52,6 +52,7 @@
                         <th>Product Price</th>
                         <th>Total Price</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -100,6 +101,9 @@
                                 @endif
                             @endif
                             <td>Approved</td>
+                            <td>
+                                <a href="{{route('order.invoice', $order->id)}}" class="btn btn-primary btn-sm">Invoice</a>
+                            </td>
                         </tr>
                         @endforeach
                     @endforeach
