@@ -361,6 +361,17 @@
                     </li>
                 @endcan
 
+                @can('use-guide')
+                    <li class="side-nav-item">
+                        <a href="{{url('/how-to-access')}}" target="_blank" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> How To Access </span>
+                        </a>
+                    </li>
+                @endcan
+
+
+
                 @can('extension-list')
                     <li class="side-nav-item">
                         <a href="#" class="side-nav-link">
