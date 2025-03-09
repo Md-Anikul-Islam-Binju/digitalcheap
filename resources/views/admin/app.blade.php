@@ -435,6 +435,16 @@
                     </div>
                 </li>
                 @endcan
+
+                @can('commission-list')
+                    <li class="side-nav-item">
+                        <a href="{{route('commission.section')}}" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> Agent Commission </span>
+                        </a>
+                    </li>
+                @endcan
+
             </ul>
             <div class="clearfix"></div>
         </div>

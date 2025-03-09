@@ -129,6 +129,12 @@ class PermissionTableSeeder extends Seeder
             'country-edit',
             'country-delete',
 
+            //Commission
+            'commission-list',
+            'commission-create',
+            'commission-edit',
+            'commission-delete',
+
             //account-setting
             'account-setting',
             'my-affiliate',

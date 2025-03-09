@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\CategoryController;
 
+use App\Http\Controllers\admin\CommissionController;
 use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\CurrencyController;
@@ -179,6 +180,11 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::get('/country-delete/{id}', [CountryController::class, 'destroy'])->name('country.destroy');
 
 
+    //Commission Section
+    Route::get('/commission-section', [CommissionController::class, 'index'])->name('commission.section');
+    Route::post('/commission-store', [CommissionController::class, 'store'])->name('commission.store');
+    Route::put('/commission-update/{id}', [CommissionController::class, 'update'])->name('commission.update');
+    Route::get('/commission-delete/{id}', [CommissionController::class, 'destroy'])->name('commission.destroy');
 
     //Role and User Section
     Route::resource('roles', RoleController::class);
