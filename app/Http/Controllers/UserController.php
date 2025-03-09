@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -29,6 +30,7 @@ class UserController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
+        //dd($request->all());
 
         $this->validate($request, [
             'name' => 'required',
@@ -39,6 +41,13 @@ class UserController extends Controller
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
+
+        if (in_array($request->input('is_registration_by'), ['User', 'Agent'])) {
+            $input['email_verified_at'] = Carbon::now(); // Store current datetime
+        }
+
+
+
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));

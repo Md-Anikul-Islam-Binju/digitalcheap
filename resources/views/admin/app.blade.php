@@ -290,6 +290,16 @@
                 @endcan
 
 
+                @can('agent-account-setting')
+                    <li class="side-nav-item">
+                        <a href="{{route('account.setting.agent')}}" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> Account </span>
+                        </a>
+                    </li>
+                @endcan
+
+
                @can('live-chat')
                 <li class="side-nav-item">
                     <a href="{{url('chatify')}}" class="side-nav-link">

@@ -68,6 +68,18 @@
                 {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
             </div>
         </div>
+
+{{--        Add this select dropdown User, Agent ,Admin--}}
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group
+            ">
+                <strong>User Type:</strong>
+                {!! Form::select('is_registration_by', ['User' => 'User', 'Agent' => 'Agent', 'Admin' => 'Admin'], null, array('class' => 'form-control')) !!}
+            </div>
+        </div>
+
+
+
         <div class="mt-1 d-flex justify-content-end">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
