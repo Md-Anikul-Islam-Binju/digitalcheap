@@ -190,7 +190,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"> <b>Phone:</b> {{$user->phone}}</li>
                             <li class="list-group-item"> <b>Address:</b> {{$user->address}}</li>
-                            <li class="list-group-item"> <b>Country:</b> {{$user->phone}}</li>
+                            <li class="list-group-item"> <b>Country:</b> {{$user->country->name}}</li>
                             <li class="list-group-item"> <b>Join As:</b> {{$user->joinCategory->name}}</li>
                             <li class="list-group-item"> <b>Country:</b> {{$user->country->name}}</li>
                         </ul>
