@@ -56,6 +56,13 @@ export default {
             return fullUrl;
         },
 
+        getServiceImageUrl(serviceImagePath) {
+            if (!serviceImagePath) {
+                return 'frontend/images/file.jpg'; // Fallback image
+            }
+            return `${window.location.origin}/images/service/${serviceImagePath}`;
+        },
+
         getProductImageUrl(productImagePath) {
             if (!productImagePath) {
                 return 'frontend/images/file.jpg'; // Fallback image
@@ -367,7 +374,7 @@ export default {
                 <div v-for="(servicesData, index) in services" :key="index" class="col-sm-6 col-lg-3">
                     <div class="featured-box px-md-4 text-center mb-4">
                         <div class="featured-box-icon">
-                            <img src="frontend/images/why.jpg" class="mx-auto img-fluid object-fit-cover rounded"
+                            <img :src="getServiceImageUrl(servicesData.file)" class="mx-auto img-fluid object-fit-cover rounded"
                                 alt="">
                         </div>
                         <h4 class="fw-600 mb-3">{{ servicesData.name }}</h4>
