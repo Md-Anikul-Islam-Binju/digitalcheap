@@ -55,7 +55,19 @@
                                         <input type="email" class="form-control" name="email" value="{{$user?$user->email:''}}"
                                                placeholder="Enter Email">
                                     </div>
-                                    <div class="mb-3 col-md-4">
+
+
+                                    <div class="mb-3 col-md-1">
+                                        <label class="form-label text-capitalize">Phone Code</label>
+                                        <select class="form-select">
+                                            @foreach($countryAll as $country)
+                                                <option {{ $user && $user->country_id == $country->id ? 'selected' : '' }} disabled>{{$country->phonecode}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
+                                    <div class="mb-3 col-md-3">
                                         <label class="form-label">Phone</label>
                                         <input type="text" class="form-control" name="phone" value="{{$user?$user->phone:''}}"
                                                placeholder="Enter Phone">
