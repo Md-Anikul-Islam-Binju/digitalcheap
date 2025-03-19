@@ -48,13 +48,15 @@ class AccountSettingController extends Controller
 
     public function createOrUpdateAccount(Request $request, $id = null)
     {
+
+
         // Validation rules
         $rules = [
             'name' => 'nullable',
             'email' => 'nullable|email|unique:users,email,' . $id,
-            'phone' => 'nullable|unique:users,phone,' . $id,
+            //'phone' => 'nullable|unique:users,phone,' . $id,
             'profile' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:5120',
-            'address' => 'nullable',
+            //'address' => 'nullable',
             'join_category_id' => 'nullable',
             'country_id' => 'nullable',
         ];
@@ -63,6 +65,8 @@ class AccountSettingController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        //dd($request->all());
         // Find or create user based on provided ID
         $user = $id ? User::findOrFail($id) : new User;
         // Update user fields except for files
