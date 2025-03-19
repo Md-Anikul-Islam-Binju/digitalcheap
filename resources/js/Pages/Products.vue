@@ -44,6 +44,28 @@ export default {
         },
     },
     methods: {
+
+        getDiscountedPrice(pkg, type) {
+            return pkg.pricing[type] || 0; // If discount is available, it is already stored in pkg.pricing[type]
+        },
+
+        // Get the original (non-discounted) price
+        getOriginalPrice(pkg, type) {
+            // If there’s a discount, get the non-discounted price from backend response
+            if (type === "Monthly") return pkg.month_package_amount;
+            if (type === "Half Yearly") return pkg.half_year_package_amount;
+            if (type === "Yearly") return pkg.yearly_package_amount;
+            return 0;
+        },
+
+        // Check if a discount exists for the selected type
+        isDiscounted(pkg, type) {
+            if (type === "Monthly") return pkg.month_package_discount_amount !== null;
+            if (type === "Half Yearly") return pkg.half_year_package_discount_amount !== null;
+            if (type === "Yearly") return pkg.yearly_package_discount_amount !== null;
+            return false;
+        },
+
         loginWithGoogle() {
             window.location.href = '/login/google'; // Redirect to the Laravel route handling Google login
         },
@@ -331,9 +353,15 @@ export default {
                         </div>
                         <div class="pricingCard-body text-left">
                             <!-- Display the correct price based on selected type -->
-                            <h2 id="free-price">
-                                ${{ pkg.pricing[selectedType] }}
-                            </h2>
+                            <div class="d-flex gap-2 align-items-center">
+                                <h2 id="free-price">
+                                    ${{ getDiscountedPrice(pkg, selectedType) }}
+                                </h2>
+
+                                <h4 v-if="isDiscounted(pkg, selectedType)" class="text-decoration-line-through text-muted" id="original-price">
+                                    ${{ getOriginalPrice(pkg, selectedType) }}
+                                </h4>
+                            </div>
                             <p class="pricing-period">/ {{ selectedType }}</p>
                         </div>
                         <ul>
