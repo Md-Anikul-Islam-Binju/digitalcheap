@@ -116,17 +116,22 @@
                             </div>
                             @foreach($ordersItemAll as $key => $ordersItem)
                                 @foreach($ordersItem->orderItems as $item)
-                                    <a href="http://127.0.0.1:8000/">
+
                                         <div class="col-xxl-12 col-sm-6">
                                             <div class="card widget-flat text-bg-primary">
                                                 <div class="card-body">
                                                     <div class="float-end">
                                                         @php
-                                                            $product = App\Models\Product::where('id',$item->product_id)->first();
+                                                            $product = App\Models\Product::where('id', $item->product_id)->first();
+                                                            $createdAt = \Carbon\Carbon::parse($item->created_at);
+                                                            $expiryDate = $createdAt->copy()->addMonths((int)$item->duration); // Keep Carbon instance
+                                                            $formattedExpiryDate = $expiryDate->format('d-m-Y'); // Convert to formatted string
+                                                            $isExpired = $expiryDate->isPast(); // Check if expiry date is in the past
                                                         @endphp
                                                         <img src="{{asset('images/product/'. $product->file )}}" alt="Current Image" style="height: 80px;width: 80px;">
                                                     </div>
                                                     <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>
+                                                    <h5 class="mt-0" >Device: {{$item->device_access}}</h5>
                                                     <h5 class="my-2">
                                                         @if($item->type=='product')
                                                             {{$item->duration}} Month
@@ -140,10 +145,23 @@
                                                             @endif
                                                         @endif
                                                     </h5>
+                                                    <h5>Exp Date: <strong>{{ $expiryDate }}</strong></h5>
+
+                                                    @if($isExpired==false)
+                                                        <div class="d-flex justify-content-end">
+                                                            <a class="btn btn-success " href="">Access</a>
+                                                        </div>
+                                                    @elseif($isExpired==true)
+                                                        <div class="d-flex justify-content-end">
+                                                            <a class="btn btn-danger" href="">Renew</a>
+                                                        </div>
+                                                    @endif
+
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
+
                                 @endforeach
                             @endforeach
                         </div>
