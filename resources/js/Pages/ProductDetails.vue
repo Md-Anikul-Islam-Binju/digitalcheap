@@ -28,6 +28,14 @@ export default {
         },
     },
     methods: {
+        getEmbeddedYouTubeUrl(link) {
+            if (!link) return ''; // Return an empty string if link is not available
+
+            const videoIdMatch = link.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|embed\/|v\/|.*[?&]v=))([^?&]+)/);
+            const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+        },
         loginWithGoogle() {
             window.location.href = '/login/google'; // Redirect to the Laravel route handling Google login
         },
@@ -281,17 +289,10 @@ export default {
                          data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <div class="mb-4 w-75">
-                                <h3 class="mb-4">How to Purchase a Package?</h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-                                    nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
-                                    eligendi voluptates, illo totam tempore nesciunt.</p>
+
+                                <p class="mb-4 w-75" v-html="product.details"></p>
                             </div>
-                            <div class="mb-4 w-75">
-                                <h3 class="mb-4">How to Get an Account?</h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-                                    nostrum labore, illum ipsum, voluptate eius accusantium architecto nobis consequatur
-                                    eligendi voluptates, illo totam tempore nesciunt.</p>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -305,19 +306,7 @@ export default {
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <table class="table table-bordered">
-                                <tbody>
-                                <tr>
-                                    <td>Account Type</td>
-                                    <td>Shared, Personal</td>
-                                </tr>
-                                <tr>
-                                    <td>Duration</td>
-                                    <td>1 Month, 3 Month, Half Yearly, Yearly</td>
-                                </tr>
-
-                                </tbody>
-                            </table>
+                            <p class="mb-4 w-75" v-html="product.additional_information"></p>
                         </div>
                     </div>
                 </div>
@@ -333,7 +322,7 @@ export default {
                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <div class="w-full text-center">
-                                <iframe width="560" class="player" src="https://www.youtube.com/embed/p_eq98EINOI?si=pUpTrD9pdR9lXzfg&amp;start=62" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe width="560" class="player" :src="getEmbeddedYouTubeUrl(product.link)"  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('amount', 10, 2);
             $table->decimal('discount_amount', 10, 2)->nullable();
-            $table->text('details')->nullable();
+            $table->longText('details')->nullable();
+            $table->longText('additional_information')->nullable();
+            $table->string('link')->nullable();
             $table->string('file')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

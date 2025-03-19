@@ -41,6 +41,8 @@ class ProductController extends Controller
             $product->category_id = $request->category_id;
             $product->name = $request->name;
             $product->details = $request->details;
+            $product->link = $request->link;
+            $product->additional_information = $request->additional_information;
             $product->amount = $request->amount;
             $product->discount_amount = $request->discount_amount;
             $product->file = $file;
@@ -63,6 +65,8 @@ class ProductController extends Controller
             $product->category_id = $request->category_id;
             $product->name = $request->name;
             $product->details = $request->details;
+            $product->link = $request->link;
+            $product->additional_information = $request->additional_information;
             $product->amount = $request->amount;
             $product->discount_amount = $request->discount_amount;
             $product->status = $request->status;

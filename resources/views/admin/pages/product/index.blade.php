@@ -126,6 +126,14 @@
                                                             </select>
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-6">
+                                                        <div class="mb-3">
+                                                            <label for="example-fileinput" class="form-label">Link</label>
+                                                            <input type="text" id="link" name="link" value="{{$productData->link}}"
+                                                                   class="form-control" placeholder="Enter Link">
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div class="row">
@@ -133,6 +141,16 @@
                                                         <div class="mb-3">
                                                             <label>Details  </label>
                                                             <textarea id="summernoteEdit{{ $productData->id }}" name="details">{{ $productData->details }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label> Additional Information </label>
+                                                            <textarea id="summernoteEdit{{ $productData->id }}" name="additional_information">{{ $productData->additional_information }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -225,6 +243,13 @@
                                     <input type="file" name="file" id="example-fileinput" class="form-control" >
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="example-fileinput" class="form-label">Link</label>
+                                    <input type="text" id="link" name="link"
+                                           class="form-control" placeholder="Enter Link">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -232,6 +257,15 @@
                                 <div class="mb-3">
                                     <label> Details </label>
                                     <textarea id="summernoteBn" name="details"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label> Additional Information </label>
+                                    <textarea id="summernote" name="additional_information"></textarea>
                                 </div>
                             </div>
                         </div>

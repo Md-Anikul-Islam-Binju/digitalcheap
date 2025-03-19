@@ -14,6 +14,8 @@ class Product extends Model
         'amount',
         'discount_amount',
         'details',
+        'link',
+        'additional_information',
         'file',
         'status',
     ];
