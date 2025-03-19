@@ -34,8 +34,8 @@
                         <th>Name</th>
                         <th>Category</th>
                         <th>Package Type & Price</th>
+                        <th>Package Type & Discount Price</th>
                         <th>Product</th>
-
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -58,6 +58,27 @@
                                                     -{{ number_format($packageData->half_year_package_amount, 2) }}
                                                 @elseif($type == 'Yearly')
                                                     -{{ number_format($packageData->yearly_package_amount, 2) }}
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    No Package Type
+                                @endif
+                            </td>
+
+                            <td>
+                                @if (!empty($packageData->package_types))
+                                    <ul>
+                                        @foreach($packageData->package_types as $type)
+                                            <li>
+                                                {{ $type }}
+                                                @if($type == 'Monthly')
+                                                    -{{ number_format($packageData->month_package_discount_amount, 2) }}
+                                                @elseif($type == 'Half Yearly')
+                                                    -{{ number_format($packageData->half_year_package_discount_amount, 2) }}
+                                                @elseif($type == 'Yearly')
+                                                    -{{ number_format($packageData->yearly_package_discount_amount, 2) }}
                                                 @endif
                                             </li>
                                         @endforeach
