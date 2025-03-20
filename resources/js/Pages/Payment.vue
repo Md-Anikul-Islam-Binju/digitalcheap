@@ -6,8 +6,7 @@
         </div>
         <h1>THANK YOU!</h1>
         <p>You are all set. Well done!</p>
-        <button class="submit-btn" type="submit"
-                onclick="alert('🥺🥺🥺🥺🥺\n Oh no you didn\'t!!!!!!!');">Continue</button>
+        <Link class="btn btn-outline-success" href="/">Continue</Link>
     </div>
 </template>
 
