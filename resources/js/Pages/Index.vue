@@ -418,16 +418,14 @@ export default {
             </div>
             <div class="partner-slider-section overflow-hidden">
                 <div class="slider-main d-flex align-items-center justify-content-center">
-                    <div class="slider-item d-flex align-items-center">
-                        <span v-for="partnerData in partner" :key="partnerData.id">
-                                <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
-                        </span>
-                    </div>
-                    <div class="slider-item d-flex align-items-center">
-                        <span v-for="partnerData in partner" :key="partnerData.id">
-                                <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
-                        </span>
-                    </div>
+
+                        <div class="slider-item d-flex align-items-center">
+                            <span v-for="partnerData in partner" :key="partnerData.id">
+                                   <a :href="partnerData.link" target="_blank">
+                                    <img style="width: 250px;" :src="getPartnerImageUrl(partnerData.file)" alt="">
+                                   </a>
+                            </span>
+                        </div>
                 </div>
             </div>
         </div>
@@ -657,6 +655,8 @@ export default {
                     </div>
               </div>
      </section>
+
+
 </template>
 
 

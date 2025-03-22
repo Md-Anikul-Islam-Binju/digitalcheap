@@ -49,12 +49,10 @@
                     </div>
                     <div class="mt-4 mt-md-0 text-center text-md-start col-md-3">
                         <div class="contact-info">
-                            <h5><span>Phone: </span>+8801312345678</h5>
-                            <h5><span>Email: </span> info@shoroborno.com</h5>
+                            <h5><span>Phone: </span>{{siteSettings.phone}}</h5>
+                            <h5><span>Email: </span>{{siteSettings.email}}</h5>
                             <p class="address">
-                                Level 7, 122 Bir Uttam Shamsul
-                                Alam Sarak, Kakrail Road,
-                                Dhaka-1217
+                                {{siteSettings.address}}
                             </p>
                         </div>
                     </div>

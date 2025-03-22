@@ -34,7 +34,9 @@
                             </Link>
                         </li>
                         <li class="nav-item" v-if="authUser">
-                            <a href="/dashboard" target="_blank" class="btn btn-success">{{ authUser.name }}</a>
+                            <a href="/dashboard" target="_blank" class="btn btn-success">
+                                {{ authUser.name.split(' ')[0] + '...' }}
+                            </a>
                         </li>
 
                         <div class="nav-item d-lg-flex" v-else>
@@ -398,7 +400,7 @@ export default {
     mounted() {
         console.log("Cart data:", this.authUser);
         console.log("Auth User:", this.authUser);
-        
+
         $(document).ready(function () {
             // Close navbar when clicking a nav-link
             $(".navbar-nav .nav-link").on("click", function () {
