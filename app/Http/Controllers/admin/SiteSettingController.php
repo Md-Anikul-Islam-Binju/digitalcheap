@@ -29,6 +29,7 @@ class SiteSettingController extends Controller
 
     public function createOrUpdate(Request $request, $id = null)
     {
+
         // Validation rules
         $rules = [
             'name' => 'nullable',
@@ -49,9 +50,9 @@ class SiteSettingController extends Controller
             'youtube_link' => 'nullable|url',
 
             'how_to_use' => 'nullable',
-            'how_to_use_link' => 'nullable|url',
+            'how_to_use_link' => 'nullable',
             'how_to_access' => 'nullable',
-            'how_to_access_link' => 'nullable|url',
+            'how_to_access_link' => 'nullable',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
