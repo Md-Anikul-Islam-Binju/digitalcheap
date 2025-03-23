@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SiteSetting;
+use App\Models\TermsAndCondition;
 use Illuminate\Http\Request;
 
 class TermsConditionController extends Controller
@@ -12,6 +13,7 @@ class TermsConditionController extends Controller
         $siteSettings = SiteSetting::latest()->first();
         $cart = session('cart', []);
         $authUser = auth()->user();
-        return inertia('TermsAndCondition',compact('siteSettings','cart','authUser'));
+        $termsAndCondition = TermsAndCondition::first();
+        return inertia('TermsAndCondition',compact('siteSettings','cart','authUser','termsAndCondition'));
     }
 }
