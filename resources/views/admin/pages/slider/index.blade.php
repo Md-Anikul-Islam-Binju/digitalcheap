@@ -84,7 +84,7 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="mb-3">
-                                                        <label for="example-fileinput" class="form-label">File</label>
+                                                        <label for="example-fileinput" class="form-label">File (Banner Size 3000 * 2000 )</label>
                                                         <input type="file" name="file" id="example-fileinput" class="form-control" >
                                                         <img src="{{asset('images/slider/'. $sliderData->file )}}" alt="File or  Image" class="mt-2" style="max-width: 50px;">
                                                     </div>
@@ -162,7 +162,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="title" class="form-label">Title</label>
+                                    <label for="title" class="form-label">Title </label>
                                     <input type="text" id="title" name="title"
                                            class="form-control" placeholder="Enter Title">
                                 </div>
@@ -171,7 +171,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="example-fileinput" class="form-label">File</label>
+                                    <label for="example-fileinput" class="form-label">File (Banner Size 3000 * 2000 )</label>
                                     <input type="file" name="file" id="example-fileinput" class="form-control">
                                 </div>
                             </div>

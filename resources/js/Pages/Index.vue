@@ -311,9 +311,21 @@ export default {
             <div class="carousel-inner">
                 <div v-for="(sliderData, index) in sliders" :key="sliderData.id"
                     :class="['carousel-item', { active: index === 0 }]">
+
                     <a :href="sliderData.link" target="_blank" rel="noopener noreferrer" class="d-block">
-                        <img :src="getSliderUrl(sliderData.file)" class="d-block w-100 object-fit-cover" alt="...">
+
+                        <div class="position-relative">
+                            <div class="container">
+                                <div class="slider-content position-absolute" style="top: 15%; max-width:
+                                500px; width: 100%">
+                                    <h2 class="text-white w-100">{{sliderData.title}}</h2>
+                                </div>
+                            </div>
+                            <img :src="getSliderUrl(sliderData.file)" class="d-block w-100 object-fit-cover" alt="...">
+                        </div>
+
                     </a>
+
                     <div class="overlay"></div>
                 </div>
             </div>
@@ -668,5 +680,13 @@ export default {
 
 
 </template>
+
+<style scoped>
+.slider-content h2{
+    @media (max-width: 768px){
+        font-size: 1.25rem;
+    }
+}
+</style>
 
 
