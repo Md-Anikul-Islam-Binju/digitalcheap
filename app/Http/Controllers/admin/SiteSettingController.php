@@ -29,7 +29,7 @@ class SiteSettingController extends Controller
 
     public function createOrUpdate(Request $request, $id = null)
     {
-
+        //dd($request->all()  );
         // Validation rules
         $rules = [
             'name' => 'nullable',
@@ -53,6 +53,8 @@ class SiteSettingController extends Controller
             'how_to_use_link' => 'nullable',
             'how_to_access' => 'nullable',
             'how_to_access_link' => 'nullable',
+            'how_to_join_become_affiliate' => 'nullable',
+            'how_to_join_become_affiliate_link' => 'nullable',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {

@@ -32,6 +32,8 @@ return new class extends Migration
             $table->string('how_to_use_link')->nullable();
             $table->text('how_to_access')->nullable();
             $table->string('how_to_access_link')->nullable();
+            $table->longText('how_to_join_become_affiliate')->nullable();
+            $table->string('how_to_join_become_affiliate_link')->nullable();
             $table->timestamps();
         });
     }

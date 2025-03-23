@@ -158,6 +158,22 @@
                                                placeholder="How To Access Youtube Link">
                                     </div>
 
+                                    <div class="mb-3 col-md-12">
+                                        <label for="how_to_join_become_affiliate_link" class="form-label">How To Join Become Affiliate Youtube Link</label>
+                                        <input type="text" class="form-control" name="how_to_join_become_affiliate_link" value="{{$siteSettings?$siteSettings->how_to_join_become_affiliate_link	:''}}"
+                                               placeholder="How To Join Become Affiliate Youtube Link">
+                                    </div>
+
+
+
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label>How To Join Become Affiliate</label>
+                                            <textarea id="summernoteEdit{{ $siteSettings ? $siteSettings->id : '' }}" name="how_to_join_become_affiliate">{{ $siteSettings ? $siteSettings->how_to_join_become_affiliate : '' }}</textarea>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>

@@ -30,5 +30,8 @@ class SiteSetting extends Model
         'how_to_use_link',
         'how_to_access',
         'how_to_access_link',
+
+        'how_to_join_become_affiliate',
+        'how_to_join_become_affiliate_link',
     ];
 }
