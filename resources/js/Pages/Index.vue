@@ -628,32 +628,32 @@ export default {
                     <p class="fs-1 fw-medium text-center text-capitalize">Voices of Satisfaction</p>
                 </div>
             </div>
-                <div class="partner-slider-section">
-                    <div class="slider-main d-flex align-items-center justify-content-center">
-                        <div class="slider-item d-flex align-items-center">
+        </div>
+        <div class="partner-slider-section">
+            <div class="slider-main d-flex align-items-center justify-content-center">
+                <div class="slider-item d-flex align-items-center">
 
-                            <div v-for="reviewData in reviews" :key="reviewData.id" class="col-lg-4 text-center">
-                                <div class="review-card p-4 mx-auto">
-                                    <img :src="getReviewImageUrl(reviewData.file)" class="mb-3"
-                                        style="border-radius: 50%; width: 80px; height: 80px; object-fit: cover;" alt="">
-                                    <p class="text-secondary text-center mb-3"
-                                        style="height: 80px; overflow: hidden; text-overflow: ellipsis; font-size: 16px; line-height: 1.4;"
-                                        v-html="reviewData.message"></p>
-                                    <div class="text-center">
-                                        <h2 class="fw-medium text-success mb-1" style="font-size: 18px; line-height: 1.2;">
-                                            {{ reviewData.name }}
-                                        </h2>
-                                        <p style="font-size: 14px; margin: 0; color: #666;">
-                                            {{ reviewData.designation }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
+                    <div v-for="reviewData in reviews" :key="reviewData.id" class="col-lg-4 text-center" style="width: 100%">
+                        <div class="review-card p-4 mx-auto">
+                            <img :src="getReviewImageUrl(reviewData.file)" class="mb-3"
+                                 style="border-radius: 50%; width: 80px; height: 80px; object-fit: cover;" alt="">
+                            <p class="text-secondary text-center mb-3"
+                               style="height: 80px; overflow: hidden; text-overflow: ellipsis; font-size: 16px; line-height: 1.4;"
+                               v-html="reviewData.message"></p>
+                            <div class="text-center">
+                                <h2 class="fw-medium text-success mb-1" style="font-size: 18px; line-height: 1.2;">
+                                    {{ reviewData.name }}
+                                </h2>
+                                <p style="font-size: 14px; margin: 0; color: #666;">
+                                    {{ reviewData.designation }}
+                                </p>
                             </div>
                         </div>
                     </div>
-              </div>
+
+                </div>
+            </div>
+        </div>
      </section>
 
 
