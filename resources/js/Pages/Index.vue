@@ -46,6 +46,13 @@ export default {
 
     methods:{
 
+        getEmbeddedYouTubeUrl(link) {
+            if (!link) return ''; // Return an empty string if link is not available
+            const videoIdMatch = link.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|embed\/|v\/|.*[?&]v=))([^?&]+)/);
+            const videoId = videoIdMatch ? videoIdMatch[1] : null;
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+        },
+
         getDiscountedPrice(pkg, type) {
             return pkg.pricing[type] || 0; // If discount is available, it is already stored in pkg.pricing[type]
         },
@@ -443,11 +450,11 @@ export default {
             <div class="row align-items-center mt-2">
                 <div class="col-12 col-md-6 text-center p-3 mt-3 mt-md-0">
                     <div class="use-card p-4 shadow-lg rounded">
-                        <a class="popup-youtube my-video-links" href="http://www.youtube.com/watch?v=6rRRAVSilss">
+                        <a class="popup-youtube my-video-links" :href="siteSettings.how_to_use_link">
                             <i class="fa-solid fa-circle-play"></i>
                         </a>
                         <h3 class="fw-bold text-center mb-4">How to Use</h3>
-                        <p class="text-muted" v-html="siteSettings.how_to_use"></p>
+                        <p class="text-muted" v-html="siteSettings.how_to_use.length > 80 ? siteSettings.how_to_use.substring(0, 80) + '...' : siteSettings.how_to_use"></p>
                         <Link href="/how-to-use" class="text-prmry more-btn">
                         Learn More <i class="fas fa-arrow-right ri"></i>
                         </Link>
@@ -455,11 +462,12 @@ export default {
                 </div>
                 <div class="col-12 col-md-6 text-center mt-2 mt-md-0 p-3">
                     <div class="use-card p-4 shadow-lg rounded">
-                        <a class="popup-youtube my-video-links" href="http://www.youtube.com/watch?v=qal34e9v_pk">
+                        <a class="popup-youtube my-video-links" :href="siteSettings.how_to_access_link">
                             <i class="fa-solid fa-circle-play"></i>
                         </a>
                         <h3 class="fw-bold text-center mb-4">How to Access</h3>
-                        <p class="text-muted" v-html="siteSettings.how_to_access"></p>
+                        <p class="text-muted" v-html="siteSettings.how_to_access.length > 80 ? siteSettings.how_to_access.substring(0, 80) + '...' : siteSettings.how_to_access"></p>
+
                         <Link href="/how-to-access" class="text-prmry more-btn">
                         Learn More <i class="fas fa-arrow-right ri"></i>
                         </Link>
