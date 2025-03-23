@@ -142,6 +142,8 @@ export default {
                         title: 'Success!',
                         text: response.data.message || 'Package added to cart successfully!',
                         confirmButtonText: 'OK',
+                    }).then(() => {
+                        location.reload(); // Reload the page after clicking OK
                     });
                 })
                 .catch(() => {
