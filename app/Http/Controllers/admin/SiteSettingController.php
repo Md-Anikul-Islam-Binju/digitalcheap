@@ -48,7 +48,7 @@ class SiteSettingController extends Controller
             'linkedin_link' => 'nullable|url',
             'instagram_link' => 'nullable|url',
             'youtube_link' => 'nullable|url',
-
+            'pinterest_link' => 'nullable|url',
             'how_to_use' => 'nullable',
             'how_to_use_link' => 'nullable',
             'how_to_access' => 'nullable',

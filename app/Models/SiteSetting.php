@@ -25,7 +25,7 @@ class SiteSetting extends Model
         'linkedin_link',
         'instagram_link',
         'youtube_link',
-
+        'pinterest_link',
         'how_to_use',
         'how_to_use_link',
         'how_to_access',

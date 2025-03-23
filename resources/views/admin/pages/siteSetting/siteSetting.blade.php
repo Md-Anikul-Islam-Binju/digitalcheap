@@ -123,6 +123,12 @@
                                                placeholder="Linkedin Link">
                                     </div>
 
+                                    <div class="mb-3 col-md-4">
+                                        <label for="pinterest_link" class="form-label">Pinterest Link</label>
+                                        <input type="text" class="form-control" name="pinterest_link" value="{{$siteSettings?$siteSettings->pinterest_link:''}}"
+                                               placeholder="Pinterest Link">
+                                    </div>
+
                                     <div class="mb-3 col-md-12">
                                         <label for="linkedin_link" class="form-label">Meta Description</label>
                                         <textarea class="form-control" name="meta_description" rows="5" placeholder="Enter the Description">{{ strip_tags($siteSettings?$siteSettings->details:'') }}</textarea>

@@ -9,12 +9,12 @@
                         </a>
                         <div class="footer-desc">ShoroBorno is a Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto enim explicabo voluptatem ea dolorem debitis to thrive in today’s digital age.</div>
                         <div class="social-icons">
-                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
+                            <a :href="siteSettings.twitter_link" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                            <a :href="siteSettings.facebook_link" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a :href="siteSettings.instagram_link" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                            <a :href="siteSettings.youtube_link" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                            <a :href="siteSettings.linkedin_link" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a :href="siteSettings.pinterest_link" target="_blank"><i class="fa-brands fa-pinterest-p"></i></a>
                         </div>
                     </div>
                     <div class="col-6 mt-3 mt-md-0 col-md-2">
