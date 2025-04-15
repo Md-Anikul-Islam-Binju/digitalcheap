@@ -19,7 +19,7 @@ class HomePageController extends Controller
     public function frontend()
     {
         $sliders = Slider::where('status',1)->latest()->get();
-        $categories = Category::where('status',1)->latest()->get();
+        $categories = Category::where('status',1)->where('type', 'package')->latest()->get();
         $packages = Package::where('status',1)->with('products')->latest()->get();
         foreach ($packages as $package) {
             $package->package_types = json_decode($package->package_type);

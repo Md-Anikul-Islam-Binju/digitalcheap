@@ -32,6 +32,7 @@
                     <tr>
                         <th>S/N</th>
                         <th>Name</th>
+                        <th>Type</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -41,6 +42,13 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>{{$categoryData->name}}</td>
+                            <td>
+                                @if($categoryData->type == 'product')
+                                    <span class="badge bg-success">Product</span>
+                                @elseif($categoryData->type == 'package')
+                                    <span class="badge bg-primary">Package</span>
+                                @endif
+                            </td>
                             <td>{{$categoryData->status==1? 'Active':'Inactive'}}</td>
                             <td style="width: 100px;">
                                 <div class="d-flex justify-content-end gap-1">
@@ -72,6 +80,19 @@
                                                                    class="form-control" placeholder="Enter Name" required>
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label for="example-select" class="form-label">Type</label>
+                                                            <select name="type" class="form-select" required>
+                                                                <option value="" selected disabled>Select Type</option>
+                                                                <option value="product" {{ $categoryData->type === 'product' ? 'selected' : '' }}>Product</option>
+                                                                <option value="package" {{ $categoryData->type === 'package' ? 'selected' : '' }}>Package</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label for="example-select" class="form-label">Status</label>
@@ -135,6 +156,19 @@
                                            class="form-control" placeholder="Enter Name" required>
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="example-select" class="form-label">Type</label>
+                                    <select name="type" class="form-select" required>
+                                        <option value="" selected disabled>Select Type</option>
+                                        <option value="product">Product</option>
+                                        <option value="package">Package</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
                         </div>
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">Submit</button>

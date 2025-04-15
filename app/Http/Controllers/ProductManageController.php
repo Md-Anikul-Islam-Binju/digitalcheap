@@ -13,7 +13,7 @@ class ProductManageController extends Controller
 
     public function products()
     {
-        $categories = Category::where('status', 1)->get();
+        $categories = Category::where('status', 1)->where('type', 'product')->get();
         $products  = Product::latest()->get();
         $packages = Package::where('status',1)->with('products')->latest()->get();
         foreach ($packages as $package) {

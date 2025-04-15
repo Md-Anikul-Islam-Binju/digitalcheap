@@ -25,7 +25,7 @@ class ProductController extends Controller
     public function index()
     {
         $product = Product::all();
-        $categories = Category::all();
+        $categories = Category::where('type', 'product')->get();
         return view('admin.pages.product.index', compact('product','categories'));
     }
     public function store(Request $request)

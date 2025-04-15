@@ -33,6 +33,7 @@ class CategoryController extends Controller
             ]);
             $category = new Category();
             $category->name = $request->name;
+            $category->type = $request->type;
             $category->save();
             Toastr::success('Category Added Successfully', 'Success');
             return redirect()->back();
@@ -50,6 +51,7 @@ class CategoryController extends Controller
             ]);
             $category = Category::find($id);
             $category->name = $request->name;
+            $category->type = $request->type;
             $category->status = $request->status;
             $category->save();
             Toastr::success('Category Updated Successfully', 'Success');
