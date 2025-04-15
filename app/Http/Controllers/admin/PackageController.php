@@ -25,8 +25,7 @@ class PackageController extends Controller
     }
     public function index()
     {
-
-        $categories = Category::all();
+        $categories = Category::where('type', 'package')->get();
         $package = Package::with('category','products')->latest()->get();
         foreach ($package as $packageData) {
             $packageInfo = json_decode($packageData->package_type);
