@@ -367,9 +367,9 @@ export default {
                             <p class="pricing-period">/ {{ selectedType }}</p>
                         </div>
                         <ul>
-                            <li v-for="product in pkg.products" :key="product.id" class="d-flex align-items-center">
+                            <li v-for="(product, index) in pkg.products" :key="index" class="d-flex align-items-center">
                                 <img src="frontend/images/Correct.svg" alt="Correct Icon">
-                                {{ product.product }}
+                                {{ product }} <!-- Display the product name -->
                             </li>
                         </ul>
                         <div class="pricingCard-footer">

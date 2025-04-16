@@ -88,14 +88,12 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($packageData->products->isNotEmpty())
+                                @if (!empty($packageData->product))
                                     <ul>
-                                        @foreach ($packageData->products as $product)
-                                            <li>{{ $product->product }}</li>
+                                        @foreach ($packageData->product as $product_id => $name)
+                                            <li>{{ $name }}</li>
                                         @endforeach
                                     </ul>
-                                @else
-                                    No Products
                                 @endif
                             </td>
                             <td>{{$packageData->status==1? 'Active':'Inactive'}}</td>
@@ -247,23 +245,24 @@
                                                     </div>
                                                 </div>
 
-                                                <div id="edit-name-fields-{{$packageData->id}}">
-                                                    <!-- Hidden JSON Field -->
-                                                    <input type="hidden" name="products_json" id="products-json-{{$packageData->id}}" value="{{ json_encode($packageData->products->pluck('product')->toArray()) }}">
-                                                    @foreach ($packageData->products as $key => $product)
-                                                        <div class="row name-field">
-                                                            <div class="col-10 mb-3">
-                                                                <label for="product" class="form-label">Product Name</label>
-                                                                <input type="text" class="form-control product-input" value="{{ $product->product }}" placeholder="Enter Product Name">
-                                                            </div>
-                                                            <div class="col-2 d-flex align-items-end mb-3">
-                                                                <button type="button" class="btn btn-danger remove-field">Remove</button>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
+
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="example-textarea" class="form-label">Employee</label>
+                                                        <select name="product_id[]" class="select2 form-control select2-multiple" data-toggle="select2"
+                                                                multiple="multiple">
+                                                            @foreach($products as $productsData)
+                                                                <option value="{{$productsData->id}}" {{ in_array($productsData->name, $packageData->product) ? 'selected' : '' }}>
+                                                                    {{$productsData->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
 
-                                                <button type="button" class="btn btn-secondary mb-3" id="add-more-{{$packageData->id}}">Add More</button>
+
+
+
+
 
 
                                                 <div class="d-flex justify-content-end">
@@ -409,19 +408,16 @@
                             </div>
                         </div>
 
-                        <div id="name-fields">
-                            <div class="row name-field">
-                                <div class="col-10 mb-3">
-                                    <label for="product" class="form-label">Product Name</label>
-                                    <input type="text" name="product[]" class="form-control" placeholder="Enter Product Name" required>
-                                </div>
-                                <div class="col-2 d-flex align-items-end mb-3">
-                                    <button type="button" class="btn btn-danger remove-field">Remove</button>
-                                </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="product_id" class="form-label">Product Lists</label>
+                                <select name="product_id[]" class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple">
+                                    @foreach($products as $productsData)
+                                        <option value="{{$productsData->id}}">{{$productsData->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-
-                        <button type="button" class="btn btn-secondary mb-3" id="add-more">Add More</button>
 
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">Submit</button>
@@ -432,76 +428,6 @@
         </div>
     </div>
 
-    <script>
-        // Add Fields (Add Modal)
-        document.getElementById('add-more').addEventListener('click', function () {
-            const nameFieldsContainer = document.getElementById('name-fields');
-            const newField = document.createElement('div');
-            newField.classList.add('row', 'name-field', 'mb-3');
-            newField.innerHTML = `
-            <div class="col-10">
-                <label for="product" class="form-label">Product Name</label>
-                <input type="text" name="product[]" class="form-control" placeholder="Enter Product Name" required>
-            </div>
-            <div class="col-2 d-flex align-items-end">
-                <button type="button" class="btn btn-danger remove-field">Remove</button>
-            </div>
-        `;
-            nameFieldsContainer.appendChild(newField);
-        });
 
-        document.getElementById('name-fields').addEventListener('click', function (e) {
-            if (e.target.classList.contains('remove-field')) {
-                e.target.closest('.name-field').remove();
-            }
-        });
-
-
-        // Add More Fields in Edit Modal
-        document.querySelectorAll('[id^=add-more-]').forEach(button => {
-            button.addEventListener('click', function () {
-                const packageId = this.id.split('-')[2]; // Extract package ID
-                const nameFieldsContainer = document.getElementById(`edit-name-fields-${packageId}`);
-
-                // Add a new product input field
-                const newField = document.createElement('div');
-                newField.classList.add('row', 'name-field', 'mb-3');
-                newField.innerHTML = `
-            <div class="col-10">
-                <label for="product" class="form-label">Product Name</label>
-                <input type="text" class="form-control product-input" placeholder="Enter Product Name">
-            </div>
-            <div class="col-2 d-flex align-items-end">
-                <button type="button" class="btn btn-danger remove-field">Remove</button>
-            </div>
-        `;
-                nameFieldsContainer.appendChild(newField);
-            });
-        });
-
-        // Remove Fields
-        document.querySelectorAll('[id^=edit-name-fields-]').forEach(container => {
-            container.addEventListener('click', function (e) {
-                if (e.target.classList.contains('remove-field')) {
-                    e.target.closest('.name-field').remove();
-                }
-            });
-        });
-
-        // Serialize Product Inputs into Hidden JSON Field Before Form Submission
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', function (e) {
-                const packageId = form.getAttribute('action').split('/').pop(); // Get package ID from action URL
-                const hiddenField = document.getElementById(`products-json-${packageId}`);
-                const nameFieldsContainer = document.getElementById(`edit-name-fields-${packageId}`);
-                const inputs = nameFieldsContainer.querySelectorAll('.product-input');
-
-                const products = Array.from(inputs).map(input => input.value.trim()).filter(value => value !== '');
-                hiddenField.value = JSON.stringify(products); // Serialize into JSON
-            });
-        });
-
-
-    </script>
 
 @endsection

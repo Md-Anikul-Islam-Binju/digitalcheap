@@ -20,7 +20,7 @@ class HomePageController extends Controller
     {
         $sliders = Slider::where('status',1)->latest()->get();
         $categories = Category::where('status',1)->where('type', 'package')->latest()->get();
-        $packages = Package::where('status',1)->with('products')->latest()->get();
+        $packages = Package::where('status',1)->latest()->get();
         foreach ($packages as $package) {
             $package->package_types = json_decode($package->package_type);
             $pricing = [];
@@ -41,6 +41,23 @@ class HomePageController extends Controller
             }
             $package->pricing = $pricing;
         }
+
+        foreach ($packages as $packageInfo) {
+            // Decode employee_id
+            $productIds = json_decode($packageInfo->product_id);
+
+            if (is_array($productIds)) {
+                // Fetch the email and domain_verification_id as an array
+                $selectedProduct = Product::whereIn('id', $productIds)
+                    ->pluck('name')
+                    ->toArray();
+                $packageInfo->products = $selectedProduct;
+            } else {
+                $packageInfo->products = [];
+            }
+        }
+
+
         $products = Product::latest()->get();
         $services =  Service::where('status',1)->latest()->get();
         $reviews = Review::where('status',1)->latest()->get();

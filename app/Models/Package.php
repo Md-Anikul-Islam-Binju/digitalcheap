@@ -24,6 +24,10 @@ class Package extends Model
         'yearly_package_discount_amount',
 
         'details',
+
+        'product_id',
+
+
         'status',
     ];
 
@@ -32,9 +36,7 @@ class Package extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function products()
-    {
-        return $this->hasMany(PackageProduct::class);
-    }
+
+
 
 }

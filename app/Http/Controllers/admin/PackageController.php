@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Package;
 use App\Models\PackageProduct;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Yoeunes\Toastr\Facades\Toastr;
@@ -26,7 +27,10 @@ class PackageController extends Controller
     public function index()
     {
         $categories = Category::where('type', 'package')->get();
-        $package = Package::with('category','products')->latest()->get();
+        $products = Product::latest()->get();
+        $package = Package::with('category')->latest()->get();
+
+
         foreach ($package as $packageData) {
             $packageInfo = json_decode($packageData->package_type);
             if (is_array($packageInfo)) {
@@ -36,7 +40,22 @@ class PackageController extends Controller
                 $packageData->package_types = [];
             }
         }
-        return view('admin.pages.package.index', compact('package', 'categories'));
+
+        foreach ($package as $packageInfo) {
+            // Decode employee_id
+            $productIds = json_decode($packageInfo->product_id);
+
+            if (is_array($productIds)) {
+                // Fetch the email and domain_verification_id as an array
+                $selectedProduct = Product::whereIn('id', $productIds)
+                    ->pluck('name')
+                    ->toArray();
+                $packageInfo->product = $selectedProduct;
+            } else {
+                $packageInfo->product = [];
+            }
+        }
+        return view('admin.pages.package.index', compact('package', 'categories', 'products'));
     }
     public function store(Request $request)
     {
@@ -44,8 +63,7 @@ class PackageController extends Controller
             $request->validate([
                 'name' => 'required',
                 'package_type' => 'required',
-                'product' => 'required|array',
-                'product.*' => 'string|max:255',
+                'product_id' => 'required',
             ]);
             $package = new Package();
             if ($request->image) {
@@ -63,16 +81,8 @@ class PackageController extends Controller
             $package->half_year_package_discount_amount = $request->half_year_package_discount_amount;
             $package->yearly_package_amount = $request->yearly_package_amount;
             $package->yearly_package_discount_amount = $request->yearly_package_discount_amount;
+            $package->product_id = json_encode($request->product_id);
             $package->save();
-
-            // Save the associated products
-            foreach ($request->product as $productName) {
-                PackageProduct::create([
-                    'package_id' => $package->id,
-                    'product' => $productName,
-                ]);
-            }
-
             Toastr::success('Package Added Successfully', 'Success');
             return redirect()->back();
         } catch (\Exception $e) {
@@ -82,21 +92,15 @@ class PackageController extends Controller
 
     public function update(Request $request, $id)
     {
+
         try {
             // Validate input data
             $request->validate([
                 'name' => 'required|string|max:255',
                 'category_id' => 'required|exists:categories,id',
                 'status' => 'required|boolean',
-                'products_json' => 'required|string', // Ensure the JSON field is present and valid
             ]);
 
-            // Decode the JSON field
-            $products = json_decode($request->products_json, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new \Exception("Invalid JSON in products_json field");
-            }
 
             // Find the package and update basic details
             $package = Package::findOrFail($id);
@@ -110,6 +114,7 @@ class PackageController extends Controller
             $package->half_year_package_discount_amount = $request->half_year_package_discount_amount;
             $package->yearly_package_amount = $request->yearly_package_amount;
             $package->yearly_package_discount_amount = $request->yearly_package_discount_amount;
+            $package->product_id = json_encode($request->product_id);
             $package->status = $request->status;
             if ($request->image) {
                 $file = time() . '.' . $request->image->extension();
@@ -117,18 +122,6 @@ class PackageController extends Controller
                 $package->image = $file;
             }
             $package->save();
-
-            // Update associated products
-            $package->products()->delete(); // Clear existing products
-            foreach ($products as $productName) {
-                if (!empty($productName)) { // Ensure the product name is not empty
-                    PackageProduct::create([
-                        'package_id' => $package->id,
-                        'product' => $productName,
-                    ]);
-                }
-            }
-
             Toastr::success('Package Updated Successfully', 'Success');
             return redirect()->back();
         } catch (\Exception $e) {

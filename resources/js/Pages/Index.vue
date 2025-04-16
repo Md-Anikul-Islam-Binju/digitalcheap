@@ -453,41 +453,8 @@ export default {
     </section>
 
     <!-- Usability -->
-    <section class="usability-section py-5">
-        <div class="container">
-            <div class="section-title text-center mb-1">
-                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Usability</h2>
-                <p class="fs-1 fw-medium text-center text-capitalize">Designed for Your Ease</p>
-            </div>
-            <div class="row align-items-center mt-2">
-                <div class="col-12 col-md-6 text-center p-3 mt-3 mt-md-0">
-                    <div class="use-card p-4 shadow-lg rounded">
-                        <a class="popup-youtube my-video-links" :href="siteSettings.how_to_use_link">
-                            <i class="fa-solid fa-circle-play"></i>
-                        </a>
-                        <h3 class="fw-bold text-center mb-4">How to Use</h3>
-                        <p class="text-muted" v-html="siteSettings.how_to_use.length > 80 ? siteSettings.how_to_use.substring(0, 80) + '...' : siteSettings.how_to_use"></p>
-                        <Link href="/how-to-use" class="text-prmry more-btn">
-                        Learn More <i class="fas fa-arrow-right ri"></i>
-                        </Link>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 text-center mt-2 mt-md-0 p-3">
-                    <div class="use-card p-4 shadow-lg rounded">
-                        <a class="popup-youtube my-video-links" :href="siteSettings.how_to_access_link">
-                            <i class="fa-solid fa-circle-play"></i>
-                        </a>
-                        <h3 class="fw-bold text-center mb-4">How to Access</h3>
-                        <p class="text-muted" v-html="siteSettings.how_to_access.length > 80 ? siteSettings.how_to_access.substring(0, 80) + '...' : siteSettings.how_to_access"></p>
 
-                        <Link href="/how-to-access" class="text-prmry more-btn">
-                        Learn More <i class="fas fa-arrow-right ri"></i>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Our product section -->
     <div class="section-products py-5">
@@ -605,14 +572,6 @@ export default {
                         <div class="pricingCard-body text-left">
                             <!-- Display the correct price based on selected type -->
                             <div class="d-flex gap-2 align-items-center">
-<!--                                <h2 id="free-price">-->
-<!--                                    ${{ pkg.pricing[selectedType] }}-->
-<!--                                </h2>-->
-
-<!--                                <h4 class="text-decoration-line-through" id="free-price">-->
-<!--                                    ${{ pkg.pricing[selectedType] }}-->
-<!--                                </h4>-->
-
 
                                 <h2 id="free-price">
                                     ${{ getDiscountedPrice(pkg, selectedType) }}
@@ -627,9 +586,9 @@ export default {
                             <p class="pricing-period">/ {{ selectedType }}</p>
                         </div>
                         <ul>
-                            <li v-for="product in pkg.products" :key="product.id" class="d-flex align-items-center">
+                            <li v-for="(product, index) in pkg.products" :key="index" class="d-flex align-items-center">
                                 <img src="frontend/images/Correct.svg" alt="Correct Icon">
-                                {{ product.product }}
+                                {{ product }} <!-- Display the product name -->
                             </li>
                         </ul>
                         <div class="pricingCard-footer">

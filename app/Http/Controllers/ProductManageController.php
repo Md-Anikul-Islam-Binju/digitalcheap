@@ -15,7 +15,7 @@ class ProductManageController extends Controller
     {
         $categories = Category::where('status', 1)->where('type', 'product')->get();
         $products  = Product::latest()->get();
-        $packages = Package::where('status',1)->with('products')->latest()->get();
+        $packages = Package::where('status',1)->latest()->get();
         foreach ($packages as $package) {
             $package->package_types = json_decode($package->package_type);
             $pricing = [];
@@ -35,6 +35,20 @@ class ProductManageController extends Controller
                 $pricing['Yearly'] = $package->yearly_package_amount;
             }
             $package->pricing = $pricing;
+        }
+        foreach ($packages as $packageInfo) {
+            // Decode employee_id
+            $productIds = json_decode($packageInfo->product_id);
+
+            if (is_array($productIds)) {
+                // Fetch the email and domain_verification_id as an array
+                $selectedProduct = Product::whereIn('id', $productIds)
+                    ->pluck('name')
+                    ->toArray();
+                $packageInfo->products = $selectedProduct;
+            } else {
+                $packageInfo->products = [];
+            }
         }
         $siteSettings = SiteSetting::latest()->first();
         $cart = session('cart', []);

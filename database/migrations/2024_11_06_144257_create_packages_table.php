@@ -28,6 +28,9 @@ return new class extends Migration
             $table->string('yearly_package_discount_amount')->nullable();
 
             $table->text('details')->nullable();
+
+            $table->string('product_id')->nullable();
+
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
