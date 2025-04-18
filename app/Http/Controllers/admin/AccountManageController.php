@@ -47,17 +47,8 @@ class AccountManageController extends Controller
         $input['password'] = Hash::make($input['password']);
         $verificationCode = rand(100000, 999999);
         $clientIp = $request->header('X-Forwarded-For') ?? $request->ip();
-
-        //
-
         $randomNumber = rand(100000, 999999);
-
-       // dd($randomNumber);
-
         $userName = Str::slug($input['name'], '') . $randomNumber;
-        //dd($request->all());
-
-
         try {
             //dd($input);
             // Create user with verification code

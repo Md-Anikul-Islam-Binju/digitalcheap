@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleLoginController extends Controller
@@ -25,6 +26,9 @@ class GoogleLoginController extends Controller
         // Check if the user already exists in the database
         $user = User::where('email', $googleUser->getEmail())->first();
 
+        $randomNumber = rand(100000, 999999);
+
+
         if (!$user) {
 
             // If the user doesn't exist, create a new one
@@ -36,6 +40,7 @@ class GoogleLoginController extends Controller
                 'is_registration_by' => 'User',
                 'status' => 1,
                 'email_verified_at' => now(),
+                'user_name' => Str::slug($googleUser->getName(), '') . $randomNumber,
             ]);
         }
 
