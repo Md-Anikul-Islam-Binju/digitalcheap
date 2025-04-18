@@ -221,6 +221,8 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::get('/my-affiliate', [AccountManageController::class, 'myAffiliateUnderUser'])->name('my.affiliate');
     //User Manage
     Route::get('/active-user-list', [AdminDashboardController::class, 'activeUser'])->name('active.user');
+    Route::put('/user-status-change/{id}', [AdminDashboardController::class, 'changeStatus'])->name('change.status');
+
     Route::get('/inactive-user-list', [AdminDashboardController::class, 'inactiveUser'])->name('inactive.user');
 
     Route::get('/password/update', [AdminDashboardController::class, 'editPassword'])->name('password.edit');

@@ -22,7 +22,8 @@ class AdminDashboardController extends Controller
 {
     public function index(Request $request)
     {
-       $loginLog = LoginLog::orderBy('last_login','desc')->get();
+
+        $loginLog = LoginLog::orderBy('last_login','desc')->get();
 
 
         $user = User::where('id', auth()->user()->id)->first();
@@ -86,7 +87,14 @@ class AdminDashboardController extends Controller
 
         // Get the filtered orders
         $ordersItemAll = $query->get();
-        return view('admin.dashboard', compact('loginLog','totalClient','orders','user','buyOrder','activeOrder','inactiveOrder','ordersItemAll'));
+
+
+        if($user->status == 0){
+            return view('admin.accountSuspend');
+        }else{
+            return view('admin.dashboard', compact('loginLog','totalClient','orders','user','buyOrder','activeOrder','inactiveOrder','ordersItemAll'));
+        }
+
     }
 
     public function unauthorized()
@@ -100,6 +108,19 @@ class AdminDashboardController extends Controller
         $activeUser = User::where('is_registration_by','=','User')->where('status',1)->get();
         return view('admin.pages.user.activeUser', compact('activeUser'));
 
+    }
+
+    public function changeStatus($id)
+    {
+
+        $activeUser = User::where('id', $id)->first();
+        if ($activeUser->status == 1) {
+            $activeUser->status = 0;
+        } else {
+            $activeUser->status = 1;
+        }
+        $activeUser->save();
+        return redirect()->back();
     }
 
     public function inactiveUser()
