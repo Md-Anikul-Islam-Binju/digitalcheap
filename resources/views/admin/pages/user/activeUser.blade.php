@@ -54,6 +54,7 @@
                                         <li>
                                             <a class="dropdown-item"  style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editStatusId{{$usersData->id}}">Change Status</a>
                                         </li>
+                                        <li><a class="dropdown-item" href="{{url('chatify',$usersData->id)}}">Chat</a></li>
                                         <li><a class="dropdown-item" href="#">Assign Tools</a></li>
                                         <li><a class="dropdown-item" href="#">Order</a></li>
                                         <li><a class="dropdown-item" href="#">Payment</a></li>
