@@ -34,6 +34,7 @@ class GoogleLoginController extends Controller
                 'google_id' => $googleUser->getId(),
                 'avatar' => $googleUser->getAvatar(),
                 'is_registration_by' => 'User',
+                'status' => 1,
                 'email_verified_at' => now(),
             ]);
         }

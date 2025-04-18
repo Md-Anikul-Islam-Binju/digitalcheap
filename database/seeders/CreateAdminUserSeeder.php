@@ -17,7 +17,7 @@ class CreateAdminUserSeeder extends Seeder
             'name' => 'Sorobonno Super Admin',
             'email' => 'sorobonno@admin.com',
             'is_registration_by' => 'Super Admin',
-            'email_verified_at' => '2024-11-01 19:22:05',
+            'email_verified_at' => now(),
             'password' => bcrypt('sorobonno@2025'),
             'status' => 1,
         ]);
