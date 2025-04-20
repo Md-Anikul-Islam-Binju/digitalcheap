@@ -65,9 +65,6 @@
         @endcan
 
         @can('user-dashboard-cart')
-
-
-
         <div class="row">
             <div class="col-xxl-9">
                 <div class="row">
@@ -107,126 +104,126 @@
                         </div>
                     </div>
 
-                    <div class="col-xxl-4 col-sm-6">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="page-title-box">
-                                    <h4 class="page-title">Your Active Subscriptions Product:</h4>
-                                </div>
-                            </div>
-                            @foreach($ordersItemAll as $key => $ordersItem)
-                                @foreach($ordersItem->orderItems as $item)
-                                        @if($item->type == 'product')
-                                        <div class="col-xxl-12 col-sm-6">
-                                            <div class="card widget-flat text-bg-primary">
-                                                <div class="card-body">
-                                                    <div class="float-end">
-                                                        @php
-                                                            $product = App\Models\Product::where('id', $item->product_id)->first();
-                                                            $createdAt = \Carbon\Carbon::parse($item->created_at);
-                                                            $expiryDate = $createdAt->copy()->addMonths((int)$item->duration); // Keep Carbon instance
-                                                            $formattedExpiryDate = $expiryDate->format('d-m-Y'); // Convert to formatted string
-                                                            $isExpired = $expiryDate->isPast(); // Check if expiry date is in the past
-                                                        @endphp
-                                                        <img src="{{asset('images/product/'. $product->file )}}" alt="Current Image" style="height: 80px;width: 80px;">
-                                                    </div>
-                                                    <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>
-                                                    <h5 class="mt-0" >Device: {{$item->device_access}}</h5>
-                                                    <h5 class="my-2">
-                                                        @if($item->type=='product')
-                                                            {{$item->duration}} Month
-                                                        @else
-                                                            @if($item->duration == 'Monthly')
-                                                                {{$item->duration}}
-                                                            @elseif($item->duration == 'Half Yearly')
-                                                                {{$item->duration}}
-                                                            @elseif($item->duration == 'Yearly')
-                                                                {{$item->duration}}
-                                                            @endif
-                                                        @endif
-                                                    </h5>
-                                                    <h5>Exp Date: <strong>{{ $expiryDate }}</strong></h5>
+{{--                    <div class="col-xxl-4 col-sm-6">--}}
+{{--                        <div class="row">--}}
+{{--                            <div class="col-12">--}}
+{{--                                <div class="page-title-box">--}}
+{{--                                    <h4 class="page-title">Your Active Subscriptions Product:</h4>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            @foreach($ordersItemAll as $key => $ordersItem)--}}
+{{--                                @foreach($ordersItem->orderItems as $item)--}}
+{{--                                        @if($item->type == 'product')--}}
+{{--                                        <div class="col-xxl-12 col-sm-6">--}}
+{{--                                            <div class="card widget-flat text-bg-primary">--}}
+{{--                                                <div class="card-body">--}}
+{{--                                                    <div class="float-end">--}}
+{{--                                                        @php--}}
+{{--                                                            $product = App\Models\Product::where('id', $item->product_id)->first();--}}
+{{--                                                            $createdAt = \Carbon\Carbon::parse($item->created_at);--}}
+{{--                                                            $expiryDate = $createdAt->copy()->addMonths((int)$item->duration); // Keep Carbon instance--}}
+{{--                                                            $formattedExpiryDate = $expiryDate->format('d-m-Y'); // Convert to formatted string--}}
+{{--                                                            $isExpired = $expiryDate->isPast(); // Check if expiry date is in the past--}}
+{{--                                                        @endphp--}}
+{{--                                                        <img src="{{asset('images/product/'. $product->file )}}" alt="Current Image" style="height: 80px;width: 80px;">--}}
+{{--                                                    </div>--}}
+{{--                                                    <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>--}}
+{{--                                                    <h5 class="mt-0" >Device: {{$item->device_access}}</h5>--}}
+{{--                                                    <h5 class="my-2">--}}
+{{--                                                        @if($item->type=='product')--}}
+{{--                                                            {{$item->duration}} Month--}}
+{{--                                                        @else--}}
+{{--                                                            @if($item->duration == 'Monthly')--}}
+{{--                                                                {{$item->duration}}--}}
+{{--                                                            @elseif($item->duration == 'Half Yearly')--}}
+{{--                                                                {{$item->duration}}--}}
+{{--                                                            @elseif($item->duration == 'Yearly')--}}
+{{--                                                                {{$item->duration}}--}}
+{{--                                                            @endif--}}
+{{--                                                        @endif--}}
+{{--                                                    </h5>--}}
+{{--                                                    <h5>Exp Date: <strong>{{ $expiryDate }}</strong></h5>--}}
 
-                                                    @if($isExpired==false)
-                                                        <div class="d-flex justify-content-end">
-                                                            <a class="btn btn-success " href="">Access</a>
-                                                        </div>
-                                                    @elseif($isExpired==true)
-                                                        <div class="d-flex justify-content-end">
-                                                            <a class="btn btn-danger" href="">Renew</a>
-                                                        </div>
-                                                    @endif
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                       @endif
-
-                                @endforeach
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="col-xxl-4 col-sm-6">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="page-title-box">
-                                    <h4 class="page-title">Your Active Subscriptions Package:</h4>
-                                </div>
-                            </div>
-                            @foreach($ordersItemAll as $key => $ordersItem)
-                                @foreach($ordersItem->orderItems as $item)
-                                    @if($item->type == 'package')
-                                    <div class="col-xxl-12 col-sm-6">
-                                        <div class="card widget-flat text-bg-primary">
-                                            <div class="card-body">
-                                                <div class="float-end">
-                                                    @php
-                                                        $product = App\Models\Product::where('id', $item->product_id)->first();
-                                                        $createdAt = \Carbon\Carbon::parse($item->created_at);
-                                                        $expiryDate = $createdAt->copy()->addMonths((int)$item->duration); // Keep Carbon instance
-                                                        $formattedExpiryDate = $expiryDate->format('d-m-Y'); // Convert to formatted string
-                                                        $isExpired = $expiryDate->isPast(); // Check if expiry date is in the past
-                                                    @endphp
-                                                </div>
-                                                <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>
-                                                <h5 class="mt-0" >Device: {{$item->device_access}}</h5>
-                                                <h5 class="my-2">
-                                                    @if($item->type=='product')
-                                                        {{$item->duration}} Month
-                                                    @else
-                                                        @if($item->duration == 'Monthly')
-                                                            {{$item->duration}}
-                                                        @elseif($item->duration == 'Half Yearly')
-                                                            {{$item->duration}}
-                                                        @elseif($item->duration == 'Yearly')
-                                                            {{$item->duration}}
-                                                        @endif
-                                                    @endif
-                                                </h5>
-                                                <h5>Exp Date: <strong>{{ $expiryDate }}</strong></h5>
-
-                                                @if($isExpired==false)
-                                                    <div class="d-flex justify-content-end">
-                                                        <a class="btn btn-success " href="">Access</a>
-                                                    </div>
-                                                @elseif($isExpired==true)
-                                                    <div class="d-flex justify-content-end">
-                                                        <a class="btn btn-success" href="">Payment</a>
-                                                    </div>
-                                                @endif
+{{--                                                    @if($isExpired==false)--}}
+{{--                                                        <div class="d-flex justify-content-end">--}}
+{{--                                                            <a class="btn btn-success " href="">Access</a>--}}
+{{--                                                        </div>--}}
+{{--                                                    @elseif($isExpired==true)--}}
+{{--                                                        <div class="d-flex justify-content-end">--}}
+{{--                                                            <a class="btn btn-danger" href="">Renew</a>--}}
+{{--                                                        </div>--}}
+{{--                                                    @endif--}}
 
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endif
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                       @endif--}}
 
-                                @endforeach
-                            @endforeach
-                        </div>
-                    </div>
+{{--                                @endforeach--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+{{--                    <div class="col-xxl-4 col-sm-6">--}}
+{{--                        <div class="row">--}}
+{{--                            <div class="col-12">--}}
+{{--                                <div class="page-title-box">--}}
+{{--                                    <h4 class="page-title">Your Active Subscriptions Package:</h4>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            @foreach($ordersItemAll as $key => $ordersItem)--}}
+{{--                                @foreach($ordersItem->orderItems as $item)--}}
+{{--                                    @if($item->type == 'package')--}}
+{{--                                    <div class="col-xxl-12 col-sm-6">--}}
+{{--                                        <div class="card widget-flat text-bg-primary">--}}
+{{--                                            <div class="card-body">--}}
+{{--                                                <div class="float-end">--}}
+{{--                                                    @php--}}
+{{--                                                        $product = App\Models\Product::where('id', $item->product_id)->first();--}}
+{{--                                                        $createdAt = \Carbon\Carbon::parse($item->created_at);--}}
+{{--                                                        $expiryDate = $createdAt->copy()->addMonths((int)$item->duration); // Keep Carbon instance--}}
+{{--                                                        $formattedExpiryDate = $expiryDate->format('d-m-Y'); // Convert to formatted string--}}
+{{--                                                        $isExpired = $expiryDate->isPast(); // Check if expiry date is in the past--}}
+{{--                                                    @endphp--}}
+{{--                                                </div>--}}
+{{--                                                <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>--}}
+{{--                                                <h5 class="mt-0" >Device: {{$item->device_access}}</h5>--}}
+{{--                                                <h5 class="my-2">--}}
+{{--                                                    @if($item->type=='product')--}}
+{{--                                                        {{$item->duration}} Month--}}
+{{--                                                    @else--}}
+{{--                                                        @if($item->duration == 'Monthly')--}}
+{{--                                                            {{$item->duration}}--}}
+{{--                                                        @elseif($item->duration == 'Half Yearly')--}}
+{{--                                                            {{$item->duration}}--}}
+{{--                                                        @elseif($item->duration == 'Yearly')--}}
+{{--                                                            {{$item->duration}}--}}
+{{--                                                        @endif--}}
+{{--                                                    @endif--}}
+{{--                                                </h5>--}}
+{{--                                                <h5>Exp Date: <strong>{{ $expiryDate }}</strong></h5>--}}
+
+{{--                                                @if($isExpired==false)--}}
+{{--                                                    <div class="d-flex justify-content-end">--}}
+{{--                                                        <a class="btn btn-success " href="">Access</a>--}}
+{{--                                                    </div>--}}
+{{--                                                @elseif($isExpired==true)--}}
+{{--                                                    <div class="d-flex justify-content-end">--}}
+{{--                                                        <a class="btn btn-success" href="">Payment</a>--}}
+{{--                                                    </div>--}}
+{{--                                                @endif--}}
+
+
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    @endif--}}
+
+{{--                                @endforeach--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
 
 
@@ -275,6 +272,130 @@
                             <li class="list-group-item"> <b>Join As:</b> {{$user->joinCategory ? $user->joinCategory->name:''}}</li>
                             <li class="list-group-item"> <b>Country:</b> {{$user->country ? $user->country->name:''}}</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-4 col-sm-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Your Active Subscriptions Product:</h4>
+                            </div>
+                        </div>
+                        @foreach($ordersItemAll as $key => $ordersItem)
+                            @foreach($ordersItem->orderItems as $item)
+                                @if($item->type == 'product')
+                                    <div class="col-xxl-12 col-sm-6">
+                                        <div class="card widget-flat text-bg-primary">
+                                            <div class="card-body">
+                                                <div class="float-end">
+                                                    @php
+                                                        $product = App\Models\Product::where('id', $item->product_id)->first();
+                                                        $createdAt = \Carbon\Carbon::parse($item->created_at);
+                                                        $expiryDate = $createdAt->copy()->addMonths((int)$item->duration); // Keep Carbon instance
+                                                        $formattedExpiryDate = $expiryDate->format('d-m-Y'); // Convert to formatted string
+                                                        $isExpired = $expiryDate->isPast(); // Check if expiry date is in the past
+                                                    @endphp
+                                                    <img src="{{asset('images/product/'. $product->file )}}" alt="Current Image" style="height: 80px;width: 80px;">
+                                                </div>
+                                                <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>
+                                                <h5 class="mt-0" >Device: {{$item->device_access}}</h5>
+                                                <h5 class="my-2">
+                                                    @if($item->type=='product')
+                                                        {{$item->duration}} Month
+                                                    @else
+                                                        @if($item->duration == 'Monthly')
+                                                            {{$item->duration}}
+                                                        @elseif($item->duration == 'Half Yearly')
+                                                            {{$item->duration}}
+                                                        @elseif($item->duration == 'Yearly')
+                                                            {{$item->duration}}
+                                                        @endif
+                                                    @endif
+                                                </h5>
+                                                <h5>Exp Date: <strong>{{ $expiryDate }}</strong></h5>
+
+                                                @if($isExpired==false)
+                                                    <div class="d-flex justify-content-end">
+                                                        <a class="btn btn-success " href="">Access</a>
+                                                    </div>
+                                                @elseif($isExpired==true)
+                                                    <div class="d-flex justify-content-end">
+                                                        <a class="btn btn-danger" href="">Renew</a>
+                                                    </div>
+                                                @endif
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-4 col-sm-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Your Active Subscriptions Package:</h4>
+                            </div>
+                        </div>
+                        @foreach($ordersItemAll as $key => $ordersItem)
+                            @foreach($ordersItem->orderItems as $item)
+                                @if($item->type == 'package')
+                                    <div class="col-xxl-12 col-sm-6">
+                                        <div class="card widget-flat text-bg-primary">
+                                            <div class="card-body">
+                                                <div class="float-end">
+                                                    @php
+                                                        $product = App\Models\Product::where('id', $item->product_id)->first();
+                                                        $createdAt = \Carbon\Carbon::parse($item->created_at);
+                                                        $expiryDate = $createdAt->copy()->addMonths((int)$item->duration); // Keep Carbon instance
+                                                        $formattedExpiryDate = $expiryDate->format('d-m-Y'); // Convert to formatted string
+                                                        $isExpired = $expiryDate->isPast(); // Check if expiry date is in the past
+                                                    @endphp
+                                                </div>
+                                                <h3 class="text-uppercase mt-0" title="Customers">{{$item->name}}</h3>
+                                                <h5 class="mt-0" >Device: {{$item->device_access}}</h5>
+                                                <h5 class="my-2">
+                                                    @if($item->type=='product')
+                                                        {{$item->duration}} Month
+                                                    @else
+                                                        @if($item->duration == 'Monthly')
+                                                            {{$item->duration}}
+                                                        @elseif($item->duration == 'Half Yearly')
+                                                            {{$item->duration}}
+                                                        @elseif($item->duration == 'Yearly')
+                                                            {{$item->duration}}
+                                                        @endif
+                                                    @endif
+                                                </h5>
+                                                <h5>Exp Date: <strong>{{ $expiryDate }}</strong></h5>
+
+                                                @if($isExpired==false)
+                                                    <div class="d-flex justify-content-end">
+                                                        <a class="btn btn-success " href="">Access</a>
+                                                    </div>
+                                                @elseif($isExpired==true)
+                                                    <div class="d-flex justify-content-end">
+                                                        <a class="btn btn-success" href="">Payment</a>
+                                                    </div>
+                                                @endif
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                            @endforeach
+                        @endforeach
                     </div>
                 </div>
             </div>

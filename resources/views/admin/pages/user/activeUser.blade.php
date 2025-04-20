@@ -51,14 +51,16 @@
                                         <i class="mdi mdi-dots-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="actionDropdown{{ $usersData->id }}">
+                                        <li><a class="dropdown-item" href="#">Edit</a></li>
                                         <li>
                                             <a class="dropdown-item"  style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editStatusId{{$usersData->id}}">Change Status</a>
                                         </li>
                                         <li><a class="dropdown-item" href="{{url('chatify',$usersData->id)}}">Chat</a></li>
-                                        <li><a class="dropdown-item" href="#">Assign Tools</a></li>
-                                        <li><a class="dropdown-item" href="#">Order</a></li>
+                                        <li><a class="dropdown-item" href="{{route('order.manage',$usersData->id)}}">Order</a></li>
                                         <li><a class="dropdown-item" href="#">Payment</a></li>
-                                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                                        <li><a class="dropdown-item" href="#">Assign Tools</a></li>
+
+
                                     </ul>
                                 </div>
                             </td>
