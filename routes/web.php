@@ -225,7 +225,7 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     Route::get('/order-manage/{id}', [AdminDashboardController::class, 'manageOrder'])->name('order.manage');
     Route::get('/order-invoice-manage/{id}', [AdminDashboardController::class, 'invoiceManage'])->name('order.invoice.manage');
     Route::put('/user-info-update/{id}', [AdminDashboardController::class, 'userInfoUpdate'])->name('user.info.update');
-
+    Route::post('/user-assign-tools/{id}', [AdminDashboardController::class, 'userAssignTools'])->name('user.assign.tools');
     Route::get('/inactive-user-list', [AdminDashboardController::class, 'inactiveUser'])->name('inactive.user');
 
     Route::get('/password/update', [AdminDashboardController::class, 'editPassword'])->name('password.edit');

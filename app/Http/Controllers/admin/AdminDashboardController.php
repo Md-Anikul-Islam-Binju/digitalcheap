@@ -4,19 +4,17 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\LoginLog;
-use App\Models\News;
+
 use App\Models\Order;
-use App\Models\Project;
-use App\Models\ProjectFile;
-use App\Models\Showcase;
+use App\Models\OrderItem;
+use App\Models\Package;
+use App\Models\Product;
 use App\Models\SiteSetting;
-use App\Models\Team;
-use App\Models\Training;
 use App\Models\User;
-use App\Models\Venue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Yoeunes\Toastr\Facades\Toastr;
 
@@ -108,7 +106,9 @@ class AdminDashboardController extends Controller
     Public function activeUser()
     {
         $activeUser = User::where('is_registration_by','=','User')->where('status',1)->with('orders.orderItems')->get();
-        return view('admin.pages.user.activeUser', compact('activeUser'));
+        $product = Product::where('status',1)->get();
+        $package = Package::where('status',1)->get();
+        return view('admin.pages.user.activeUser', compact('activeUser','product','package'));
 
     }
 
@@ -187,8 +187,6 @@ class AdminDashboardController extends Controller
 
     public function userInfoUpdate(Request $request, $id)
     {
-
-
         try {
             $request->validate([
                 'name' => 'required',
@@ -204,7 +202,79 @@ class AdminDashboardController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
+    }
 
+    public function userAssignTools(Request $request, $id)
+    {
+        $order = Order::create([
+            'invoice_no' => 'INV-' . strtoupper(Str::random(8)),
+            'user_id' => $id,
+            'payment_method' => 'cash',
+            'total' => 0,
+            'status' => 'pending',
+        ]);
+
+        $total = 0;
+
+        // Product Assignment
+        if ($request->product_id) {
+            $product = Product::find($request->product_id);
+            $price = $product?->amount ?? 0;
+            $discount = $product?->discount_amount ?? 0;
+            $finalPrice = max($price - $discount, 0);
+
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $product->id,
+                'package_id' => null,
+                'name' => $product->name,
+                'duration' => $request->duration_product,
+                'device_access' => $request->device_access,
+                'is_free_or_paid' => 'paid',
+                'price' => $finalPrice,
+                'type' => 'product',
+            ]);
+
+            $total += $finalPrice;
+
+            // Package Assignment
+        } elseif ($request->package_id) {
+            $package = Package::find($request->package_id);
+            $duration = $request->duration_package;
+            $price = 0;
+
+            switch ($duration) {
+                case 'Monthly':
+                    $price = max(($package->month_package_amount ?? 0) - ($package->month_package_discount_amount ?? 0), 0);
+                    break;
+                case 'Half Yearly':
+                    $price = max(($package->half_year_package_amount ?? 0) - ($package->half_year_package_discount_amount ?? 0), 0);
+                    break;
+                case 'Yearly':
+                    $price = max(($package->yearly_package_amount ?? 0) - ($package->yearly_package_discount_amount ?? 0), 0);
+                    break;
+            }
+
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => null,
+                'package_id' => $package->id,
+                'name' => $package->name,
+                'duration' => $duration,
+                'device_access' => $request->device_access,
+                'is_free_or_paid' => 'buy',
+                'price' => $price,
+                'type' => 'package',
+            ]);
+
+            $total += $price;
+        }
+
+        // Update Order Total
+        $order->update([
+            'total' => $total,
+        ]);
+        Toastr::success('Tools assigned successfully', 'Success');
         return redirect()->back();
     }
 
