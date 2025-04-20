@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Yoeunes\Toastr\Facades\Toastr;
 
 class AdminDashboardController extends Controller
 {
@@ -182,6 +183,29 @@ class AdminDashboardController extends Controller
         $order = Order::where('id', $id)->with('user','orderItems')->first();
         $siteSetting = SiteSetting::first();
         return view('admin.pages.user.invoiceManage', compact('order','siteSetting'));
+    }
+
+    public function userInfoUpdate(Request $request, $id)
+    {
+
+
+        try {
+            $request->validate([
+                'name' => 'required',
+            ]);
+            $user = User::find($id);
+            $user->name = $request->name;
+            if($request->password){
+                $user->password = $request->password ? Hash::make($request->password) : $user->password;
+            }
+            $user->save();
+            Toastr::success('User Updated Successfully', 'Success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
+        }
+
+        return redirect()->back();
     }
 
 

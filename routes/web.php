@@ -222,14 +222,9 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
     //User Manage
     Route::get('/active-user-list', [AdminDashboardController::class, 'activeUser'])->name('active.user');
     Route::put('/user-status-change/{id}', [AdminDashboardController::class, 'changeStatus'])->name('change.status');
-
     Route::get('/order-manage/{id}', [AdminDashboardController::class, 'manageOrder'])->name('order.manage');
-
     Route::get('/order-invoice-manage/{id}', [AdminDashboardController::class, 'invoiceManage'])->name('order.invoice.manage');
-    //Route::get('/active-order-list', [OrderManageController::class, 'orderActive'])->name('order.active');
-
-
-
+    Route::put('/user-info-update/{id}', [AdminDashboardController::class, 'userInfoUpdate'])->name('user.info.update');
 
     Route::get('/inactive-user-list', [AdminDashboardController::class, 'inactiveUser'])->name('inactive.user');
 

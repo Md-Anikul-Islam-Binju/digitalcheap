@@ -51,7 +51,9 @@
                                         <i class="mdi mdi-dots-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="actionDropdown{{ $usersData->id }}">
-                                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                                        <li>
+                                            <a class="dropdown-item"  style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editId{{$usersData->id}}">Edit</a>
+                                        </li>
                                         <li>
                                             <a class="dropdown-item"  style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editStatusId{{$usersData->id}}">Change Status</a>
                                         </li>
@@ -59,8 +61,6 @@
                                         <li><a class="dropdown-item" href="{{route('order.manage',$usersData->id)}}">Order</a></li>
                                         <li><a class="dropdown-item" href="#">Payment</a></li>
                                         <li><a class="dropdown-item" href="#">Assign Tools</a></li>
-
-
                                     </ul>
                                 </div>
                             </td>
@@ -87,6 +87,44 @@
                                                             <option value="1" {{ $usersData->status === 1 ? 'selected' : '' }}>Active</option>
                                                             <option value="0" {{ $usersData->status === 0 ? 'selected' : '' }}>Inactive</option>
                                                         </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn btn-primary" type="submit">Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="modal fade" id="editId{{$usersData->id}}" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="editLabel{{$usersData->id}}" aria-hidden="true">
+                            <div class="modal-dialog  modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="addLabel{{$usersData->id}}">Edit</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" action="{{route('user.info.update',$usersData->id)}}">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row">
+
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="example-text-input" class="form-label">Name</label>
+                                                        <input class="form-control" type="text" value="{{$usersData->name}}" id="example-text-input" placeholder="Enter Name" name="name">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="example-password-input" class="form-label">Password</label>
+                                                        <input class="form-control" type="password"  placeholder="Enter Password" name="password">
                                                     </div>
                                                 </div>
                                             </div>
