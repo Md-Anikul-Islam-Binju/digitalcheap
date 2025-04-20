@@ -248,7 +248,7 @@
 
                                                 <div class="col-12">
                                                     <div class="mb-3">
-                                                        <label for="example-textarea" class="form-label">Employee</label>
+                                                        <label for="example-textarea" class="form-label">Product List</label>
                                                         <select name="product_id[]" class="select2 form-control select2-multiple" data-toggle="select2"
                                                                 multiple="multiple">
                                                             @foreach($products as $productsData)
@@ -258,11 +258,6 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
-
-
-
-
 
 
                                                 <div class="d-flex justify-content-end">
