@@ -5,12 +5,12 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Wings</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Service Product</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Digital Cheap</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Product</a></li>
                         <li class="breadcrumb-item active">Product!</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Service Product!</h4>
+                <h4 class="page-title">Product!</h4>
             </div>
         </div>
     </div>
