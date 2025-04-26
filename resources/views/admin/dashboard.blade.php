@@ -217,7 +217,7 @@
                         </div>
                         @foreach($ordersItemAll as $key => $ordersItem)
                             @foreach($ordersItem->orderItems as $item)
-                                @if($item->type == 'package')
+                                @if($item->type == 'package' && $item->package)
 
 
                                     <div class="card">
@@ -245,9 +245,29 @@
                                             Exp Date: {{ $expiryDate }}
                                         </div>
                                     </div>
+
+                                    @if(!empty($item->package->products))
+                                           <div class="row gap-1">
+                                               @foreach($item->package->products as $product)
+                                                   <div class="card text-center" style="width: 15rem;">
+                                                       <img src="{{ asset('images/product/'.$product['file']) }}"
+                                                            class="card-img-top"
+                                                            alt="{{ $product['name'] }} style="height: 150px; object-fit: cover;">
+                                                       <div class="card-body">
+                                                           <a href="#" class="btn btn-primary">Access</a>
+                                                       </div>
+                                                   </div>
+                                               @endforeach
+                                           </div>
+
+                                    @endif
+
                                 @endif
                             @endforeach
                         @endforeach
+
+
+
                     </div>
                 </div>
             </div>

@@ -20,12 +20,72 @@ use Yoeunes\Toastr\Facades\Toastr;
 
 class AdminDashboardController extends Controller
 {
+//    public function index(Request $request)
+//    {
+//        $loginLog = LoginLog::orderBy('last_login','desc')->get();
+//        $user = User::where('id', auth()->user()->id)->first();
+//        $myCode = $user->referral_code;
+//        $totalClient = 0;
+//        if($myCode){
+//            $totalClient = User::where('referral_join_code', $myCode)->count();
+//        }
+//        $orders = Order::where('user_id', auth()->id())->with('orderItems')->latest()->count();
+//        $activeOrder = Order::where('user_id', auth()->id())->where('status', 1)->with('orderItems')->latest()->count();
+//        $inactiveOrder = Order::where('user_id', auth()->id())->where('status', 0)->with('orderItems')->latest()->count();
+//        $user = User::where('id', auth()->user()->id)->with('joinCategory','country')->first();
+//        $buyOrder = Order::where('user_id', auth()->user()->id)->count();
+//        $query = Order::where('user_id', auth()->id())
+//            ->whereHas('orderItems', function ($q) use ($request) {
+//                $createdAt = $request->input('created_at');
+//                $date = now();
+//                if ($createdAt) {
+//                    if ($createdAt == 'today') {
+//                        $q->whereDate('created_at', $date->toDateString());
+//                    } elseif ($createdAt == 'week') {
+//                        $q->whereBetween('created_at', [
+//                            $date->startOfWeek()->toDateString(),
+//                            $date->endOfWeek()->toDateString()
+//                        ]);
+//                    } elseif ($createdAt == 'month') {
+//                        $q->whereMonth('created_at', $date->month)
+//                            ->whereYear('created_at', $date->year);
+//                    } elseif ($createdAt == 'year') {
+//                        $q->whereYear('created_at', $date->year);
+//                    }
+//                }
+//            })
+//            ->with(['orderItems' => function ($q) use ($request) {
+//                $createdAt = $request->input('created_at');
+//                $date = now();
+//                if ($createdAt) {
+//                    if ($createdAt == 'today') {
+//                        $q->whereDate('created_at', $date->toDateString());
+//                    } elseif ($createdAt == 'week') {
+//                        $q->whereBetween('created_at', [
+//                            $date->startOfWeek()->toDateString(),
+//                            $date->endOfWeek()->toDateString()
+//                        ]);
+//                    } elseif ($createdAt == 'month') {
+//                        $q->whereMonth('created_at', $date->month)
+//                            ->whereYear('created_at', $date->year);
+//                    } elseif ($createdAt == 'year') {
+//                        $q->whereYear('created_at', $date->year);
+//                    }
+//                }
+//                $q->with('package');
+//            }]);
+//        $ordersItemAll = $query->get();
+//        if($user->status == 0){
+//            return view('admin.accountSuspend');
+//        }else{
+//            return view('admin.dashboard', compact('loginLog','totalClient','orders','user','buyOrder','activeOrder','inactiveOrder','ordersItemAll'));
+//        }
+//
+//    }
+
     public function index(Request $request)
     {
-
         $loginLog = LoginLog::orderBy('last_login','desc')->get();
-
-
         $user = User::where('id', auth()->user()->id)->first();
         $myCode = $user->referral_code;
         $totalClient = 0;
@@ -35,18 +95,13 @@ class AdminDashboardController extends Controller
         $orders = Order::where('user_id', auth()->id())->with('orderItems')->latest()->count();
         $activeOrder = Order::where('user_id', auth()->id())->where('status', 1)->with('orderItems')->latest()->count();
         $inactiveOrder = Order::where('user_id', auth()->id())->where('status', 0)->with('orderItems')->latest()->count();
-
         $user = User::where('id', auth()->user()->id)->with('joinCategory','country')->first();
         $buyOrder = Order::where('user_id', auth()->user()->id)->count();
 
-
-        // Start the base query for orders with their orderItems
         $query = Order::where('user_id', auth()->id())
             ->whereHas('orderItems', function ($q) use ($request) {
                 $createdAt = $request->input('created_at');
-                $date = now(); // current date for comparison
-
-                // Apply filter based on the created_at value in orderItems table
+                $date = now();
                 if ($createdAt) {
                     if ($createdAt == 'today') {
                         $q->whereDate('created_at', $date->toDateString());
@@ -64,10 +119,8 @@ class AdminDashboardController extends Controller
                 }
             })
             ->with(['orderItems' => function ($q) use ($request) {
-                // Apply the same filter on the orderItems relationship
                 $createdAt = $request->input('created_at');
                 $date = now();
-
                 if ($createdAt) {
                     if ($createdAt == 'today') {
                         $q->whereDate('created_at', $date->toDateString());
@@ -83,18 +136,48 @@ class AdminDashboardController extends Controller
                         $q->whereYear('created_at', $date->year);
                     }
                 }
+                $q->with('package');
             }]);
 
-        // Get the filtered orders
         $ordersItemAll = $query->get();
 
+        // Process each order item to add package products
+        foreach ($ordersItemAll as $order) {
+            foreach ($order->orderItems as $item) {
+                if ($item->type == 'package' && $item->package) {
+                    // Decode the product_ids from the package
+                    $productIds = json_decode($item->package->product_id);
+
+                    if (is_array($productIds)) {
+                        // Fetch the products
+                        $products = Product::whereIn('id', $productIds)
+                            ->select('id', 'name', 'amount', 'discount_amount','file')
+                            ->get()
+                            ->toArray();
+
+                        // Add the products to the package data
+                        $item->package->products = $products;
+                    } else {
+                        $item->package->products = [];
+                    }
+                }
+            }
+        }
 
         if($user->status == 0){
             return view('admin.accountSuspend');
-        }else{
-            return view('admin.dashboard', compact('loginLog','totalClient','orders','user','buyOrder','activeOrder','inactiveOrder','ordersItemAll'));
         }
 
+        return view('admin.dashboard', compact(
+            'loginLog',
+            'totalClient',
+            'orders',
+            'user',
+            'buyOrder',
+            'activeOrder',
+            'inactiveOrder',
+            'ordersItemAll'
+        ));
     }
 
     public function unauthorized()
