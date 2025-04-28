@@ -154,7 +154,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xxl-4 col-sm-6">
+                <div class="col-xxl-12 col-sm-12">
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
@@ -164,7 +164,7 @@
                         @foreach($ordersItemAll as $key => $ordersItem)
                             @foreach($ordersItem->orderItems as $item)
                                 @if($item->type == 'product')
-                                    <div class="card text-center" style="width: 15rem;">
+                                    <div class="card">
                                         @php
                                             $product = App\Models\Product::where('id', $item->product_id)->first();
                                             $createdAt = \Carbon\Carbon::parse($item->created_at);
@@ -172,34 +172,25 @@
                                             $formattedExpiryDate = $expiryDate->format('d-m-Y'); // Convert to formatted string
                                             $isExpired = $expiryDate->isPast(); // Check if expiry date is in the past
                                         @endphp
-                                        <img src="{{asset('images/product/'. $product->file )}}" class="card-img-top" alt="...">
                                         <div class="card-body">
-                                            <p class="card-text">
-                                                Device: {{$item->device_access}},
-                                                Month:
-                                                @if($item->type=='product')
-                                                    {{$item->duration}}
-                                                @else
-                                                    @if($item->duration == 'Monthly')
-                                                        {{$item->duration}}
-                                                    @elseif($item->duration == 'Half Yearly')
-                                                        {{$item->duration}}
-                                                    @elseif($item->duration == 'Yearly')
-                                                        {{$item->duration}}
-                                                    @endif
-                                                @endif
-                                                <br>
 
-                                                {{ $expiryDate }}
-                                            </p>
-                                            @if($isExpired==false)
-                                                <a href="#" class="btn btn-primary">Access</a>
-                                            @elseif($isExpired==true)
-                                                <a href="#" class="btn btn-primary">Renew</a>
+                                        <b>Product Name : </b>{{$product->name}},
+                                        @if($item->type=='product')
+                                            {{$item->duration}} Month
+                                        @else
+                                            @if($item->duration == 'Monthly')
+                                                {{$item->duration}}
+                                            @elseif($item->duration == 'Half Yearly')
+                                                {{$item->duration}}
+                                            @elseif($item->duration == 'Yearly')
+                                                {{$item->duration}}
                                             @endif
-
-                                        </div>
+                                        @endif
+                                        , Device: {{$item->device_access}},
+                                        Exp Date: {{ $expiryDate }}
                                     </div>
+                                    </div>
+
                                 @endif
                             @endforeach
                         @endforeach
@@ -246,28 +237,77 @@
                                         </div>
                                     </div>
 
-                                    @if(!empty($item->package->products))
-                                           <div class="row gap-1">
-                                               @foreach($item->package->products as $product)
-                                                   <div class="card text-center" style="width: 15rem;">
-                                                       <img src="{{ asset('images/product/'.$product['file']) }}"
-                                                            class="card-img-top"
-                                                            alt="{{ $product['name'] }} style="height: 150px; object-fit: cover;">
-                                                       <div class="card-body">
-                                                           <a href="#" class="btn btn-primary">Access</a>
-                                                       </div>
-                                                   </div>
-                                               @endforeach
-                                           </div>
-
-                                    @endif
-
+{{--                                    @if(!empty($item->package->products))--}}
+{{--                                       <div class="row gap-1">--}}
+{{--                                           @foreach($item->package->products as $product)--}}
+{{--                                               <div class="card text-center" style="width: 15rem;">--}}
+{{--                                                   <img src="{{ asset('images/product/'.$product['file']) }}"--}}
+{{--                                                        class="card-img-top"--}}
+{{--                                                        alt="{{ $product['name'] }}  object-fit: cover;">--}}
+{{--                                                   <div class="card-body">--}}
+{{--                                                       <a href="#" class="btn btn-primary">Access</a>--}}
+{{--                                                   </div>--}}
+{{--                                               </div>--}}
+{{--                                           @endforeach--}}
+{{--                                       </div>--}}
+{{--                                    @endif--}}
                                 @endif
                             @endforeach
                         @endforeach
 
 
 
+                        @php
+                            $shownProductIds = []; // Keep track of already shown product IDs
+                        @endphp
+                        @foreach($ordersItemAll as $key => $ordersItem)
+                            @foreach($ordersItem->orderItems as $item)
+
+                                {{-- If item is a package --}}
+                                @if($item->type == 'package' && $item->package)
+                                    @if(!empty($item->package->products))
+                                        <div class="row gap-1">
+                                            @foreach($item->package->products as $product)
+                                                @if(!in_array($product['id'], $shownProductIds)) {{-- Check if product is already shown --}}
+                                                @php
+                                                    $shownProductIds[] = $product['id']; // Mark as shown
+                                                @endphp
+                                                <div class="card text-center" style="width: 15rem;">
+                                                    <img src="{{ asset('images/product/'.$product['file']) }}"
+                                                         class="card-img-top"
+                                                         alt="{{ $product['name'] }}  object-fit: cover;">
+                                                    <div class="card-body">
+                                                        <a href="#" class="btn btn-primary">Access</a>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                @endif
+
+                                {{-- If item is a single product --}}
+                                @if($item->type == 'product')
+                                    @php
+                                        $product = App\Models\Product::find($item->product_id);
+                                    @endphp
+
+                                    @if($product && !in_array($product->id, $shownProductIds)) {{-- Check if product is already shown --}}
+                                    @php
+                                        $shownProductIds[] = $product->id; // Mark as shown
+                                    @endphp
+                                    <div class="card text-center" style="width: 15rem;">
+                                        <img src="{{ asset('images/product/'.$product->file) }}"
+                                             class="card-img-top"
+                                             alt="">
+                                        <div class="card-body">
+                                            <a href="#" class="btn btn-primary">Access</a>
+                                        </div>
+                                    </div>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endforeach
                     </div>
                 </div>
             </div>
