@@ -20,6 +20,13 @@ export default {
     },
     data() {
         return {
+            currentCurrency: localStorage.getItem('currency') || 'TAKA',
+            exchangeRates: {
+                TAKA: { rate: 1, symbol: 'Tk' },
+                USD: { rate: 0.0082, symbol: '$' },
+                EUR: { rate: 0.0072, symbol: '€' },
+                INR: { rate: 0.69, symbol: '₹' }
+            },
             isModalOpen: false,
             videoUrl: "",
             selectedCategory: null, // Default to show all categories
@@ -30,6 +37,13 @@ export default {
                 { value: "Yearly", label: "Yearly" },
             ],
         };
+    },
+
+    created() {
+        // Listen for currency changes
+        window.addEventListener('currency-changed', (e) => {
+            this.currentCurrency = e.detail;
+        });
     },
 
     computed: {
@@ -45,6 +59,11 @@ export default {
     },
 
     methods:{
+
+        formatPrice(price) {
+            const currency = this.exchangeRates[this.currentCurrency];
+            return `${currency.symbol}${(price * currency.rate).toFixed(2)}`;
+        },
 
         getEmbeddedYouTubeUrl(link) {
             if (!link) return ''; // Return an empty string if link is not available
@@ -480,18 +499,26 @@ export default {
                             </Link>
                         </div>
 
+<!--                        <div class="part-2" v-if="product.discount_amount">-->
+<!--                            <h3 class="product-title">{{ product.name }}</h3>-->
+<!--                            <h4 class="product-old-price text-decoration-line-through">-->
+<!--                                ${{ product.amount }}-->
+<!--                            </h4>-->
+<!--                            <h4 class="product-price">${{ product.discount_amount }}</h4>-->
+<!--                        </div>-->
+
+<!--                        <div class="part-2" v-else>-->
+<!--                            <h3 class="product-title">{{ product.name }}</h3>-->
+<!--                            <h4 class="product-price">${{ product.amount }}</h4>-->
+<!--                        </div>-->
                         <div class="part-2" v-if="product.discount_amount">
                             <h3 class="product-title">{{ product.name }}</h3>
                             <h4 class="product-old-price text-decoration-line-through">
-                                ${{ product.amount }}
+                                {{ formatPrice(product.amount) }}
                             </h4>
-                            <h4 class="product-price">${{ product.discount_amount }}</h4>
+                            <h4 class="product-price">{{ formatPrice(product.discount_amount) }}</h4>
                         </div>
 
-                        <div class="part-2" v-else>
-                            <h3 class="product-title">{{ product.name }}</h3>
-                            <h4 class="product-price">${{ product.amount }}</h4>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -516,17 +543,24 @@ export default {
                             </Link>
                         </div>
 
+<!--                        <div class="part-2" v-if="product.discount_amount">-->
+<!--                            <h3 class="product-title">{{ product.name }}</h3>-->
+<!--                            <h4 class="product-old-price text-decoration-line-through">-->
+<!--                                ${{ product.amount }}-->
+<!--                            </h4>-->
+<!--                            <h4 class="product-price">${{ product.discount_amount }}</h4>-->
+<!--                        </div>-->
+
+<!--                        <div class="part-2" v-else>-->
+<!--                            <h3 class="product-title">{{ product.name }}</h3>-->
+<!--                            <h4 class="product-price">${{ product.amount }}</h4>-->
+<!--                        </div>-->
                         <div class="part-2" v-if="product.discount_amount">
                             <h3 class="product-title">{{ product.name }}</h3>
                             <h4 class="product-old-price text-decoration-line-through">
-                                ${{ product.amount }}
+                                {{ formatPrice(product.amount) }}
                             </h4>
-                            <h4 class="product-price">${{ product.discount_amount }}</h4>
-                        </div>
-
-                        <div class="part-2" v-else>
-                            <h3 class="product-title">{{ product.name }}</h3>
-                            <h4 class="product-price">${{ product.amount }}</h4>
+                            <h4 class="product-price">{{ formatPrice(product.discount_amount) }}</h4>
                         </div>
                     </div>
                 </div>
@@ -571,18 +605,25 @@ export default {
                         </div>
                         <div class="pricingCard-body text-left">
                             <!-- Display the correct price based on selected type -->
-                            <div class="d-flex gap-2 align-items-center">
+<!--                            <div class="d-flex gap-2 align-items-center">-->
+<!--                                <h2 id="free-price">-->
+<!--                                    ${{ getDiscountedPrice(pkg, selectedType) }}-->
+<!--                                </h2>-->
 
+<!--                                <h4 v-if="isDiscounted(pkg, selectedType)" class="text-decoration-line-through text-muted" id="original-price">-->
+<!--                                    ${{ getOriginalPrice(pkg, selectedType) }}-->
+<!--                                </h4>-->
+<!--                            </div>-->
+                            <div class="d-flex gap-2 align-items-center">
                                 <h2 id="free-price">
-                                    ${{ getDiscountedPrice(pkg, selectedType) }}
+                                    {{ formatPrice(getDiscountedPrice(pkg, selectedType)) }}
                                 </h2>
 
                                 <h4 v-if="isDiscounted(pkg, selectedType)" class="text-decoration-line-through text-muted" id="original-price">
-                                    ${{ getOriginalPrice(pkg, selectedType) }}
+                                    {{ formatPrice(getOriginalPrice(pkg, selectedType)) }}
                                 </h4>
-
-
                             </div>
+
                             <p class="pricing-period">/ {{ selectedType }}</p>
                         </div>
                         <ul>

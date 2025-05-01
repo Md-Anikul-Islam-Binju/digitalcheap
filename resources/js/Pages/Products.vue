@@ -14,6 +14,13 @@ export default {
     },
     data() {
         return {
+            currentCurrency: localStorage.getItem('currency') || 'TAKA',
+            exchangeRates: {
+                TAKA: { rate: 1, symbol: 'Tk' },
+                USD: { rate: 0.0082, symbol: '$' },
+                EUR: { rate: 0.0072, symbol: '€' },
+                INR: { rate: 0.69, symbol: '₹' }
+            },
             selectedCategory: null,  // Store the selected category
             selectedType: "Monthly", // Default to "Monthly"
             packageTypes: [
@@ -22,6 +29,13 @@ export default {
                 { value: "Yearly", label: "Yearly" },
             ],
         };
+    },
+
+    created() {
+        // Listen for currency changes
+        window.addEventListener('currency-changed', (e) => {
+            this.currentCurrency = e.detail;
+        });
     },
     computed: {
         // Filter products based on selected category
@@ -45,8 +59,31 @@ export default {
     },
     methods: {
 
+        formatPrice(price) {
+            const currency = this.exchangeRates[this.currentCurrency];
+            return `${currency.symbol}${(price * currency.rate).toFixed(2)}`;
+        },
+        // getCurrentPrice(pkg, type) {
+        //     if (type === "Monthly") {
+        //         return pkg.month_package_discount_amount !== null
+        //             ? pkg.month_package_discount_amount
+        //             : pkg.month_package_amount;
+        //     }
+        //     if (type === "Half Yearly") {
+        //         return pkg.half_year_package_discount_amount !== null
+        //             ? pkg.half_year_package_discount_amount
+        //             : pkg.half_year_package_amount;
+        //     }
+        //     if (type === "Yearly") {
+        //         return pkg.yearly_package_discount_amount !== null
+        //             ? pkg.yearly_package_discount_amount
+        //             : pkg.yearly_package_amount;
+        //     }
+        //     return 0;
+        // },
+
         getDiscountedPrice(pkg, type) {
-            return pkg.pricing[type] || 0; // If discount is available, it is already stored in pkg.pricing[type]
+            return pkg.pricing[type] || 0;
         },
 
         // Get the original (non-discounted) price
@@ -303,18 +340,28 @@ export default {
                                     </Link>
                                 </div>
 
+<!--                                <div class="part-2" v-if="product.discount_amount">-->
+<!--                                    <h3 class="product-title">{{ product.name }}</h3>-->
+<!--                                    <h4 class="product-old-price text-decoration-line-through">-->
+<!--                                        ${{ product.amount }}-->
+<!--                                    </h4>-->
+<!--                                    <h4 class="product-price">${{ product.discount_amount }}</h4>-->
+<!--                                </div>-->
+<!--                                <div class="part-2" v-else>-->
+<!--                                    <h3 class="product-title">{{ product.name }}</h3>-->
+<!--                                    <h4 class="product-price">${{ product.amount }}</h4>-->
+<!--                                </div>-->
+
+
                                 <div class="part-2" v-if="product.discount_amount">
                                     <h3 class="product-title">{{ product.name }}</h3>
                                     <h4 class="product-old-price text-decoration-line-through">
-                                        ${{ product.amount }}
+                                        {{ formatPrice(product.amount) }}
                                     </h4>
-                                    <h4 class="product-price">${{ product.discount_amount }}</h4>
+                                    <h4 class="product-price">{{ formatPrice(product.discount_amount) }}</h4>
                                 </div>
 
-                                <div class="part-2" v-else>
-                                    <h3 class="product-title">{{ product.name }}</h3>
-                                    <h4 class="product-price">${{ product.amount }}</h4>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -353,15 +400,17 @@ export default {
                             <h4 class="pricingCard-title">{{ pkg.name }}</h4>
                             <p class="pricingCard-text" v-html="pkg.details"></p>
                         </div>
+
                         <div class="pricingCard-body text-left">
                             <!-- Display the correct price based on selected type -->
+
                             <div class="d-flex gap-2 align-items-center">
                                 <h2 id="free-price">
-                                    ${{ getDiscountedPrice(pkg, selectedType) }}
+                                    {{ formatPrice(getDiscountedPrice(pkg, selectedType)) }}
                                 </h2>
 
                                 <h4 v-if="isDiscounted(pkg, selectedType)" class="text-decoration-line-through text-muted" id="original-price">
-                                    ${{ getOriginalPrice(pkg, selectedType) }}
+                                    {{ formatPrice(getOriginalPrice(pkg, selectedType)) }}
                                 </h4>
                             </div>
                             <p class="pricing-period">/ {{ selectedType }}</p>

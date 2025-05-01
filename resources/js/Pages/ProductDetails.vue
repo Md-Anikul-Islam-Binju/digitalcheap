@@ -13,11 +13,25 @@ export default {
     },
     data() {
         return {
+            currentCurrency: localStorage.getItem('currency') || 'TAKA',
+            exchangeRates: {
+                TAKA: { rate: 1, symbol: 'Tk' },
+                USD: { rate: 0.0082, symbol: '$' },
+                EUR: { rate: 0.0072, symbol: '€' },
+                INR: { rate: 0.69, symbol: '₹' }
+            },
             duration: 1, // Default duration (months)
             deviceAccess: 1, // Default device access
             passwordVisible: false,
         };
     },
+    created() {
+        // Listen for currency changes
+        window.addEventListener('currency-changed', (e) => {
+            this.currentCurrency = e.detail;
+        });
+    },
+
     computed: {
         baseUrl() {
             return window.location.origin;
@@ -28,6 +42,10 @@ export default {
         },
     },
     methods: {
+        formatPrice(price) {
+            const currency = this.exchangeRates[this.currentCurrency];
+            return `${currency.symbol}${(price * currency.rate).toFixed(2)}`;
+        },
         getEmbeddedYouTubeUrl(link) {
             if (!link) return ''; // Return an empty string if link is not available
 
@@ -240,18 +258,26 @@ export default {
 
                         <hr>
 
-                        <div class="pricing-part">
-                            <div class="part-2">
-                                <h4 class="product-price">${{ totalPrice }}</h4>
-                            </div>
-                        </div>
+<!--                        <div class="pricing-part">-->
+<!--                            <div class="part-2">-->
+<!--                                <h4 class="product-price">${{ totalPrice }}</h4>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="pricing-part">
-                            <div class="part-2" v-if="product.discount_amount">
-                                <h4 class="product-old-price text-decoration-line-through">
-                                    ${{ product.amount }}
-                                </h4>
-                            </div>
+<!--                        <div class="pricing-part">-->
+<!--                            <div class="part-2" v-if="product.discount_amount">-->
+<!--                                <h4 class="product-old-price text-decoration-line-through">-->
+<!--                                    ${{ product.amount }}-->
+<!--                                </h4>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                        <div class="part-2" v-if="product.discount_amount">
+                            <h3 class="product-title">{{ product.name }}</h3>
+                            <h4 class="product-old-price text-decoration-line-through">
+                                {{ formatPrice(product.amount) }}
+                            </h4>
+                            <h4 class="product-price">{{ formatPrice(product.discount_amount) }}</h4>
                         </div>
 
 
@@ -352,17 +378,25 @@ export default {
                                <img :src="getProductImageUrl(product.file)" alt="Product Image">
                             </Link>
                         </div>
+<!--                        <div class="part-2" v-if="product.discount_amount">-->
+<!--                            <h3 class="product-title">{{ product.name }}</h3>-->
+<!--                            <h4 class="product-old-price text-decoration-line-through">-->
+<!--                                ${{ product.amount }}-->
+<!--                            </h4>-->
+<!--                            <h4 class="product-price">${{ product.discount_amount }}</h4>-->
+<!--                        </div>-->
+
+<!--                        <div class="part-2" v-else>-->
+<!--                            <h3 class="product-title">{{ product.name }}</h3>-->
+<!--                            <h4 class="product-price">${{ product.amount }}</h4>-->
+<!--                        </div>-->
+
                         <div class="part-2" v-if="product.discount_amount">
                             <h3 class="product-title">{{ product.name }}</h3>
                             <h4 class="product-old-price text-decoration-line-through">
-                                ${{ product.amount }}
+                                {{ formatPrice(product.amount) }}
                             </h4>
-                            <h4 class="product-price">${{ product.discount_amount }}</h4>
-                        </div>
-
-                        <div class="part-2" v-else>
-                            <h3 class="product-title">{{ product.name }}</h3>
-                            <h4 class="product-price">${{ product.amount }}</h4>
+                            <h4 class="product-price">{{ formatPrice(product.discount_amount) }}</h4>
                         </div>
                     </div>
                 </div>

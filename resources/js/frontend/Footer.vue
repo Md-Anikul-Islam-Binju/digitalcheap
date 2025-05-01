@@ -7,7 +7,7 @@
                         <a href="/" class="footer-logo">
                             <img :src="getLogoUrl(siteSettings?.logo)" alt="" style="height: 60px;">
                         </a>
-                        <div class="footer-desc">ShoroBorno is a Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto enim explicabo voluptatem ea dolorem debitis to thrive in today’s digital age.</div>
+                        <div class="footer-desc">Digital cheap listen, respond promptly, and offer personalized support to meet your needs.</div>
                         <div class="social-icons">
                             <a :href="siteSettings.twitter_link" target="_blank"><i class="fa-brands fa-twitter"></i></a>
                             <a :href="siteSettings.facebook_link" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>

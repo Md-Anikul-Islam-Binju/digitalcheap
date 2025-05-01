@@ -58,10 +58,15 @@
                         <!-- <a class="btn btn-success mt-2 mt-lg-0" href="/chatify">Live Chat</a>-->
                         <a href="#" class="btn btn-success mt-2 mt-lg-0" @click.prevent="openLoginModal">Live Chat</a>
                         <div class="currency-width shadow-none">
-                            <select class="form-select shadow-none rounded border-success" aria-label="Default select example">
-                                <option selected>USD</option>
-                                <option value="1">EUR</option>
-                                <option value="2">INR</option>
+                            <select
+                                class="form-select shadow-none rounded border-success"
+                                v-model="selectedCurrency"
+                                @change="updateCurrency"
+                            >
+                                <option value="TAKA">TAKA</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="INR">INR</option>
                             </select>
                         </div>
                         <div class="cart-icon position-relative d-none d-lg-block" style="width: 30px;">
@@ -91,6 +96,7 @@ export default {
     },
     data() {
         return {
+            selectedCurrency: localStorage.getItem('currency') || 'TAKA',
             loginForm: {
                 email: "",
                 password: "",
@@ -109,6 +115,14 @@ export default {
     },
 
     methods:{
+
+        updateCurrency() {
+            localStorage.setItem('currency', this.selectedCurrency);
+            // Tell all components to update
+            window.dispatchEvent(new CustomEvent('currency-changed', {
+                detail: this.selectedCurrency
+            }));
+        },
 
         searchProduct() {
             // Use Inertia to redirect to the search page with the search query
