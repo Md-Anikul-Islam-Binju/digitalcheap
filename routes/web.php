@@ -20,6 +20,7 @@ use App\Http\Controllers\admin\PackageController;
 use App\Http\Controllers\admin\PartnerController;
 use App\Http\Controllers\admin\ProductController;
 
+use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReviewController;
 use App\Http\Controllers\admin\ServiceController;
 
@@ -92,6 +93,9 @@ Route::get('login/google/callback', [GoogleLoginController::class, 'handleGoogle
 
 
 Route::middleware(['auth', 'account'])->group(callback: function () {
+
+    Route::get('/report', [ReportController::class, 'index'])->name('report');
+
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/unauthorized-action', [AdminDashboardController::class, 'unauthorized'])->name('unauthorized.action');
 

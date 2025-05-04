@@ -152,6 +152,9 @@ class PermissionTableSeeder extends Seeder
             'use-guide',
             'extension-list',
 
+
+            'report-list',
+
         ];
         foreach ($permissions as $permission) {
             if (!Permission::where('name', $permission)->exists()) {

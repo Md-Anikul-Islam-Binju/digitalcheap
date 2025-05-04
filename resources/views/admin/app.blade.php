@@ -309,6 +309,16 @@
                 </li>
                 @endcan
 
+
+                @can('report-list')
+                    <li class="side-nav-item">
+                        <a href="{{route('report')}}" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span> Report </span>
+                        </a>
+                    </li>
+                @endcan
+
                 @can('my-affiliate')
                     <li class="side-nav-item">
                         <a href="{{route('my.affiliate')}}" class="side-nav-link">
