@@ -63,7 +63,7 @@
                                 v-model="selectedCurrency"
                                 @change="updateCurrency"
                             >
-                                <option value="TAKA">TAKA</option>
+                                <option value="TAKA">BDT</option>
                                 <option value="USD">USD</option>
                                 <option value="EUR">EUR</option>
                                 <option value="INR">INR</option>

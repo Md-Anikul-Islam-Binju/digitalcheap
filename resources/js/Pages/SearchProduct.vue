@@ -14,7 +14,7 @@ export default {
         return {
             currentCurrency: localStorage.getItem('currency') || 'TAKA',
             exchangeRates: {
-                TAKA: { rate: 1, symbol: 'Tk' },
+                TAKA: { rate: 1, symbol: '৳' },
                 USD: { rate: 0.0082, symbol: '$' },
                 EUR: { rate: 0.0072, symbol: '€' },
                 INR: { rate: 0.69, symbol: '₹' }
