@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Currency;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\SiteSetting;
@@ -54,7 +55,8 @@ class ProductManageController extends Controller
         $cart = session('cart', []);
         $authUser = auth()->user();
         $auth = auth()->check();
-        return inertia('Products', compact('products','siteSettings','cart','categories','authUser','packages','auth'));
+        $currency = Currency::where('status', 1)->get();
+        return inertia('Products', compact('products','siteSettings','cart','categories','authUser','packages','auth','currency'));
     }
 
 
@@ -66,7 +68,8 @@ class ProductManageController extends Controller
         $cart = session('cart', []);
         $auth = auth()->check();
         $authUser = auth()->user();
-        return inertia('ProductDetails', compact('product','siteSettings','allProduct','cart','auth','authUser'));
+        $currency = Currency::where('status', 1)->get();
+        return inertia('ProductDetails', compact('product','siteSettings','allProduct','cart','auth','authUser','currency'));
     }
 
 

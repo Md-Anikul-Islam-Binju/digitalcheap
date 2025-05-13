@@ -32,6 +32,7 @@
                     <tr>
                         <th>S/N</th>
                         <th>Name</th>
+                        <th>Currency Value</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -41,6 +42,7 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>{{$currencyData->name}}</td>
+                            <td>{{$currencyData->value}}</td>
                             <td>{{$currencyData->status==1? 'Active':'Inactive'}}</td>
                             <td style="width: 100px;">
                                 <div class="d-flex justify-content-end gap-1">
@@ -70,6 +72,14 @@
                                                             <label for="name" class="form-label">Name</label>
                                                             <input type="text" id="name" name="name" value="{{$currencyData->name}}"
                                                                    class="form-control" placeholder="Enter Name" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label for="name" class="form-label">Currency Value</label>
+                                                            <input type="text" id="value" name="value" value="{{$currencyData->value}}"
+                                                                   class="form-control" placeholder="Enter value" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -134,6 +144,14 @@
                                     <input type="text" id="name" name="name"
                                            class="form-control" placeholder="Enter Name" required>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Currency Value</label>
+                                <input type="text" id="value" name="value"
+                                       class="form-control" placeholder="Enter value" required>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">

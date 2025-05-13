@@ -33,6 +33,7 @@ class CurrencyController extends Controller
             ]);
             $currency = new Currency();
             $currency->name = $request->name;
+            $currency->value = $request->value;
             $currency->save();
             Toastr::success('Currency Added Successfully', 'Success');
             return redirect()->back();
@@ -50,6 +51,7 @@ class CurrencyController extends Controller
             ]);
             $currency = Currency::find($id);
             $currency->name = $request->name;
+            $currency->value = $request->value;
             $currency->status = $request->status;
             $currency->save();
             Toastr::success('Currency Updated Successfully', 'Success');

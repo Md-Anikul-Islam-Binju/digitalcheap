@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Currency;
 use App\Models\OrderItem;
 use App\Models\Package;
 use App\Models\Partner;
@@ -66,6 +67,7 @@ class HomePageController extends Controller
         $cart = session('cart', []);
         $auth = auth()->check();
         $authUser = auth()->user();
+        $currency = Currency::where('status', 1)->get();
 
         $bestSellingProducts = OrderItem::select('product_id')
             ->selectRaw('count(product_id) as total')
@@ -80,7 +82,7 @@ class HomePageController extends Controller
             ->limit(12)
             ->get();
         return inertia('Index',compact('sliders','categories','packages','products',
-            'services','reviews','siteSettings','partner','cart','auth','authUser','mostSellingProducts'));
+            'services','reviews','siteSettings','partner','cart','auth','authUser','mostSellingProducts','currency' ));
     }
 
 
@@ -120,7 +122,8 @@ class HomePageController extends Controller
         $cart = session('cart', []);  // Get cart data
         $auth = auth()->check();  // Check if user is authenticated
         $authUser = auth()->user();  // Get the authenticated user
-        return inertia('SearchProduct', compact('siteSettings', 'cart', 'authUser', 'products', 'auth'));
+        $currency = Currency::where('status', 1)->get();
+        return inertia('SearchProduct', compact('siteSettings', 'cart', 'authUser', 'products', 'auth', 'currency'));
     }
 
 }

@@ -9,20 +9,28 @@ export default {
         authUser: Object,
         products: Array,
         cart: Array,
+        currency: Array
     },
     data() {
         return {
             currentCurrency: localStorage.getItem('currency') || 'TAKA',
-            exchangeRates: {
-                TAKA: { rate: 1, symbol: '৳' },
-                USD: { rate: 0.0082, symbol: '$' },
-                EUR: { rate: 0.0072, symbol: '€' },
-                INR: { rate: 0.69, symbol: '₹' }
-            },
+            // exchangeRates: {
+            //     TAKA: { rate: 1, symbol: '৳' },
+            //     USD: { rate: 0.0082, symbol: '$' },
+            //     EUR: { rate: 0.0072, symbol: '€' },
+            //     INR: { rate: 0.69, symbol: '₹' }
+            // },
+            exchangeRates: {},
         };
     },
 
     created() {
+        this.currency.forEach(item => {
+            this.exchangeRates[item.name] = {
+                rate: parseFloat(item.value),
+                symbol: this.getCurrencySymbol(item.name)
+            };
+        });
         // Listen for currency changes
         window.addEventListener('currency-changed', (e) => {
             this.currentCurrency = e.detail;
@@ -30,8 +38,18 @@ export default {
     },
 
     methods:{
+
+        getCurrencySymbol(name) {
+            switch (name) {
+                case 'BDT': return '৳';
+                case 'USD': return '$';
+                case 'EUR': return '€';
+                case 'INR': return '₹';
+                default: return '';
+            }
+        },
         formatPrice(price) {
-            const currency = this.exchangeRates[this.currentCurrency];
+            const currency = this.exchangeRates[this.currentCurrency] || { rate: 1, symbol: '৳' };
             return `${currency.symbol}${(price * currency.rate).toFixed(2)}`;
         },
         getProductImageUrl(productImagePath) {
