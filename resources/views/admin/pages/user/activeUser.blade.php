@@ -62,12 +62,52 @@
                                         <li>
                                             <a class="dropdown-item"  style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#assignToolsId{{$usersData->id}}">Assign Tools</a>
                                         </li>
+
+                                        <li>
+                                            <a class="dropdown-item"  style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#send{{$usersData->id}}">Send Email</a>
+                                        </li>
                                         <li><a class="dropdown-item" href="#">Payment</a></li>
                                     </ul>
                                 </div>
                             </td>
 
                         </tr>
+
+
+                        <div class="modal fade" id="send{{$usersData->id}}" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="sendLabel{{$usersData->id}}" aria-hidden="true">
+                            <div class="modal-dialog  modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="sendLabel{{$usersData->id}}">Send Email</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" action="{{route('send.email',$usersData->id)}}">
+                                            @csrf
+                                            <div class="row">
+
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="example-text-input" class="form-label">Email</label>
+                                                        <input class="form-control" type="email" value="{{$usersData->email}}" id="example-text-input" name="email">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="example-password-input" class="form-label">Message</label>
+                                                        <textarea class="form-control" rows="5" name="message"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn btn-primary" type="submit">Send</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="modal fade" id="editStatusId{{$usersData->id}}" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="editStatusLabel{{$usersData->id}}" aria-hidden="true">
                             <div class="modal-dialog  modal-dialog-centered">

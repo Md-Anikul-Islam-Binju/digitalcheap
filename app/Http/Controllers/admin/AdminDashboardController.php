@@ -11,9 +11,11 @@ use App\Models\Package;
 use App\Models\Product;
 use App\Models\SiteSetting;
 use App\Models\User;
+use App\Models\UserEmailSendReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Yoeunes\Toastr\Facades\Toastr;
@@ -397,6 +399,30 @@ class AdminDashboardController extends Controller
         ]);
 
         return back()->with('status', 'Password updated successfully!');
+    }
+
+
+    public function sendEmail(Request $request, $id)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'message' => 'required|string',
+        ]);
+
+        // Save email send report
+        UserEmailSendReport::create([
+            'user_id' => $id,
+            'email' => $request->email,
+            'message' => $request->message,
+        ]);
+
+        // Send Email
+        Mail::raw($request->message, function ($message) use ($request) {
+            $message->to($request->email)
+                ->subject('Message from Digitalcheap');
+        });
+
+        return redirect()->back()->with('success', 'Email sent successfully!');
     }
 
 
