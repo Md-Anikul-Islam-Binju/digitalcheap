@@ -59,8 +59,8 @@
         @endforeach
     </table>
 
+    {{ $data->links('pagination::bootstrap-4') }}
 
-    {!! $data->render() !!}
 
 
 @endsection
