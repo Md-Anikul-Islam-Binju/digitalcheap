@@ -27,9 +27,12 @@
                     </div>
                 </div>
                 <div class="column border-top border-2">
-                    Subtotal: <span class="">${{ subtotal.toFixed(2) }}</span>
+
+                    Subtotal: <span class="" v-if="coupon?.discount_value">${{ subtotal.toFixed(2) - coupon.discount_value }}</span>
+                    <span class="">${{ subtotal.toFixed(2) }}</span>
                     <p class="delivery-fee">
-                        <strong>Total: <span class="">${{ subtotal.toFixed(2) }}</span></strong>
+                        <strong>Total: <span v-if="coupon?.discount_value">${{ subtotal.toFixed(2) - coupon.discount_value }}</span></strong>
+                        <strong>Total: <span>${{ subtotal.toFixed(2) }}</span></strong>
                     </p>
                 </div>
             </div>
@@ -154,6 +157,7 @@ export default {
         subtotal: Number,
         siteSettings:Object,
         authUser:Object,
+        coupon: Object,
     },
 
     data() {

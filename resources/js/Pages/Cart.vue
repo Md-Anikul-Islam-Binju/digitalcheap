@@ -4,10 +4,25 @@ import Layout from "../frontend/Layout.vue";
 export default {
     name: "Cart",
     layout: Layout,
+    data() {
+        return {
+            couponCode: '',
+            couponError: null,
+            applyingCoupon: false,
+            localCoupon: this.coupon
+        };
+    },
     props: {
         cart: Array,
-        authUser: Object
+        authUser: Object,
+        coupon: {
+            type: Object,
+            default: null
+        }
+
     },
+
+
 
     computed: {
         subtotal() {
@@ -18,6 +33,25 @@ export default {
                 return total + price * duration * device_access;
             }, 0);
         },
+
+        discount() {
+            if (!this.coupon) return 0;
+
+            // Check minimum spend requirement
+            if (this.coupon.amount_spend && this.subtotal < this.coupon.amount_spend) {
+                return 0;
+            }
+
+            if (this.coupon.discount_type === 'percentage') {
+                return (this.subtotal * this.coupon.discount_value) / 100;
+            } else {
+                // Default to fixed amount
+                return Math.min(this.coupon.discount_value, this.subtotal);
+            }
+        },
+        totalAfterDiscount() {
+            return this.subtotal - this.discount;
+        }
     },
 
     methods: {
@@ -58,6 +92,26 @@ export default {
             }).catch(error => {
                 console.error('Error updating cart:', error);
             });
+        },
+
+
+        applyCoupon() {
+            this.couponError = null;
+            this.applyingCoupon = true;
+
+            axios.post('/cart/apply-coupon', { coupon_code: this.couponCode })
+                .then(response => {
+                    this.localCoupon = response.data.coupon;
+                    this.couponCode = '';
+                    // Force reload to sync with server session
+                    window.location.reload();
+                })
+                .catch(error => {
+                    this.couponError = error.response?.data?.error || 'Failed to apply coupon';
+                })
+                .finally(() => {
+                    this.applyingCoupon = false;
+                });
         }
     }
 };
@@ -180,18 +234,29 @@ export default {
                 </tbody>
             </table>
         </div>
-        <div class="shopping-cart-footer">
-            <div class="column">
-                <form class="coupon-form" method="post">
-                    <input class="form-control form-control-sm" type="text" placeholder="Coupon code" required="">
-                    <button class="btn btn-outline-success btn-sm" type="submit">Apply Coupon</button>
-                </form>
-            </div>
-            <div class="column text-lg">Subtotal:
-                <span class="text-medium">${{ subtotal }}</span>
-            </div>
 
+        <div class="coupon-section mb-3">
+            <form @submit.prevent="applyCoupon" class="d-flex gap-2">
+                <input v-model="couponCode" class="form-control form-control-sm" type="text" placeholder="Coupon code" />
+                <button class="btn btn-outline-success btn-sm" type="submit" :disabled="applyingCoupon">
+                    {{ applyingCoupon ? 'Applying...' : 'Apply' }}
+                </button>
+            </form>
+            <p v-if="couponError" class="text-danger mt-1">{{ couponError }}</p>
+            <p v-if="coupon" class="text-success mt-1">
+                Coupon <strong>{{ coupon.code }}</strong> applied! You saved ${{ discount.toFixed(2) }}
+            </p>
         </div>
+
+        <!-- Update subtotal and total display -->
+        <div class="shopping-cart-footer">
+            <div class="column text-lg">
+                Subtotal: <span class="text-medium">${{ subtotal.toFixed(2) }}</span><br/>
+                <span v-if="discount > 0" class="text-success">Discount: -${{ discount.toFixed(2) }}</span><br/>
+                <strong>Total: ${{ totalAfterDiscount.toFixed(2) }}</strong>
+            </div>
+        </div>
+
         <div class="shopping-cart-footer">
             <div class="column">
                 <a class="btn btn-outline-secondary" href="#">

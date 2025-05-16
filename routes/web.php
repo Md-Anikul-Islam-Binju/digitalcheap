@@ -81,7 +81,7 @@ Route::post('/cart/add', [CartController::class, 'productAddToCart']);
 Route::post('/cart/package/add', [CartController::class, 'packageAddToCart']);
 Route::get('/cart', [CartController::class, 'showCart']);
 Route::post('/cart/update', [CartController::class, 'updateCart']);
-
+Route::post('/cart/apply-coupon', [CartController::class, 'applyCoupon']);
 
 Route::post('/account-registration', [AccountManageController::class, 'storeRegisterInfo'])->name('account.registration');
 Route::get('/account-verify', [AccountManageController::class, 'showVerificationForm'])->name('account.verification');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\SiteSetting;
@@ -90,6 +91,7 @@ class CartController extends Controller
 
         $siteSettings = SiteSetting::where('id', 1)->first();
         $cart = session('cart', []);
+        $coupon = session('coupon', null);
         $authUser = auth()->user();
         foreach ($cart as &$cartItem) {
             if (isset($cartItem['product_id'])) {
@@ -105,7 +107,7 @@ class CartController extends Controller
                 $cartItem['image'] = $package ? asset('images/package/' . $package->file) : 'https://www.bootdey.com/image/220x180/FF0000/000000';
             }
         }
-        return inertia('Cart', compact('cart', 'siteSettings', 'authUser'));
+        return inertia('Cart', compact('cart', 'siteSettings', 'authUser', 'coupon'));
     }
 
     public function updateCart(Request $request)
@@ -113,6 +115,43 @@ class CartController extends Controller
         $updatedCart = $request->input('cart');
         session(['cart' => $updatedCart]);
     }
+
+    public function applyCoupon(Request $request)
+    {
+        $code = $request->input('coupon_code');
+
+        $coupon = Coupon::where('coupon_code', $code)
+            ->where('status', 1)
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->first();
+
+        if (!$coupon) {
+            return response()->json(['error' => 'Invalid or expired coupon code.'], 422);
+        }
+
+        // Check if coupon has usage limit
+        if ($coupon->use_limit !== null && $coupon->use_limit <= 0) {
+            return response()->json(['error' => 'This coupon has reached its usage limit.'], 422);
+        }
+
+        session(['coupon' => [
+            'code' => $coupon->coupon_code, // Changed from $coupon->code
+            'discount_type' => $coupon->discount_type, // Make sure this field exists
+            'discount_value' => $coupon->discount_amount, // Changed from discount_value
+            'amount_spend' => $coupon->amount_spend // Minimum spend requirement
+        ]]);
+
+        return response()->json([
+            'message' => 'Coupon applied successfully.',
+            'coupon' => [
+                'code' => $coupon->coupon_code,
+                'discount_type' => $coupon->discount_type,
+                'discount_value' => $coupon->discount_amount,
+            ]
+        ]);
+    }
+
 
 
 

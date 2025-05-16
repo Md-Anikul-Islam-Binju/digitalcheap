@@ -18,7 +18,7 @@ class CheckoutController extends Controller
     {
         // Retrieve the cart from the session
         $cart = session('cart', []);
-
+        $coupon = session('coupon', null);
         // Initialize subtotal
         $subtotal = 0;
 
@@ -40,7 +40,7 @@ class CheckoutController extends Controller
 
 
         //$authUser = auth()->user();
-        //$siteSettings = SiteSetting::where('id', 1)->first();
+        $siteSettings = SiteSetting::where('id', 1)->first();
 
         return Inertia::render('Checkout', [
             'cart' => $cart,
@@ -48,7 +48,8 @@ class CheckoutController extends Controller
             'total' => $total,
             'delivery_fee' => $deliveryFee,
             //'authUser' => $authUser,
-            //'siteSettings' => $siteSettings,
+            'siteSettings' => $siteSettings,
+            'coupon' => $coupon,
 
         ]);
     }
