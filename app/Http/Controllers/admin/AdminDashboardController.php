@@ -22,68 +22,6 @@ use Yoeunes\Toastr\Facades\Toastr;
 
 class AdminDashboardController extends Controller
 {
-//    public function index(Request $request)
-//    {
-//        $loginLog = LoginLog::orderBy('last_login','desc')->get();
-//        $user = User::where('id', auth()->user()->id)->first();
-//        $myCode = $user->referral_code;
-//        $totalClient = 0;
-//        if($myCode){
-//            $totalClient = User::where('referral_join_code', $myCode)->count();
-//        }
-//        $orders = Order::where('user_id', auth()->id())->with('orderItems')->latest()->count();
-//        $activeOrder = Order::where('user_id', auth()->id())->where('status', 1)->with('orderItems')->latest()->count();
-//        $inactiveOrder = Order::where('user_id', auth()->id())->where('status', 0)->with('orderItems')->latest()->count();
-//        $user = User::where('id', auth()->user()->id)->with('joinCategory','country')->first();
-//        $buyOrder = Order::where('user_id', auth()->user()->id)->count();
-//        $query = Order::where('user_id', auth()->id())
-//            ->whereHas('orderItems', function ($q) use ($request) {
-//                $createdAt = $request->input('created_at');
-//                $date = now();
-//                if ($createdAt) {
-//                    if ($createdAt == 'today') {
-//                        $q->whereDate('created_at', $date->toDateString());
-//                    } elseif ($createdAt == 'week') {
-//                        $q->whereBetween('created_at', [
-//                            $date->startOfWeek()->toDateString(),
-//                            $date->endOfWeek()->toDateString()
-//                        ]);
-//                    } elseif ($createdAt == 'month') {
-//                        $q->whereMonth('created_at', $date->month)
-//                            ->whereYear('created_at', $date->year);
-//                    } elseif ($createdAt == 'year') {
-//                        $q->whereYear('created_at', $date->year);
-//                    }
-//                }
-//            })
-//            ->with(['orderItems' => function ($q) use ($request) {
-//                $createdAt = $request->input('created_at');
-//                $date = now();
-//                if ($createdAt) {
-//                    if ($createdAt == 'today') {
-//                        $q->whereDate('created_at', $date->toDateString());
-//                    } elseif ($createdAt == 'week') {
-//                        $q->whereBetween('created_at', [
-//                            $date->startOfWeek()->toDateString(),
-//                            $date->endOfWeek()->toDateString()
-//                        ]);
-//                    } elseif ($createdAt == 'month') {
-//                        $q->whereMonth('created_at', $date->month)
-//                            ->whereYear('created_at', $date->year);
-//                    } elseif ($createdAt == 'year') {
-//                        $q->whereYear('created_at', $date->year);
-//                    }
-//                }
-//                $q->with('package');
-//            }]);
-//        $ordersItemAll = $query->get();
-//        if($user->status == 0){
-//            return view('admin.accountSuspend');
-//        }else{
-//            return view('admin.dashboard', compact('loginLog','totalClient','orders','user','buyOrder','activeOrder','inactiveOrder','ordersItemAll'));
-//        }
-//
-//    }
 
     public function index(Request $request)
     {
