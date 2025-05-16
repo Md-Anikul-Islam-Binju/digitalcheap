@@ -13,6 +13,8 @@ class Order extends Model
         'user_id',
         'payment_method',
         'total',
+        'coupon_user_id',
+        'coupon_code',
         'status',
     ];
 

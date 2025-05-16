@@ -81,7 +81,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="header-title">Agent Code</h4>
+                            <h4 class="header-title">Agent Code : </h4>
+
+                            @foreach($user->couponCode as $code)
+                                <span>{{$code->coupon_code}}</span>
+                            @endforeach
                         </div>
 
                     </div>

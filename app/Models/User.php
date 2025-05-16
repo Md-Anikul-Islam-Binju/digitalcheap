@@ -52,4 +52,9 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function couponCode()
+    {
+        return $this->hasMany(Coupon::class, 'agent_admin_id');
+    }
+
 }

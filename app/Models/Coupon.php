@@ -18,4 +18,9 @@ class Coupon extends Model
         'amount_spend',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'agent_admin_id');
+    }
 }

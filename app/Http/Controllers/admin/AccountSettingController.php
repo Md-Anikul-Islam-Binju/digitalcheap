@@ -39,7 +39,7 @@ class AccountSettingController extends Controller
 
     public function agent()
     {
-        $user = User::where('id', auth()->user()->id)->first();
+        $user = User::where('id', auth()->user()->id)->with('couponCode')->first();
         $countryAll = Country::latest()->get();
         return view('admin.pages.account.agent', compact('user','countryAll'));
     }
