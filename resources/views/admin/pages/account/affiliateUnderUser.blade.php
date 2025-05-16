@@ -39,7 +39,7 @@
                             <i class="ri-app-store-line widget-icon"></i>
                         </div>
                         <h6 class="text-uppercase mt-0" title="Customers">Total Paid Referrals</h6>
-                        <h2 class="my-2">{{$totalClient}}</h2>
+                        <h2 class="my-2">{{$totalCommission / 10}}</h2>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                             <i class="ri-app-store-line widget-icon"></i>
                         </div>
                         <h6 class="text-uppercase mt-0" title="Customers">Total Unpaid Referrals</h6>
-                        <h2 class="my-2">{{$totalClient}}</h2>
+                        <h2 class="my-2">{{$totalClient - ($totalCommission / 10)}}</h2>
                     </div>
                 </div>
             </div>
@@ -62,8 +62,8 @@
                         <div class="float-end">
                             <i class="ri-route-line widget-icon"></i>
                         </div>
-                        <h6 class="text-uppercase mt-0" title="Customers">Total Point</h6>
-                        <h2 class="my-2">{{$totalClient*100}}</h2>
+                        <h6 class="text-uppercase mt-0" title="Customers">Total Amount</h6>
+                        <h2 class="my-2">{{$totalCommission}}</h2>
                     </div>
                 </div>
             </div>
@@ -101,6 +101,8 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Address</th>
+                        <th>Total Order</th>
+                        <th>Commission (৳)</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -111,10 +113,17 @@
                             <td>{{$usersData->email}}</td>
                             <td>{{$usersData->phone}}</td>
                             <td>{{$usersData->address}}</td>
+                            <td>{{ $usersData->orders->count() }}</td>
+                            <td>{{ $usersData->orders->isNotEmpty() ? '৳10' : '৳0' }}</td> <!-- New Column Logic -->
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                <tfoot>
+                    <tr>
+                        <h4 class="fw-bold">Total Commission: ৳{{ $totalCommission }}</h4>
+                    </tr>
+                </tfoot>
             </div>
         </div>
     </div>

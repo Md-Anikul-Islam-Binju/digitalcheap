@@ -131,7 +131,7 @@ class AccountManageController extends Controller
         $myCode = $user->user_name;
         $users = [];
         if($myCode){
-            $users = User::where('referral_join_code', $myCode)->get();
+            $users = User::with('orders')->where('referral_join_code', $myCode)->get();
         }
 
         $totalClient = 0;
@@ -139,7 +139,15 @@ class AccountManageController extends Controller
             $totalClient = User::where('referral_join_code', $myCode)->count();
         }
         $user = User::where('id', auth()->user()->id)->with('joinCategory','country')->first();
-        return view('admin.pages.account.affiliateUnderUser', compact('users','user','totalClient'));
+
+        $totalCommission = 0;
+        foreach ($users as $user) {
+            if ($user->orders->isNotEmpty()) {
+                $totalCommission += 10;
+            }
+        }
+       // dd($users,$user,$totalClient);
+        return view('admin.pages.account.affiliateUnderUser', compact('users','user','totalClient','totalCommission'));
     }
 
 
