@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Toastr;
@@ -23,7 +24,8 @@ class CouponController extends Controller
     public function index()
     {
         $coupon = Coupon::latest()->get();
-        return view('admin.pages.coupon.index', compact('coupon'));
+        $users = User::whereIn('is_registration_by', ['Agent', 'Admin'])->get();
+        return view('admin.pages.coupon.index', compact('coupon', 'users'));
     }
     public function store(Request $request)
     {
@@ -37,6 +39,7 @@ class CouponController extends Controller
                 'amount_spend' => 'required',
             ]);
             $coupon = new Coupon();
+            $coupon->agent_admin_id = $request->agent_admin_id;
             $coupon->coupon_code = $request->coupon_code;
             $coupon->discount_amount = $request->discount_amount;
             $coupon->start_date = $request->start_date;
@@ -64,6 +67,7 @@ class CouponController extends Controller
                 'amount_spend' => 'required',
             ]);
             $coupon = Coupon::find($id);
+            $coupon->agent_admin_id = $request->agent_admin_id;
             $coupon->coupon_code = $request->coupon_code;
             $coupon->discount_amount = $request->discount_amount;
             $coupon->start_date = $request->start_date;

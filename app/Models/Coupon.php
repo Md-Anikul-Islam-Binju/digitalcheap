@@ -9,6 +9,7 @@ class Coupon extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'agent_admin_id',
         'coupon_code',
         'discount_amount',
         'start_date',

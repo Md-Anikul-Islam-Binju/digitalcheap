@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->integer('agent_admin_id')->nullable();
             $table->string('coupon_code')->nullable();
             $table->string('discount_amount')->nullable();
             $table->date('start_date')->nullable();

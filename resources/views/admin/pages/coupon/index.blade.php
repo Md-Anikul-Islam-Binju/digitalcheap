@@ -31,6 +31,7 @@
                     <thead>
                     <tr>
                         <th>S/N</th>
+                        <th>Employee</th>
                         <th>Coupon Code</th>
                         <th>Discount Amount</th>
                         <th>Start Date</th>
@@ -45,6 +46,13 @@
                     @foreach($coupon as $key=>$couponData)
                         <tr>
                             <td>{{$key+1}}</td>
+                            <td>
+                                @foreach($users as $user)
+                                    @if($couponData->agent_admin_id == $user->id)
+                                        {{$user->name}} ({{$user->email}})
+                                    @endif
+                                @endforeach
+                            </td>
                             <td>{{$couponData->coupon_code}}</td>
                             <td>{{$couponData->discount_amount}}</td>
                             <td>{{$couponData->start_date}}</td>
@@ -75,6 +83,22 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="row">
+
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label for="example-select" class="form-label">Employee</label>
+                                                            <select name="agent_admin_id" class="form-select">
+                                                                <option value="">Select Employee</option>
+                                                                @foreach($users as $user)
+                                                                    <option value="{{$user->id}}" {{ $couponData->agent_admin_id == $user->id ? 'selected' : '' }}>{{$user->name}} ({{$user->email}})</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+
                                                     <div class="col-6">
                                                         <div class="mb-3">
                                                             <label for="coupon_code" class="form-label">Coupon Code</label>
@@ -173,6 +197,17 @@
                     <form method="post" action="{{route('coupon.store')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="example-select" class="form-label">Employee</label>
+                                    <select name="agent_admin_id" class="form-select">
+                                        <option value="">Select Employee</option>
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}} ({{$user->email}})</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="coupon_code" class="form-label">Coupon Code</label>
