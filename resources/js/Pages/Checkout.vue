@@ -13,25 +13,32 @@
                     <div v-if="item.product_id" class="product-info my-2" >
                         <h4>{{ item.name }}</h4>
                         <p>Duration: <span>{{ item.duration }}</span></p>
-                        <p>Price: <span>${{ item.price }}</span></p>
+                        <p>Actual Price: <span>${{ item.price }}</span></p>
                         <p>Device: <span>{{ item.device_access }}</span></p>
-                        <p>Sub-Total Price: <span> ${{ (item.price * item.duration * item.device_access).toFixed(2) }}</span></p>
+                        <p>Actual Sub-Total Price: <span> ${{ (item.price * item.duration * item.device_access).toFixed(2) }}</span></p>
                     </div>
 
                     <div v-else-if="item.package_id" :key="index" class="product-info my-2">
                         <h4>Package {{ index+1 }}</h4>
                         <p>Duration: <span>{{ item.package_duration }}</span></p>
-                        <p>Price: <span>${{ item.package_price }}</span></p>
+                        <p>Actual Price: <span>${{ item.package_price }}</span></p>
                         <p>Device: <span>{{ item.device_access }}</span></p>
-                        <p>Sub-Total Price: <span>${{ (item.package_price * item.device_access).toFixed(2) }}</span></p>
+                        <p>Actual Sub-Total Price: <span>${{ (item.package_price * item.device_access).toFixed(2) }}</span></p>
                     </div>
                 </div>
                 <div class="column border-top border-2">
+                    <div v-if="coupon">
+                        Subtotal: <span v-if="coupon?.discount_value">${{ subtotal.toFixed(2) - coupon.discount_value }}</span><br>
+                    </div>
+                    <div v-else>
+                        Subtotal: <span>${{ subtotal.toFixed(2) }}</span>
+                    </div>
 
-                    Subtotal: <span class="" v-if="coupon?.discount_value">${{ subtotal.toFixed(2) - coupon.discount_value }}</span>
-                    <span class="">${{ subtotal.toFixed(2) }}</span>
-                    <p class="delivery-fee">
-                        <strong>Total: <span v-if="coupon?.discount_value">${{ subtotal.toFixed(2) - coupon.discount_value }}</span></strong>
+                    <p class="delivery-fee" v-if="coupon">
+                        <strong>Total: <span v-if="coupon?.discount_value">${{ subtotal.toFixed(2) - coupon.discount_value }}</span></strong><br>
+                    </p>
+
+                    <p class="delivery-fee" v-else>
                         <strong>Total: <span>${{ subtotal.toFixed(2) }}</span></strong>
                     </p>
                 </div>
