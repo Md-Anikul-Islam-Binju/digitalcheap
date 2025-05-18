@@ -23,12 +23,14 @@
                     <thead>
                     <tr>
                         <th>S/N</th>
+                        <th>Invoice No</th>
                         <th>Type</th>
                         <th>Name</th>
                         <th>Duration</th>
                         <th>Device Access</th>
                         <th>Free Or Paid</th>
                         <th>Product Price</th>
+                        <th>is Coupon</th>
                         <th>Total Price</th>
                         <th>Action</th>
                     </tr>
@@ -38,6 +40,7 @@
                         @foreach($order->orderItems as $item)
                             <tr>
                                 <td>{{$key+1}}</td>
+                                <td>{{$order->invoice_no}}</td>
                                 <td>{{$item->type=='product'? 'Product' : 'Package'}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
@@ -67,15 +70,45 @@
 
                                 </td>
                                 <td>{{$item->price}}</td>
+                                @php
+                                    $coupon  = DB::table('coupons')->where('coupon_code', $order->coupon_code)->first();
+                                @endphp
+
+                                <td>
+                                    @if($order->coupon_code==null)
+                                        No
+                                    @else
+                                        Yes ({{$coupon->discount_amount}} Tk)
+                                    @endif
+                                </td>
+
+
+
+
                                 @if($item->type=='product')
-                                    <td>{{$item->price * $item->duration}}</td>
+                                    @if($order->coupon_code)
+                                    <td>{{$item->price * $item->duration - $coupon->discount_amount}}</td>
+                                    @else
+                                        <td>{{$item->price * $item->duration}}</td>
+                                    @endif
+
                                 @else
-                                    @if($item->duration == 'Monthly')
-                                        <td>{{$item->price * 1}}</td>
-                                    @elseif($item->duration == 'Half Yearly')
-                                        <td>{{$item->price * 6}}</td>
-                                    @elseif($item->duration == 'Yearly')
-                                        <td>{{$item->price * 12}}</td>
+                                    @if($order->coupon_code)
+                                        @if($item->duration == 'Monthly')
+                                            <td>{{$item->price * 1 - $coupon->discount_amount}}</td>
+                                        @elseif($item->duration == 'Half Yearly')
+                                            <td>{{$item->price * 6 - $coupon->discount_amount}}</td>
+                                        @elseif($item->duration == 'Yearly')
+                                            <td>{{$item->price * 12 - $coupon->discount_amount}}</td>
+                                        @endif
+                                    @else
+                                        @if($item->duration == 'Monthly')
+                                            <td>{{$item->price * 1}}</td>
+                                        @elseif($item->duration == 'Half Yearly')
+                                            <td>{{$item->price * 6}}</td>
+                                        @elseif($item->duration == 'Yearly')
+                                            <td>{{$item->price * 12}}</td>
+                                        @endif
                                     @endif
                                 @endif
                                 <td>
