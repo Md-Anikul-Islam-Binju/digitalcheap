@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Package;
@@ -59,6 +60,7 @@ class CheckoutController extends Controller
     {
         $cart = session('cart', []);
         $user = auth()->user();
+        $couponData = session('coupon', null);
 
         // Check if the cart is empty
         if (empty($cart)) {
@@ -91,12 +93,30 @@ class CheckoutController extends Controller
             }
         }
 
+        unset($item); // avoid reference issues
+
+        $coupon_code = null;
+        $coupon_user_id = null;
+
+        if ($couponData && isset($couponData['code'])) {
+            $coupon_code = $couponData['code'];
+
+            // Find coupon from DB by coupon_code
+            $coupon = Coupon::where('coupon_code', $coupon_code)->first();
+
+            if ($coupon) {
+                $coupon_user_id = $coupon->agent_admin_id;
+            }
+        }
+
         // Create the order
         $order = Order::create([
             'invoice_no' => 'INV-' . strtoupper(Str::random(8)),
             'user_id' => $user->id,
             'payment_method' => $request->payment_method,
             'total' => $total,
+            'coupon_code' => $coupon_code,
+            'coupon_user_id' => $coupon_user_id,
             'status' => 'pending',  // Set order status to pending
         ]);
 
@@ -143,6 +163,7 @@ class CheckoutController extends Controller
 
         // Clear the cart session
         session()->forget('cart');
+        session()->forget('coupon');
 
         return redirect()->route('payment');  // Redirect to payment page (mock)
     }
