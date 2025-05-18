@@ -139,6 +139,7 @@ class PermissionTableSeeder extends Seeder
             'account-setting',
             'my-affiliate',
             'agent-account-setting',
+            'agent-under-user-list',
 
 
             //For User

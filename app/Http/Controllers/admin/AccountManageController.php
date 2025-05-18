@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\AccountVerificationMail;
+use App\Models\Commission;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -148,6 +150,17 @@ class AccountManageController extends Controller
         }
        // dd($users,$user,$totalClient);
         return view('admin.pages.account.affiliateUnderUser', compact('users','user','totalClient','totalCommission'));
+    }
+
+
+    public function agentUnderUser()
+    {
+        $agentCommission =  Commission::where('user_id', auth()->user()->id)->first();
+        $totalAmount = 0;
+        $commissionPercent = $agentCommission->commission ?? 0;
+        $coupon = Coupon::where('agent_admin_id', auth()->user()->id)->first();
+        $orders = Order::where('coupon_code', $coupon->coupon_code)->with('user')->get();
+        return view('admin.pages.account.agentUnderUser', compact('orders', 'coupon', 'totalAmount', 'commissionPercent'));
     }
 
 
