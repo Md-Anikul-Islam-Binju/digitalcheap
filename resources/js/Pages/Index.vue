@@ -58,7 +58,7 @@ export default {
         filteredPackages() {
             return this.packages.filter((pkg) => {
                 const matchesCategory =
-                    !this.selectedCategory || pkg.category_id === this.selectedCategory;
+                    !this.selectedCategory || parseInt(pkg.category_id) === this.selectedCategory;
                 const matchesType = pkg.package_types.includes(this.selectedType);
 
                 return matchesCategory && matchesType;

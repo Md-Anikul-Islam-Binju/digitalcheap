@@ -51,14 +51,14 @@ export default {
             if (this.selectedCategory === null) {
                 return this.products;
             } else {
-                return this.products.filter(product => product.category_id === this.selectedCategory);
+                return this.products.filter(product => parseInt(product.category_id) === this.selectedCategory);
             }
         },
 
         filteredPackages() {
             return this.packages.filter((pkg) => {
                 const matchesCategory =
-                    !this.selectedCategory || pkg.category_id === this.selectedCategory;
+                    !this.selectedCategory || parseInt(pkg.category_id) === this.selectedCategory;
                 const matchesType = pkg.package_types.includes(this.selectedType);
 
                 return matchesCategory && matchesType;
@@ -416,6 +416,8 @@ export default {
                     <label class="form-check-label" :for="'type-' + index">{{ type.label }}</label>
                 </div>
             </div>
+
+
 
             <!-- Displaying Packages -->
             <div class="row mt-4 mixitup-container">
