@@ -15,6 +15,7 @@ class ProductManageController extends Controller
     public function products()
     {
         $categories = Category::where('status', 1)->where('type', 'product')->get();
+        $categoriesPackage = Category::where('status',1)->where('type', 'package')->latest()->get();
         $products  = Product::latest()->get();
         $packages = Package::where('status',1)->latest()->get();
         foreach ($packages as $package) {
@@ -56,7 +57,7 @@ class ProductManageController extends Controller
         $authUser = auth()->user();
         $auth = auth()->check();
         $currency = Currency::where('status', 1)->get();
-        return inertia('Products', compact('products','siteSettings','cart','categories','authUser','packages','auth','currency'));
+        return inertia('Products', compact('products','siteSettings','cart','categories','authUser','packages','auth','currency','categoriesPackage'));
     }
 
 
