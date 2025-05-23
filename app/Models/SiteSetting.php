@@ -50,5 +50,7 @@ class SiteSetting extends Model
         'meta_title_for_product',
         'meta_description_for_product',
         'meta_keywords_for_product',
+
+        'extension_file',
     ];
 }

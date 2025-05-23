@@ -34,6 +34,26 @@ return new class extends Migration
             $table->string('how_to_access_link')->nullable();
             $table->longText('how_to_join_become_affiliate')->nullable();
             $table->string('how_to_join_become_affiliate_link')->nullable();
+
+            //All Meta
+            $table->string('meta_title_for_home')->nullable();
+            $table->text('meta_description_for_home')->nullable();
+            $table->string('meta_keywords_for_home')->nullable();
+
+            $table->string('meta_title_for_about')->nullable();
+            $table->text('meta_description_for_about')->nullable();
+            $table->string('meta_keywords_for_about')->nullable();
+
+            $table->string('meta_title_for_blog')->nullable();
+            $table->text('meta_description_for_blog')->nullable();
+            $table->string('meta_keywords_for_blog')->nullable();
+
+            $table->string('meta_title_for_product')->nullable();
+            $table->text('meta_description_for_product')->nullable();
+            $table->string('meta_keywords_for_product')->nullable();
+
+            $table->string('extension_file')->nullable();
+
             $table->timestamps();
         });
     }
