@@ -4,6 +4,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    @if (isset($page['props']['siteSettings']))
+        <meta name="description" content="{{ $page['props']['siteSettings']['meta_description_for_home'] ?? '' }}">
+        <meta name="keywords" content="{{ $page['props']['siteSettings']['meta_keywords_for_home'] ?? '' }}">
+    @else
+        <title>Home</title>
+    @endif
+
     @vite('resources/js/app.js')
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('frontend/favicon_io/apple-touch-icon.png')}}">

@@ -333,7 +333,7 @@ export default {
 </script>
 
 <template>
-    <title>Home</title>
+    <title>Digitalcheap Home</title>
     <!-- hero section -->
 
 

@@ -1,34 +1,26 @@
 <script>
 import Layout from "../frontend/Layout.vue";
+import { Head } from "@inertiajs/vue3";
 export default {
     name: "About",
     props:{
         siteSettings:Object,
         authUser:Object,
     },
+
     layout: Layout,
-    head() {
-        return {
-            title: this.siteSettings?.meta_title_for_about || 'About',
-            meta: [
-                {
-                    hid: 'description',
-                    name: 'description',
-                    content: this.siteSettings?.meta_description_for_about || ''
-                },
-                {
-                    hid: 'keywords',
-                    name: 'keywords',
-                    content: this.siteSettings?.meta_keywords_for_about || ''
-                }
-            ]
-        }
-    }
+    components: {
+        Head,
+    },
 }
 </script>
 
 <template>
-    <title>About</title>
+    <Head>
+        <title>{{ siteSettings?.meta_title_for_about || 'About' }}</title>
+        <meta name="description" :content="siteSettings?.meta_description_for_about || ''">
+        <meta name="keywords" :content="siteSettings?.meta_keywords_for_about || ''">
+    </Head>
     <!-- Why Section -->
     <section class="why-section py-5">
         <div class="container">
