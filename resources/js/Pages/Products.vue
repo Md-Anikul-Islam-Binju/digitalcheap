@@ -11,7 +11,8 @@ export default {
         authUser: Object,
         packages: Array,
         auth: Boolean,
-        currency: Array
+        currency: Array,
+        categoriesPackage: Array,
     },
     data() {
         return {
@@ -24,6 +25,7 @@ export default {
             // },
             exchangeRates: {},
             selectedCategory: null,  // Store the selected category
+            selectedCategoryPac: null,
             selectedType: "Monthly", // Default to "Monthly"
             packageTypes: [
                 { value: "Monthly", label: "Monthly" },
@@ -58,7 +60,7 @@ export default {
         filteredPackages() {
             return this.packages.filter((pkg) => {
                 const matchesCategory =
-                    !this.selectedCategory || parseInt(pkg.category_id) === this.selectedCategory;
+                    !this.selectedCategoryPac || parseInt(pkg.category_id) === this.selectedCategoryPac;
                 const matchesType = pkg.package_types.includes(this.selectedType);
 
                 return matchesCategory && matchesType;
@@ -132,6 +134,7 @@ export default {
             window.location.href = '/login/google'; // Redirect to the Laravel route handling Google login
         },
         // Set selected category for filtering
+
         filterByCategory(categoryId) {
             this.selectedCategory = categoryId;
         },
@@ -149,6 +152,7 @@ export default {
             }
             this.addToCartPackage(pkg, type);
         },
+
         addToCartPackage(pkg, type) {
             const data = {
                 package_id: pkg.id,
@@ -416,6 +420,17 @@ export default {
                     <label class="form-check-label" :for="'type-' + index">{{ type.label }}</label>
                 </div>
             </div>
+
+
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation" v-for="categoryPac in categoriesPackage" :key="categoryPac.id">
+                    <button class="nav-link"
+                            :class="{ active: selectedCategoryPac === categoryPac.id }"
+                            @click="selectedCategoryPac = categoryPac.id">  <!-- Direct assignment -->
+                        {{ categoryPac.name }}
+                    </button>
+                </li>
+            </ul>
 
 
 
