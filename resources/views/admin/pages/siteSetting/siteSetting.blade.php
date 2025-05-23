@@ -172,9 +172,106 @@
                                             <textarea id="summernoteEdit{{ $siteSettings ? $siteSettings->id : '' }}" name="how_to_join_become_affiliate">{{ $siteSettings ? $siteSettings->how_to_join_become_affiliate : '' }}</textarea>
                                         </div>
                                     </div>
-
-
                                 </div>
+
+
+
+
+
+                                <h5 style="color: red">For Home Page SEO</h5>
+                                <div class="row g-2">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="meta_title_for_home" class="form-label">Meta Title</label>
+                                        <input type="text" class="form-control" name="meta_title_for_home" value="{{$siteSettings?$siteSettings->meta_title_for_home:''}}"
+                                               placeholder="Meta Title">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="meta_keywords_for_home" class="form-label">Meta Keywords</label>
+                                        <input type="text" class="form-control" name="meta_keywords_for_home" value="{{$siteSettings?$siteSettings->meta_keywords_for_home:''}}"
+                                               placeholder="Meta Keywords">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label>Meta Description</label>
+                                            <textarea id="summernoteEdit{{ $siteSettings ? $siteSettings->id : '' }}" name="meta_description_for_home">{{ $siteSettings ? $siteSettings->meta_description_for_home : '' }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h5 style="color: red">For About Page SEO</h5>
+                                <div class="row g-2">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="meta_title_for_about" class="form-label">Meta Title</label>
+                                        <input type="text" class="form-control" name="meta_title_for_about" value="{{$siteSettings?$siteSettings->meta_title_for_about:''}}"
+                                               placeholder="Meta Title">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="meta_keywords_for_about" class="form-label">Meta Keywords</label>
+                                        <input type="text" class="form-control" name="meta_keywords_for_about" value="{{$siteSettings?$siteSettings->meta_keywords_for_about:''}}"
+                                               placeholder="Meta Keywords">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label>Meta Description</label>
+                                            <textarea id="summernoteEdit{{ $siteSettings ? $siteSettings->id : '' }}" name="meta_description_for_about">{{ $siteSettings ? $siteSettings->meta_description_for_about : '' }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h5 style="color: red">For Blog Page SEO</h5>
+                                <div class="row g-2">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="meta_title_for_blog" class="form-label">Meta Title</label>
+                                        <input type="text" class="form-control" name="meta_title_for_blog" value="{{$siteSettings?$siteSettings->meta_title_for_blog:''}}"
+                                               placeholder="Meta Title">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="meta_keywords_for_blog" class="form-label">Meta Keywords</label>
+                                        <input type="text" class="form-control" name="meta_keywords_for_blog" value="{{$siteSettings?$siteSettings->meta_keywords_for_blog:''}}"
+                                               placeholder="Meta Keywords">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label>Meta Description</label>
+                                            <textarea id="summernoteEdit{{ $siteSettings ? $siteSettings->id : '' }}" name="meta_description_for_blog">{{ $siteSettings ? $siteSettings->meta_description_for_blog : '' }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h5 style="color: red">For Product Page SEO</h5>
+                                <div class="row g-2">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="meta_title_for_product" class="form-label">Meta Title</label>
+                                        <input type="text" class="form-control" name="meta_title_for_product" value="{{$siteSettings?$siteSettings->meta_title_for_product:''}}"
+                                               placeholder="Meta Title">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="meta_keywords_for_product" class="form-label">Meta Keywords</label>
+                                        <input type="text" class="form-control" name="meta_keywords_for_product" value="{{$siteSettings?$siteSettings->meta_keywords_for_product:''}}"
+                                               placeholder="Meta Keywords">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label>Meta Description</label>
+                                            <textarea id="summernoteEdit{{ $siteSettings ? $siteSettings->id : '' }}" name="meta_description_for_product">{{ $siteSettings ? $siteSettings->meta_description_for_product : '' }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 col-md-12">
+                                        <label for="extension_file" class="form-label">Extension</label>
+                                        <input type="file" class="form-control" name="extension_file" value="{{$siteSettings?$siteSettings->extension_file:''}}"
+                                               >
+                                        @if($siteSettings?$siteSettings->extension_file:'')
+                                            <a href="{{asset($siteSettings?$siteSettings->extension_file:'')}}" target="_blank" class="mt-2">Download</a>
+                                        @endif
+                                    </div>
+                                </div>
+
+
+
+
+
+
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>
                         </div>

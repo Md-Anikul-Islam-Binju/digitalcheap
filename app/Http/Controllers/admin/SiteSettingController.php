@@ -55,6 +55,25 @@ class SiteSettingController extends Controller
             'how_to_access_link' => 'nullable',
             'how_to_join_become_affiliate' => 'nullable',
             'how_to_join_become_affiliate_link' => 'nullable',
+
+            //All Meta
+            'meta_title_for_home' => 'nullable',
+            'meta_description_for_home' => 'nullable',
+            'meta_keywords_for_home' => 'nullable',
+
+            'meta_title_for_about' => 'nullable',
+            'meta_description_for_about' => 'nullable',
+            'meta_keywords_for_about' => 'nullable',
+
+            'meta_title_for_blog' => 'nullable',
+            'meta_description_for_blog' => 'nullable',
+            'meta_keywords_for_blog' => 'nullable',
+
+            'meta_title_for_product' => 'nullable',
+            'meta_description_for_product' => 'nullable',
+            'meta_keywords_for_product' => 'nullable',
+
+            'extension_file' => 'nullable|mimes:zip,rar|max:5120', // Adjust max file size as needed
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -85,6 +104,13 @@ class SiteSettingController extends Controller
             $previewName = time().'.'.$request->file('site_preview_image')->extension();
             $request->file('site_preview_image')->move(public_path('images/site_preview_image'), $previewName);
             $setting->site_preview_image = 'images/site_preview_image/'.$previewName;
+        }
+
+        // Handle extension file upload
+        if ($request->hasFile('extension_file')) {
+            $extensionName = time().'.'.$request->file('extension_file')->extension();
+            $request->file('extension_file')->move(public_path('images/extensions'), $extensionName);
+            $setting->extension_file = 'images/extensions/'.$extensionName;
         }
         $setting->save();
         $message = $id ? 'Site settings updated successfully!' : 'Site settings created successfully!';
