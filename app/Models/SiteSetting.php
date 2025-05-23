@@ -30,8 +30,25 @@ class SiteSetting extends Model
         'how_to_use_link',
         'how_to_access',
         'how_to_access_link',
-
         'how_to_join_become_affiliate',
         'how_to_join_become_affiliate_link',
+
+
+        //All Meta
+        'meta_title_for_home',
+        'meta_description_for_home',
+        'meta_keywords_for_home',
+
+        'meta_title_for_about',
+        'meta_description_for_about',
+        'meta_keywords_for_about',
+
+        'meta_title_for_blog',
+        'meta_description_for_blog',
+        'meta_keywords_for_blog',
+
+        'meta_title_for_product',
+        'meta_description_for_product',
+        'meta_keywords_for_product',
     ];
 }

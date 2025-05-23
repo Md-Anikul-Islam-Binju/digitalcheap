@@ -131,7 +131,7 @@
 
                                     <div class="mb-3 col-md-12">
                                         <label for="linkedin_link" class="form-label">Meta Description</label>
-                                        <textarea class="form-control" name="meta_description" rows="5" placeholder="Enter the Description">{{ strip_tags($siteSettings?$siteSettings->details:'') }}</textarea>
+                                        <textarea class="form-control" name="short_description" rows="5" placeholder="Enter the Description">{{ strip_tags($siteSettings?$siteSettings->short_description:'') }}</textarea>
                                     </div>
 
 
