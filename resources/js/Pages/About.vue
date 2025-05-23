@@ -6,8 +6,24 @@ export default {
         siteSettings:Object,
         authUser:Object,
     },
-
-    layout: Layout
+    layout: Layout,
+    head() {
+        return {
+            title: this.siteSettings?.meta_title_for_about || 'About',
+            meta: [
+                {
+                    hid: 'description',
+                    name: 'description',
+                    content: this.siteSettings?.meta_description_for_about || ''
+                },
+                {
+                    hid: 'keywords',
+                    name: 'keywords',
+                    content: this.siteSettings?.meta_keywords_for_about || ''
+                }
+            ]
+        }
+    }
 }
 </script>
 
