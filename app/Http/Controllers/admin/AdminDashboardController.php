@@ -91,7 +91,7 @@ class AdminDashboardController extends Controller
                     if (is_array($productIds)) {
                         // Fetch the products
                         $products = Product::whereIn('id', $productIds)
-                            ->select('id', 'name', 'amount', 'discount_amount','file')
+                            ->select('id', 'name', 'amount','link', 'discount_amount','file')
                             ->get()
                             ->toArray();
 

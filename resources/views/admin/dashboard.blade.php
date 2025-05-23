@@ -282,8 +282,9 @@
                                                     <img src="{{ asset('images/product/'.$product['file']) }}"
                                                          class="card-img-top"
                                                          alt="{{ $product['name'] }}" style="object-fit: cover; height: 250px;">
+
                                                     <div class="card-body">
-                                                        <a href="#" class="btn btn-primary">Access</a>
+                                                        <a href="{{ $product['link'] }}" target="_blank" class="btn btn-primary">Access</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -305,7 +306,7 @@
                                                      class="card-img-top"
                                                      alt="{{ $product->name }}" style="object-fit: cover; height: 250px;">
                                                 <div class="card-body">
-                                                    <a href="#" class="btn btn-primary">Access</a>
+                                                    <a href="{{ $product->link }}" target="_blank" class="btn btn-primary">Access</a>
                                                 </div>
                                             </div>
                                         </div>

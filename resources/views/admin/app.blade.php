@@ -399,13 +399,15 @@
                     </li>
                 @endcan
 
-
+                @php
+                  $siteSetting = DB::table('site_settings')->first();
+                @endphp
 
                 @can('extension-list')
                     <li class="side-nav-item">
-                        <a href="#" class="side-nav-link">
+                        <a href="{{asset($siteSetting?$siteSetting->extension_file:'')}}" class="side-nav-link">
                             <i class="ri-drag-move-fill"></i>
-                            <span> Extension </span>
+                            <span> Download Extension </span>
                         </a>
                     </li>
                 @endcan
