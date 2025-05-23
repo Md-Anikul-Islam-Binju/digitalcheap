@@ -23,8 +23,8 @@ class ReportController extends Controller
 
     public function index(Request $request)
     {
-        $query = Order::with('orderItems');
-
+        //$query = Order::with('orderItems');
+        $query = Order::with(['orderItems', 'coupon']);
         // Date range filters (optional)
         if ($request->filled('from_date') && $request->filled('to_date')) {
             $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
@@ -33,7 +33,6 @@ class ReportController extends Controller
         } elseif ($request->filled('to_date')) {
             $query->whereDate('created_at', '<=', $request->to_date);
         }
-
         // Order type filter (optional)
         if ($request->filled('type')) {
             $query->whereHas('orderItems', function ($q) use ($request) {

@@ -66,9 +66,15 @@
                         <th>Device Access</th>
                         <th>Free Or Paid</th>
                         <th>Total</th>
+                        <th>After Discount</th>
                     </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $grandTotal = 0;
+                        $grandFinalTotal = 0;
+                    @endphp
+
                     @foreach($report as $key => $order)
                         @foreach($order->orderItems as $item)
                             <tr>
@@ -101,6 +107,7 @@
                                     @endif
 
                                 </td>
+
                                 @if($item->type=='product')
                                     <td>{{$item->price * $item->duration}}</td>
                                 @else
@@ -112,10 +119,41 @@
                                         <td>{{$item->price * 12}}</td>
                                     @endif
                                 @endif
+
+                                @php
+                                    $baseTotal = 0;
+                                    if ($item->type == 'product') {
+                                        $baseTotal = $item->price * $item->duration;
+                                    } else {
+                                        if ($item->duration == 'Monthly') {
+                                            $baseTotal = $item->price * 1;
+                                        } elseif ($item->duration == 'Half Yearly') {
+                                            $baseTotal = $item->price * 6;
+                                        } elseif ($item->duration == 'Yearly') {
+                                            $baseTotal = $item->price * 12;
+                                        }
+                                    }
+                                   $grandTotal += $baseTotal;
+
+                                    $finalTotal = $baseTotal;
+                                    if ($order->coupon_code && $order->coupon && $order->coupon->discount_amount) {
+                                        $finalTotal = max(0, $baseTotal - $order->coupon->discount_amount); // Prevent negative values
+                                    }
+                                    $grandFinalTotal += $finalTotal;
+                                @endphp
+                                <td>{{ number_format($finalTotal, 2) }}</td>
+
                             </tr>
                         @endforeach
                     @endforeach
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="6" style="text-align: right;"><strong>Grand Total:</strong></td>
+                        <td><strong>{{ number_format($grandTotal, 2) }}</strong></td>
+                        <td><strong>{{ number_format($grandFinalTotal, 2) }}</strong></td>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

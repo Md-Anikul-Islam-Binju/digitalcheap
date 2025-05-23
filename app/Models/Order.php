@@ -29,4 +29,9 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class, 'coupon_code', 'coupon_code');
+    }
+
 }
