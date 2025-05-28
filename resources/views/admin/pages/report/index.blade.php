@@ -49,10 +49,35 @@
                     </div>
                 </form>
                 <!-- Button to download the PDF report -->
-
-
-
             </div>
+
+            <div class="row">
+                <div class="col-3 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h4 class="header-title">Product vs Package</h4>
+                            <canvas id="donutChartMonth"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h4 class="header-title">Digitalcheap Order VS Agent Order</h4>
+                            <canvas id="pieChartMonth"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h4 class="header-title">Monthly Order Report Statistics</h4>
+                            <canvas id="barChartMonth"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
 
 
             <div class="card-body">
@@ -181,6 +206,144 @@
             });
             doc.save(filename);
         }
+    </script>
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Donut Chart (Income vs Expense)
+            const donutData = {
+                    labels: ['Product', 'Package'],
+                datasets: [{
+                    data: [
+                        {{ $totalOrderProduct ?? 0 }},
+                        {{ $totalOrderPackage ?? 0 }}
+                    ],
+                    backgroundColor: [
+                        'rgb(40, 167, 69)',
+                        'rgb(219, 10, 91)'
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+
+            const donutChartMonth = new Chart(document.getElementById('donutChartMonth'), {
+                type: 'doughnut',
+                data: donutData,
+            });
+
+            // Pie Chart (Other Data)
+            const pieData = {
+                labels: [
+                    'Digitalcheap Order',
+                    'Agent Order',
+                ],
+                datasets: [{
+                    data: [
+                        {{ $siteOrders ?? 0 }},
+                        {{ $agentOrders ?? 0 }},
+                    ],
+                    backgroundColor: [
+                        'rgb(128, 0, 128)', // Purple
+                        'rgb(0, 191, 255)', // Info
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+            const pieChartMonth = new Chart(document.getElementById('pieChartMonth'), {
+                type: 'pie',
+                data: pieData,
+            });
+
+
+
+
+            //bar chart
+            const barData = {
+                labels: [
+                    'January',
+                    'February',
+                    'March',
+                    'April',
+                    'May',
+                    'June',
+                    'July',
+                    'August',
+                    'September',
+                    'October',
+                    'November',
+                    'December'
+                ],
+                datasets: [{
+                    label: 'Monthly Orders',
+                    data: [
+                        {{ $monthlyOrders['January'] }},
+                        {{ $monthlyOrders['February'] }},
+                        {{ $monthlyOrders['March'] }},
+                        {{ $monthlyOrders['April'] }},
+                        {{ $monthlyOrders['May'] }},
+                        {{ $monthlyOrders['June'] }},
+                        {{ $monthlyOrders['July'] }},
+                        {{ $monthlyOrders['August'] }},
+                        {{ $monthlyOrders['September'] }},
+                        {{ $monthlyOrders['October'] }},
+                        {{ $monthlyOrders['November'] }},
+                        {{ $monthlyOrders['December'] }}
+                    ],
+                    backgroundColor: [
+                        'rgb(128, 0, 128)', // Purple
+                        'rgb(0, 191, 255)', // Info
+                        'rgb(0, 123, 255)', // Primary
+                        'rgb(108, 117, 125)', // Secondary
+                        'rgb(255, 193, 7)',  // Warning
+                        'rgb(40, 167, 69)',   // Success
+                        'rgb(220, 53, 69)',    // Danger
+                        'rgb(23, 162, 184)',   // Teal
+                        'rgb(102, 16, 242)',  // Indigo
+                        'rgb(214, 51, 132)',  // Pink
+                        'rgb(111, 66, 34)',   // Brown
+                        'rgb(52, 58, 64)'      // Dark
+                    ],
+                    borderColor: [
+                        'rgb(128, 0, 128)',
+                        'rgb(0, 191, 255)',
+                        'rgb(0, 123, 255)',
+                        'rgb(108, 117, 125)',
+                        'rgb(255, 193, 7)',
+                        'rgb(40, 167, 69)',
+                        'rgb(220, 53, 69)',
+                        'rgb(23, 162, 184)',
+                        'rgb(102, 16, 242)',
+                        'rgb(214, 51, 132)',
+                        'rgb(111, 66, 34)',
+                        'rgb(52, 58, 64)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const barChartMonth = new Chart(document.getElementById('barChartMonth'), {
+                type: 'bar',
+                data: barData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        });
     </script>
 
 @endsection
