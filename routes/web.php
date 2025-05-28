@@ -217,6 +217,7 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
 
     //Site Setting
     Route::get('/account-setting', [AccountSettingController::class, 'index'])->name('account.setting');
+    Route::get('/my-active-subscription', [AccountSettingController::class, 'activeSubscription'])->name('active.subscription');
     Route::post('/account-settings-create-update/{id?}', [AccountSettingController::class, 'createOrUpdateAccount'])->name('account.settings.create.update');
 
     Route::get('/account-setting-agent', [AccountSettingController::class, 'agent'])->name('account.setting.agent');
