@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\JoinCategory;
+use App\Models\LoginLog;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -124,5 +126,103 @@ class AccountSettingController extends Controller
         $user->save();
         $message = $id ? 'Account settings updated successfully!' : 'Account created successfully!';
         return redirect()->back()->with('success', $message);
+    }
+
+
+    public function activeSubscription(Request $request)
+    {
+        $loginLog = LoginLog::orderBy('last_login','desc')->get();
+        $user = User::where('id', auth()->user()->id)->first();
+        $myCode = $user->referral_code;
+        $totalClient = 0;
+        if($myCode){
+            $totalClient = User::where('referral_join_code', $myCode)->count();
+        }
+        $orders = Order::where('user_id', auth()->id())->with('orderItems')->latest()->count();
+        $activeOrder = Order::where('user_id', auth()->id())->where('status', 1)->with('orderItems')->latest()->count();
+        $inactiveOrder = Order::where('user_id', auth()->id())->where('status', 0)->with('orderItems')->latest()->count();
+        $user = User::where('id', auth()->user()->id)->with('joinCategory','country')->first();
+        $buyOrder = Order::where('user_id', auth()->user()->id)->count();
+
+        $query = Order::where('user_id', auth()->id())
+            ->whereHas('orderItems', function ($q) use ($request) {
+                $createdAt = $request->input('created_at');
+                $date = now();
+                if ($createdAt) {
+                    if ($createdAt == 'today') {
+                        $q->whereDate('created_at', $date->toDateString());
+                    } elseif ($createdAt == 'week') {
+                        $q->whereBetween('created_at', [
+                            $date->startOfWeek()->toDateString(),
+                            $date->endOfWeek()->toDateString()
+                        ]);
+                    } elseif ($createdAt == 'month') {
+                        $q->whereMonth('created_at', $date->month)
+                            ->whereYear('created_at', $date->year);
+                    } elseif ($createdAt == 'year') {
+                        $q->whereYear('created_at', $date->year);
+                    }
+                }
+            })
+            ->with(['orderItems' => function ($q) use ($request) {
+                $createdAt = $request->input('created_at');
+                $date = now();
+                if ($createdAt) {
+                    if ($createdAt == 'today') {
+                        $q->whereDate('created_at', $date->toDateString());
+                    } elseif ($createdAt == 'week') {
+                        $q->whereBetween('created_at', [
+                            $date->startOfWeek()->toDateString(),
+                            $date->endOfWeek()->toDateString()
+                        ]);
+                    } elseif ($createdAt == 'month') {
+                        $q->whereMonth('created_at', $date->month)
+                            ->whereYear('created_at', $date->year);
+                    } elseif ($createdAt == 'year') {
+                        $q->whereYear('created_at', $date->year);
+                    }
+                }
+                $q->with('package');
+            }]);
+
+        $ordersItemAll = $query->get();
+
+        // Process each order item to add package products
+        foreach ($ordersItemAll as $order) {
+            foreach ($order->orderItems as $item) {
+                if ($item->type == 'package' && $item->package) {
+                    // Decode the product_ids from the package
+                    $productIds = json_decode($item->package->product_id);
+
+                    if (is_array($productIds)) {
+                        // Fetch the products
+                        $products = Product::whereIn('id', $productIds)
+                            ->select('id', 'name', 'amount','link', 'discount_amount','file')
+                            ->get()
+                            ->toArray();
+
+                        // Add the products to the package data
+                        $item->package->products = $products;
+                    } else {
+                        $item->package->products = [];
+                    }
+                }
+            }
+        }
+
+        if($user->status == 0){
+            return view('admin.accountSuspend');
+        }
+
+        return view('admin.pages.account.activeSubscription', compact(
+            'loginLog',
+            'totalClient',
+            'orders',
+            'user',
+            'buyOrder',
+            'activeOrder',
+            'inactiveOrder',
+            'ordersItemAll'
+        ));
     }
 }

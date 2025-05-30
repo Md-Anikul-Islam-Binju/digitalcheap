@@ -263,7 +263,7 @@
                         </div>
                     </div>
                     <!-- Modified products display section -->
-                    <div class="row flex-nowrap overflow-auto" id="productList" style="padding-bottom: 15px;">
+                    <div class="row gap-1" id="productList" style="padding-bottom: 15px;">
                         @php
                             $shownProductIds = [];
                         @endphp
@@ -276,9 +276,10 @@
                                                 $shownProductIds[] = $product['id'];
                                             @endphp
                                             <div class="col-auto product-card"
+                                                 style="border: 1px solid darkgreen; background: white"
                                                  data-category="{{ $product['category_id'] ?? 'uncategorized' }}"
                                                  data-name="{{ strtolower($product['name']) }}">
-                                                <div class="card text-center" style="width: 15rem;">
+                                                <div class="card text-center shadow-none" style="width: 15rem;">
                                                     <img src="{{ asset('images/product/'.$product['file']) }}"
                                                          class="card-img-top"
                                                          alt="{{ $product['name'] }}" style="object-fit: cover; height: 250px;">
@@ -299,9 +300,10 @@
                                             $shownProductIds[] = $product->id;
                                         @endphp
                                         <div class="col-auto product-card"
+                                             style="border: 1px solid darkgreen; background: white"
                                              data-category="{{ $product->category_id ?? 'uncategorized' }}"
                                              data-name="{{ strtolower($product->name) }}">
-                                            <div class="card text-center" style="width: 15rem;">
+                                            <div class="card text-center shadow-none" style="width: 15rem;">
                                                 <img src="{{ asset('images/product/'.$product->file) }}"
                                                      class="card-img-top"
                                                      alt="{{ $product->name }}" style="object-fit: cover; height: 250px;">

@@ -279,6 +279,14 @@
                     </li>
                 @endcan
 
+                @can('account-setting')
+                    <li class="side-nav-item">
+                        <a href="{{route('active.subscription')}}" class="side-nav-link">
+                            <i class="ri-drag-move-fill"></i>
+                            <span>  Active Subscription </span>
+                        </a>
+                    </li>
+                @endcan
 
                 @can('account-setting')
                     <li class="side-nav-item">
@@ -288,6 +296,10 @@
                         </a>
                     </li>
                 @endcan
+
+
+
+
 
 
                 @can('agent-account-setting')
