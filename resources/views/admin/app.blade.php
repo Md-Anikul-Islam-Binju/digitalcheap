@@ -313,9 +313,9 @@
 
                 @can('agent-under-user-list')
                     <li class="side-nav-item">
-                        <a href="{{route('agent.under.user')}}" class="side-nav-link">
+                        <a href="{{route('agent.under.user.report')}}" class="side-nav-link">
                             <i class="ri-drag-move-fill"></i>
-                            <span> Agent Under User </span>
+                            <span> Agent Under Report </span>
                         </a>
                     </li>
                 @endcan
