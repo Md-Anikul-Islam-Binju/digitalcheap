@@ -225,6 +225,7 @@ Route::middleware(['auth', 'account'])->group(callback: function () {
 
     Route::get('/my-affiliate', [AccountManageController::class, 'myAffiliateUnderUser'])->name('my.affiliate');
     Route::get('/agent-under-user-report', [AccountManageController::class, 'agentUnderUserReport'])->name('agent.under.user.report');
+    Route::get('/agent-under-user', [AccountManageController::class, 'agentUnderUser'])->name('agent.under.user');
     //User Manage
     Route::get('/active-user-list', [AdminDashboardController::class, 'activeUser'])->name('active.user');
     Route::post('/active-user-send-email/{id}', [AdminDashboardController::class, 'sendEmail'])->name('send.email');

@@ -154,15 +154,16 @@ class AccountManageController extends Controller
     }
 
 
-//    public function agentUnderUser()
-//    {
-//        $agentCommission =  Commission::where('user_id', auth()->user()->id)->first();
-//        $totalAmount = 0;
-//        $commissionPercent = $agentCommission->commission ?? 0;
-//        $coupon = Coupon::where('agent_admin_id', auth()->user()->id)->first();
-//        $orders = Order::where('coupon_code', $coupon->coupon_code)->with('user')->get();
-//        return view('admin.pages.account.agentUnderUser', compact('orders', 'coupon', 'totalAmount', 'commissionPercent'));
-//    }
+    public function agentUnderUser()
+    {
+        $agentCommission =  Commission::where('user_id', auth()->user()->id)->first();
+        $totalAmount = 0;
+        $commissionPercent = $agentCommission->commission ?? 0;
+        $coupon = Coupon::where('agent_admin_id', auth()->user()->id)->first();
+        $orders = Order::where('coupon_code', $coupon->coupon_code)->with('user')->get();
+        return view('admin.pages.account.agentUnderUser', compact('orders', 'coupon', 'totalAmount', 'commissionPercent'));
+    }
+
     public function agentUnderUserReport(Request $request)
     {
         $agentCommission = Commission::where('user_id', auth()->user()->id)->first();
@@ -183,7 +184,7 @@ class AccountManageController extends Controller
 
         $orders = $orders->get();
 
-        return view('admin.pages.account.agentUnderUser', compact('orders', 'coupon', 'totalAmount', 'commissionPercent'));
+        return view('admin.pages.account.agentUnderUserReport', compact('orders', 'coupon', 'totalAmount', 'commissionPercent'));
     }
 
 
