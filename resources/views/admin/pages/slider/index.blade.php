@@ -34,7 +34,6 @@
                         <th>Title</th>
                         <th>File</th>
                         <th>Link</th>
-                        <th>Details</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -48,7 +47,6 @@
                             <img src="{{asset('images/slider/'. $sliderData->file )}}" alt="Current Image" style="max-width: 50px;">
                         </td>
                         <td>{{$sliderData->link}}</td>
-                        <td>{!! Str::limit($sliderData->details, 30) !!}</td>
                         <td>{{$sliderData->status==1? 'Active':'Inactive'}}</td>
                         <td style="width: 100px;">
                             <div class="d-flex justify-content-end gap-1">

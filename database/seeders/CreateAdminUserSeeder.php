@@ -15,7 +15,7 @@ class CreateAdminUserSeeder extends Seeder
     {
         $user = User::create([
             'name' => 'Digitalcheap Admin',
-            'email' => 'sorobonno@admin.com',
+            'email' => 'digitalcheap@admin.com',
             'is_registration_by' => 'Super Admin',
             'email_verified_at' => now(),
             'password' => bcrypt('digitalcheap@2025'),

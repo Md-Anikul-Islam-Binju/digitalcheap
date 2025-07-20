@@ -325,6 +325,22 @@ export default {
             this.videoUrl = "";
         },
 
+        normalizeYouTubeLink(link) {
+            if (!link) return '';
+
+            // If it's already a full watch URL, return as is
+            if (link.includes('watch?v=')) return link;
+
+            // If it's a youtu.be short link → convert to watch?v= format
+            const match = link.match(/youtu\.be\/([^?]+)/);
+            if (match && match[1]) {
+                return `https://www.youtube.com/watch?v=${match[1]}`;
+            }
+
+            // Otherwise return original
+            return link;
+        }
+
 
 
     },
@@ -492,6 +508,41 @@ export default {
     </section>
 
     <!-- Usability -->
+
+    <section class="usability-section py-5">
+        <div class="container">
+            <div class="section-title text-center mb-1">
+                <h2 class="text-center h6 d-inline-block bg-prmry fw-medium mb-2 px-2 py-1">Usability</h2>
+                <p class="fs-1 fw-medium text-center text-capitalize">Designed for Your Ease</p>
+            </div>
+            <div class="row align-items-center mt-2">
+                <div class="col-12 col-md-6 text-center p-3 mt-3 mt-md-0">
+                    <div class="use-card p-4 shadow-lg rounded">
+                        <a class="popup-youtube my-video-links"  :href="normalizeYouTubeLink(siteSettings.how_to_use_link)">
+                            <i class="fa-solid fa-circle-play"></i>
+                        </a>
+                        <h3 class="fw-bold text-center mb-4">How to Use</h3>
+                        <p class="text-muted" v-html="siteSettings.how_to_use"></p>
+                        <Link href="/how-to-use" class="text-prmry more-btn">
+                            Learn More <i class="fas fa-arrow-right ri"></i>
+                        </Link>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 text-center mt-2 mt-md-0 p-3">
+                    <div class="use-card p-4 shadow-lg rounded">
+                        <a class="popup-youtube my-video-links" :href="normalizeYouTubeLink(siteSettings.how_to_access_link)">
+                            <i class="fa-solid fa-circle-play"></i>
+                        </a>
+                        <h3 class="fw-bold text-center mb-4">How to Access</h3>
+                        <p class="text-muted" v-html="siteSettings.how_to_access"></p>
+                        <Link href="/how-to-access" class="text-prmry more-btn">
+                            Learn More <i class="fas fa-arrow-right ri"></i>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
